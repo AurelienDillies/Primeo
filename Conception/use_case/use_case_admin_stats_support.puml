@@ -1,0 +1,34 @@
+@startuml
+title Administration, statistiques et support
+left to right direction
+actor "Administrateur" as Administrateur
+
+rectangle "Plateforme" {
+  usecase "Gerer les utilisateurs" as UC15
+  usecase "Consulter statistiques et rapports" as UC17
+  usecase "Gerer support et assistance" as UC18
+  usecase "Verifier droits admin" as UCX01
+  usecase "Rechercher utilisateur" as UC15A
+  usecase "Suspendre compte" as UC15B
+  usecase "Supprimer compte" as UC15C
+  usecase "Calculer indicateurs" as UC17A
+  usecase "Exporter rapport" as UC17B
+  usecase "Traiter ticket" as UC18A
+  usecase "Escalader ticket" as UC18B
+}
+
+UC15 ..> UCX01 : <<include>>
+UC15 ..> UC15A : <<include>>
+UC15B ..> UC15 : <<extend>>
+UC15C ..> UC15 : <<extend>>
+UC17 ..> UCX01 : <<include>>
+UC17 ..> UC17A : <<include>>
+UC17B ..> UC17 : <<extend>>
+UC18 ..> UCX01 : <<include>>
+UC18 ..> UC18A : <<include>>
+UC18B ..> UC18 : <<extend>>
+
+Administrateur --> UC15
+Administrateur --> UC17
+Administrateur --> UC18
+@enduml

@@ -1,0 +1,160 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Utilisateur" as User
+actor "Enseignant" as Teacher
+actor "Eleve" as Student
+actor "Parent" as Parent
+actor "Administrateur" as Admin
+
+User <|-- Teacher
+User <|-- Student
+User <|-- Parent
+
+rectangle "Plateforme d'apprentissage" {
+	(S'inscrire) as UC_Register
+	(Se connecter) as UC_Login
+	(S'authentifier) as UC_Auth
+	(Recuperer mot de passe) as UC_Reset
+	(Gerer profil) as UC_Profile
+	(Consulter historique) as UC_History
+
+	(Gerer classes) as UC_ManageClasses
+	(Creer classe) as UC_CreateClass
+	(Modifier classe) as UC_EditClass
+	(Supprimer classe) as UC_DeleteClass
+
+	(Gerer cours) as UC_ManageCourses
+	(Ajouter cours) as UC_AddCourse
+	(Modifier cours) as UC_EditCourse
+	(Supprimer cours) as UC_DeleteCourse
+	(Ajouter contenu au cours) as UC_AddContent
+	(Ajouter documents) as UC_AddDocs
+	(Ajouter videos) as UC_AddVideos
+	(Ajouter ressources) as UC_AddResources
+
+	(Gerer activites) as UC_ManageActivities
+	(Ajouter devoir) as UC_AddHomework
+	(Ajouter quiz) as UC_AddQuiz
+	(Ajouter projet) as UC_AddProject
+	(Ajouter evenement) as UC_AddEvent
+
+	(Acceder aux ressources) as UC_AccessResources
+	(Consulter cours) as UC_ViewCourses
+	(Consulter activites) as UC_ViewActivities
+	(Telecharger documents) as UC_DownloadDocs
+	(Visionner videos) as UC_WatchVideos
+
+	(Participer aux activites) as UC_DoActivities
+	(Soumettre devoir) as UC_SubmitHomework
+	(Repondre quiz) as UC_AnswerQuiz
+	(Deposer projet) as UC_SubmitProject
+	(S'inscrire a evenement) as UC_RegisterEvent
+
+	(Communiquer) as UC_Communicate
+	(Envoyer message) as UC_Message
+	(Animer forum) as UC_Forum
+	(Envoyer notification) as UC_Notify
+	(Recevoir notifications) as UC_ReceiveNotify
+
+	(Suivre progression eleves) as UC_TrackProgress
+	(Consulter performances enfant) as UC_ParentView
+
+	(Gerer utilisateurs) as UC_ManageUsers
+	(Creer compte utilisateur) as UC_AdminCreateUser
+	(Suspendre compte utilisateur) as UC_AdminSuspendUser
+	(Reinitialiser mot de passe utilisateur) as UC_AdminResetUser
+	(Superviser classes et cours) as UC_Supervise
+	(Analyser utilisation) as UC_Analyze
+	(Generer rapports) as UC_Reports
+	(Exporter rapports) as UC_Export
+	(Gerer support) as UC_Support
+	(Traiter demande) as UC_HandleTicket
+	(Resoudre incident) as UC_ResolveIncident
+}
+
+User -- UC_Register
+User -- UC_Login
+User -- UC_Profile
+User -- UC_History
+
+Teacher -- UC_ManageClasses
+Teacher -- UC_ManageCourses
+Teacher -- UC_ManageActivities
+Teacher -- UC_Communicate
+Teacher -- UC_TrackProgress
+
+Student -- UC_AccessResources
+Student -- UC_DoActivities
+Student -- UC_ReceiveNotify
+Student -- UC_Communicate
+
+Parent -- UC_ParentView
+Parent -- UC_ReceiveNotify
+Parent -- UC_Communicate
+
+Admin -- UC_ManageUsers
+Admin -- UC_Supervise
+Admin -- UC_Reports
+Admin -- UC_Support
+
+UC_Auth ..> UC_Login : <<include>>
+UC_Reset ..> UC_Login : <<extend>>
+
+UC_Profile ..> UC_Auth : <<include>>
+UC_History ..> UC_Auth : <<include>>
+UC_ManageClasses ..> UC_Auth : <<include>>
+UC_ManageCourses ..> UC_Auth : <<include>>
+UC_ManageActivities ..> UC_Auth : <<include>>
+UC_AccessResources ..> UC_Auth : <<include>>
+UC_DoActivities ..> UC_Auth : <<include>>
+UC_Communicate ..> UC_Auth : <<include>>
+UC_TrackProgress ..> UC_Auth : <<include>>
+UC_ParentView ..> UC_Auth : <<include>>
+UC_ManageUsers ..> UC_Auth : <<include>>
+UC_Supervise ..> UC_Auth : <<include>>
+UC_Reports ..> UC_Auth : <<include>>
+UC_Support ..> UC_Auth : <<include>>
+
+UC_ManageClasses ..> UC_CreateClass : <<include>>
+UC_ManageClasses ..> UC_EditClass : <<include>>
+UC_ManageClasses ..> UC_DeleteClass : <<include>>
+
+UC_ManageCourses ..> UC_AddCourse : <<include>>
+UC_ManageCourses ..> UC_EditCourse : <<include>>
+UC_ManageCourses ..> UC_DeleteCourse : <<include>>
+UC_AddCourse ..> UC_AddContent : <<include>>
+UC_AddContent ..> UC_AddDocs : <<include>>
+UC_AddContent ..> UC_AddVideos : <<include>>
+UC_AddContent ..> UC_AddResources : <<include>>
+
+UC_ManageActivities ..> UC_AddHomework : <<include>>
+UC_ManageActivities ..> UC_AddQuiz : <<include>>
+UC_ManageActivities ..> UC_AddProject : <<include>>
+UC_ManageActivities ..> UC_AddEvent : <<include>>
+
+UC_AccessResources ..> UC_ViewCourses : <<include>>
+UC_AccessResources ..> UC_ViewActivities : <<include>>
+UC_DownloadDocs ..> UC_ViewCourses : <<extend>>
+UC_WatchVideos ..> UC_ViewCourses : <<extend>>
+
+UC_DoActivities ..> UC_SubmitHomework : <<include>>
+UC_DoActivities ..> UC_AnswerQuiz : <<include>>
+UC_DoActivities ..> UC_SubmitProject : <<include>>
+UC_DoActivities ..> UC_RegisterEvent : <<include>>
+
+UC_Communicate ..> UC_Message : <<include>>
+UC_Communicate ..> UC_Forum : <<include>>
+UC_Communicate ..> UC_Notify : <<include>>
+
+UC_ManageUsers ..> UC_AdminCreateUser : <<include>>
+UC_ManageUsers ..> UC_AdminSuspendUser : <<include>>
+UC_ManageUsers ..> UC_AdminResetUser : <<include>>
+
+UC_Reports ..> UC_Analyze : <<include>>
+UC_Export ..> UC_Reports : <<extend>>
+
+UC_Support ..> UC_HandleTicket : <<include>>
+UC_Support ..> UC_ResolveIncident : <<include>>
+@enduml

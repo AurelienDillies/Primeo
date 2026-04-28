@@ -1,0 +1,38 @@
+@startuml
+title Communication et suivi pedagogique
+left to right direction
+actor "Enseignant" as Enseignant
+actor "Eleve" as Eleve
+actor "Parent" as Parent
+
+rectangle "Plateforme" {
+  usecase "Communiquer (messages, forum, notifications)" as UC12
+  usecase "Suivre les progres des eleves" as UC13
+  usecase "Consulter les performances d un enfant" as UC14
+  usecase "Verifier droits" as UCX01
+  usecase "Notifier destinataires" as UCX02
+  usecase "Envoyer message" as UC12A
+  usecase "Publier forum" as UC12B
+  usecase "Calculer indicateurs" as UC13A
+  usecase "Exporter rapport eleve" as UC13B
+  usecase "Afficher performances" as UC14A
+  usecase "Telecharger rapport" as UC14B
+}
+
+UC12 ..> UCX01 : <<include>>
+UC12 ..> UCX02 : <<include>>
+UC12A ..> UC12 : <<extend>>
+UC12B ..> UC12 : <<extend>>
+UC13 ..> UCX01 : <<include>>
+UC13 ..> UC13A : <<include>>
+UC13B ..> UC13 : <<extend>>
+UC14 ..> UCX01 : <<include>>
+UC14 ..> UC14A : <<include>>
+UC14B ..> UC14 : <<extend>>
+
+Enseignant --> UC12
+Eleve --> UC12
+Parent --> UC12
+Enseignant --> UC13
+Parent --> UC14
+@enduml

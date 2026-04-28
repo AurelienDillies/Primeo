@@ -1,0 +1,45 @@
+@startuml
+title Classes et contenu
+left to right direction
+actor "Enseignant" as Enseignant
+actor "Administrateur" as Administrateur
+
+rectangle "Plateforme" {
+  usecase "Creer une classe" as UC04
+  usecase "Modifier ou supprimer une classe" as UC05
+  usecase "Enregistrer un cours" as UC06
+  usecase "Mettre a jour ou supprimer un cours" as UC07
+  usecase "Superviser classes et cours" as UC16
+  usecase "Verifier droits" as UCX01
+  usecase "Valider donnees" as UCX02
+  usecase "Valider ressources" as UCX03
+  usecase "Publier contenu" as UCX04
+  usecase "Consulter contenu" as UCX05
+  usecase "Supprimer classe" as UC05A
+  usecase "Supprimer cours" as UC07A
+  usecase "Archiver contenu" as UC16A
+}
+
+UC04 ..> UCX01 : <<include>>
+UC04 ..> UCX02 : <<include>>
+UC05 ..> UCX01 : <<include>>
+UC05 ..> UCX02 : <<include>>
+UC05A ..> UC05 : <<extend>>
+UC06 ..> UCX01 : <<include>>
+UC06 ..> UCX02 : <<include>>
+UC06 ..> UCX03 : <<include>>
+UC06 ..> UCX04 : <<include>>
+UC07 ..> UCX01 : <<include>>
+UC07 ..> UCX02 : <<include>>
+UC07 ..> UCX03 : <<include>>
+UC07A ..> UC07 : <<extend>>
+UC16 ..> UCX01 : <<include>>
+UC16 ..> UCX05 : <<include>>
+UC16A ..> UC16 : <<extend>>
+
+Enseignant --> UC04
+Enseignant --> UC05
+Enseignant --> UC06
+Enseignant --> UC07
+Administrateur --> UC16
+@enduml
