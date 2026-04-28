@@ -1,0 +1,52 @@
+@startuml Digiforma
+left to right direction
+
+actor :Enseignant:
+actor :Eleve:
+actor :Parent:
+actor :Administrateur:
+actor :Utilisateur:
+
+:Utilisateur: <|-- :Enseignant:
+:Utilisateur: <|-- :Eleve:
+:Utilisateur: <|-- :Parent:
+
+:Utilisateur: --> (Créer un compte)
+:Utilisateur: --> (Se connecter)
+:Utilisateur: --> (Gérer son compte)
+:Utilisateur: --> (Communication avec les autres utilisateurs)
+
+:Enseignant: --> (Créer une classe)
+:Enseignant: --> (Gérer les classes)
+:Enseignant: --> (Créer un cours)
+:Enseignant: --> (Gérer les cours)
+:Enseignant: --> (Créer une activité)
+:Enseignant: --> (Gérer les activités)
+:Enseignant: --> (Suivre les progrès des élèves)
+
+:Eleve: --> (Accéder aux cours)
+:Eleve: --> (Participer aux activités)
+
+:Parent: --> (Suivre les progrès de leur enfant)
+
+:Administrateur: --> (Gérer les comptes des utilisateurs)
+:Administrateur: --> (Supervision des cours)
+:Administrateur: --> (Analyser les données d'utilisation)
+:Administrateur: --> (Analyse des performances des élèves)
+:Administrateur: --> (Analyse de la participation au activités)
+:Administrateur: --> (Gérer les requêtes)
+:Administrateur: --> (Gérer les problèmes utilisateurs)
+
+(Se connecter) ..> (Créer un compte) :include
+(Gérer son compte) ..> (Créer un compte) :include
+(Communication avec les autres utilisateurs) ..> (Créer un compte) :include
+(Gestion des informations personnelles) ..> (Gérer son compte) :extends
+(Historique des cours suivis et activités) ..> (Gérer son compte) :extends
+(Gérer les classes) ..> (Créer une classe) :include
+(Gérer les cours) ..> (Créer un cours) :include
+(Gérer les activités) ..> (Créer une activité) :include
+(Accéder aux cours) ..> (Créer un cours) :include
+(Participer aux activités) ..> (Créer une activité) :include
+(Supervision des cours) ..> (Créer un cours) :include
+
+@enduml
