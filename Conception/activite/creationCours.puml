@@ -1,0 +1,18 @@
+@startuml Création Cours
+
+title Création de Cours
+
+|Enseignant|
+start
+:Demande de création d'un cours;
+|Système|
+:Création du cours;
+:Notification de la création à l'enseignant;
+|Enseignant|
+:Ajout de contenu au cours;
+|Système|
+:Enregistrement du contenu du cours;
+:Notification de l'ajout de contenu à l'enseignant;
+stop
+
+@enduml
