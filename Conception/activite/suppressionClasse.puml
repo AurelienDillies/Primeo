@@ -6,13 +6,8 @@ title Suppression d'une classe
 start
 :Demande de suppression d'une classe;
 |Système|
-:Vérification de l'existence de la classe;
-if (La classe existe-t-elle?) then (Oui)
-    :Suppression de la classe;
-    :Notification de la suppression à l'enseignant;
-else (Non)
-    :Notification d'erreur à l'enseignant;
-endif
+:Suppression de la classe;
+:Notification de la suppression à l'enseignant;
 stop
 
 
