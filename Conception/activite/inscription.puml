@@ -1,0 +1,25 @@
+@startuml Inscription
+
+title Inscription
+
+|Utilisateur|
+start
+:Arrive sur la page d'accueil;
+:Clique sur le bouton "S'inscrire";
+|Système|
+:Ouvre la page d'inscription;
+|Utilisateur|
+:Arrive sur la page d'inscription;
+:Remplir le formulaire d'inscription;
+:Valider le formulaire;
+|Système|
+:Vérifie les informations fournies;
+if (Informations valides?) then (Oui)
+  :Crée un compte pour l'utilisateur;
+  :Affiche un message de succès;
+else (Non)
+  :Affiche un message d'erreur;
+endif
+:Redirige l'utilisateur vers la page d'accueil;
+stop
+@enduml
