@@ -1,0 +1,30 @@
+@startuml Création Cours
+
+title Création d'un cours
+
+|Enseignant|
+start
+:Accéder à la section de création de classe;
+|Système|
+:Afficher le formulaire de création de classe;
+|Enseignant|
+:Remplir les informations de la classe (nom, description, etc.);
+|Système|
+:Valider les informations et créer la classe;
+|Enseignant|
+:Ajouter des ressources (documents, vidéos, etc.);
+|Système|
+:Enregistrer les ressources et les associer à la classe;
+|Enseignant|
+:Publier la classe;
+|Système|
+:Rendre la classe disponible pour les étudiants;
+|Enseignant|
+:Consulter la classe créée;
+|Système|
+:Afficher les détails de la classe;
+|Enseignant|
+:Fermer la section de création de classe;
+stop
+
+@enduml
