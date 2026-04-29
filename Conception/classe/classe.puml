@@ -1,0 +1,88 @@
+@startuml
+
+' ======================
+' Classes
+' ======================
+
+class User {
+  +user_id : int
+  last_name : string
+  first_name : string
+  email : string
+  password : string
+  role : string
+  created_at : datetime
+}
+
+class Class {
+  +class_id : int
+  class_name : string
+  class_description : text
+  teacher_id : int
+}
+
+class Course {
+  +course_id : int
+  course_title : string
+  description : text
+  resource_file : string
+  video_url : string
+  class_id : int
+}
+
+class Activity {
+  +activity_id : int
+  activity_type : string
+  activity_title : string
+  description : text
+  due_date : date
+  course_id : int
+}
+
+class Message {
+  +message_id : int
+  content : text
+  sent_at : datetime
+  sender_id : int
+  receiver_id : int
+}
+
+class Progress {
+  +progress_id : int
+  progress_percent : decimal
+  grade : decimal
+  activity_id : int
+  course_id : int
+  student_id : int
+}
+
+class Report {
+  +report_id : int
+  report_type : string
+  data : text
+  generated_at : datetime
+  course_id : int
+  class_id : int
+  user_id : int
+}
+
+' ======================
+' Relations
+' ======================
+
+User "1" -- "0..*" Class : enseigne
+Class "1" -- "0..*" Course : contient
+Course "1" -- "0..*" Activity : comprend
+
+User "1" -- "0..*" Message : envoie >
+User "1" -- "0..*" Message : < reçoit
+
+User "1" -- "0..*" Progress : a_pour_progression
+Course "1" -- "0..*" Progress : est_suivie_dans
+Activity "1" -- "0..*" Progress : évalue
+
+User "1" -- "0..*" Report : génère
+Class "1" -- "0..*" Report : analyse_classe
+Course "1" -- "0..*" Report : analyse_cours
+
+@enduml
