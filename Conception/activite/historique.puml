@@ -1,0 +1,18 @@
+@startuml Historique
+
+title Historique
+
+|Elève|
+start
+:Accéder à la page suivie;
+|Système|
+:Afficher l'historique des activités et des cours suivis;
+|Elève|   
+:Consulter l'historique;
+|Système|
+:Afficher les détails de l'activité ou du cours sélectionnée;
+|Elève|   
+:Fermer l'historique;
+stop
+
+@enduml

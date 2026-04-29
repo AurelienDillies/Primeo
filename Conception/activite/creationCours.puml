@@ -1,0 +1,30 @@
+@startuml Création Cours
+
+title Création d'un cours
+
+|Enseignant|
+start
+:Accéder à la section de création de cours;
+|Système|
+:Afficher le formulaire de création de cours;
+|Enseignant|
+:Remplir les informations du cours (titre, description, etc.);
+|Système|
+:Valider les informations et créer le cours;
+|Enseignant|
+:Ajouter des ressources (documents, vidéos, etc.);
+|Système|
+:Enregistrer les ressources et les associer au cours;
+|Enseignant|
+:Publier le cours;
+|Système|
+:Rendre le cours disponible pour les étudiants;
+|Enseignant|
+:Consulter le cours créé;
+|Système|
+:Afficher les détails du cours;
+|Enseignant|
+:Fermer la section de création de cours;
+stop
+
+@enduml
