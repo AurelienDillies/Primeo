@@ -20,7 +20,6 @@ actor :Utilisateur:
 :Enseignant: --> (Gérer les classes)
 :Enseignant: --> (Créer un cours)
 :Enseignant: --> (Créer une activité)
-:Enseignant: --> (Gérer les activités)
 :Enseignant: --> (Suivre les progrès des élèves)
 
 :Eleve: --> (Accéder aux cours)
@@ -42,7 +41,6 @@ actor :Utilisateur:
 (Gestion des informations personnelles) ..> (Gérer son compte) :extends
 (Historique des cours suivis et activités) ..> (Gérer son compte) :extends
 (Gérer les classes) ..> (Créer une classe) :include
-(Gérer les activités) ..> (Créer une activité) :include
 (Accéder aux cours) ..> (Créer un cours) :include
 (Participer aux activités) ..> (Créer une activité) :include
 (Supervision des cours) ..> (Créer un cours) :include
