@@ -1,0 +1,34 @@
+@startuml Modification Classe
+
+title Modification d'une classe
+
+|Enseignant|
+start
+:Accéder à la section de gestion de classe;
+|Système|
+:Afficher la liste des classes créées;
+|Enseignant|
+:Sélectionner la classe à modifier;
+|Système|
+:Afficher les détails de la classe sélectionnée;
+|Enseignant|
+:Modifier les informations de la classe (nom, description, etc.);
+|Système|
+:Valider les modifications et mettre à jour la classe;
+|Enseignant|
+:Ajouter ou supprimer des ressources (documents, vidéos, etc.);
+|Système|
+:Enregistrer les modifications des ressources et les associer à la classe;
+|Enseignant|
+:Publier les modifications de la classe;
+|Système|
+:Rendre les modifications de la classe disponibles pour les étudiants;
+|Enseignant|
+:Consulter la classe modifiée;
+|Système|
+:Afficher les détails de la classe modifiée;
+|Enseignant|
+:Fermer la section de gestion de classe;
+stop
+
+@enduml
