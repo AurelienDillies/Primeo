@@ -1,0 +1,21 @@
+@startuml Gestion Profil
+
+title Gestion Profil
+
+|Utilisateur|
+start
+:Se connecter;
+:Accéder à la page de gestion de profil;
+:Cliquer sur "Modifier le profil";
+|Système|
+:Afficher le formulaire de modification de profil;
+|Utilisateur|
+:Modifier les informations du profil;
+:Cliquer sur "Enregistrer les modifications";
+|Système|
+:Valider les modifications;
+:Enregistrer les modifications dans la base de données;
+:Afficher un message de confirmation;
+stop
+
+@enduml
