@@ -13,13 +13,16 @@ start
 :Remplir le formulaire d'inscription;
 :Valider le formulaire;
 |Système|
-:Vérifie les informations fournies;
-if (Informations valides?) then (Oui)
-  :Crée un compte pour l'utilisateur;
-  :Affiche un message de succès;
-else (Non)
+while (Il y aune erreur) is (Oui)
   :Affiche un message d'erreur;
-endif
+  :Redirige vers la page d'inscription;
+  |Utilisateur|
+  :Remplir le formulaire d'inscription;
+  :Valider le formulaire;
+end while
+|Système|
+:Crée un compte pour l'utilisateur;
+:Affiche un message de succès;
 :Redirige l'utilisateur vers la page d'accueil;
 stop
 @enduml

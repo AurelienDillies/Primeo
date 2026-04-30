@@ -5,18 +5,21 @@ title Connexion
 |Utilisateur|
 start
 :Arrive sur la page d'accueil;
+repeat 
 :Remplir le formulaire de connexion;
 :Valider le formulaire;
 |Système|
-:Vérifie les informations fournies;
-if (Informations valides?) then (Oui)
-  :Affiche un message de succès;
-  :Redirige l'utilisateur vers la page d'accueil;
-else (Non)
-  :Affiche un message d'erreur;
-  :Redirige l'utilisateur vers la page de connexion;
-endif
-   :Redirige l'utilisateur vers la page d'accueil en fonction de son rôle; 
+while (Il y a un erreur) is (Oui)
+:Affiche un message d'erreur;
+:Redirige l'utilisateur vers la page de connexion;
+|Utilisateur|
+:Remplir le formulaire de connexion;
+:Valider le formulaire;
+end while (Non)
+|Système|
+:Affiche un message de succès;
+:Redirige l'utilisateur vers la page d'accueil en fonction de son rôle;
 stop
+
 
 @enduml
