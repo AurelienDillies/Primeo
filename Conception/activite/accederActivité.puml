@@ -1,0 +1,24 @@
+@startuml Accéder a une activité
+
+title Accéder a une activité
+
+|Elève|
+start
+:Se connecter à son compte;
+|Système|
+:Authentifier l'élève;
+|Elève|
+:Accéder à la liste des activités;
+|Système|
+:Afficher la liste des activités;
+|Elève|
+:Sélectionner une activité;
+|Système|
+:Afficher les détails de l'activité;
+|Elève|
+:Participer à l'activité;
+|Système|
+:Enregistrer la participation de l'élève;
+stop
+
+@enduml

@@ -1,0 +1,22 @@
+@startuml Accéder a un cours
+
+title Accéder a un cours
+
+|Elève|
+start
+:Se connecter à son compte;
+|Système|
+:Authentifier l'élève;
+|Elève|
+:Accéder à la section "Mes cours";
+|Système|
+:Afficher la liste des cours inscrits;
+|Elève|
+:Sélectionner un cours;
+|Système|
+:Afficher les ressources du cours;
+|Elève|
+:Consulter les ressources du cours;
+stop
+
+@enduml
