@@ -14,6 +14,14 @@ class User {
   created_at : datetime
 }
 
+class Teacher extends User {
+  subject : string
+}
+
+class Student extends User {
+  enrollment_date : date
+}
+
 class Class {
   +class_id : int
   class_name : string
@@ -70,14 +78,14 @@ class Report {
 ' Relations
 ' ======================
 
-User "1" -- "0..*" Class : enseigne
+Teacher "1" -- "0..*" Class : enseigne
 Class "1" -- "0..*" Course : contient
 Course "1" -- "0..*" Activity : comprend
 
 User "1" -- "0..*" Message : envoie >
 User "1" -- "0..*" Message : < reçoit
 
-User "1" -- "0..*" Progress : a_pour_progression
+Student "1" -- "0..*" Progress : a_pour_progression
 Course "1" -- "0..*" Progress : est_suivie_dans
 Activity "1" -- "0..*" Progress : évalue
 
