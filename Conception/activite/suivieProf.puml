@@ -1,0 +1,29 @@
+@startuml Suivie d'un élève par un enseignant
+
+title Suivie d'un élève par un enseignant
+
+|Enseignant|
+start
+:Se connecter à son compte;
+|Système|
+:Authentifier l'enseignant;
+|Enseignant|
+:Accéder à la liste des élèves;
+|Système|
+:Afficher la liste des élèves;
+|Enseignant|
+:Sélectionner un élève;
+|Système|
+:Afficher les détails de l'élève;
+|Enseignant|
+:Consulter les activités de l'élève;
+|Système|
+:Afficher les activités de l'élève;
+|Enseignant|
+:Analyser les performances de l'élève;
+|Système|
+:Afficher les statistiques de l'élève;
+stop
+
+
+@enduml
