@@ -1,0 +1,26 @@
+@startuml Suivie d'un élève par son parent
+
+title Suivie d'un élève par son parent
+
+|Parent|
+start
+:Se connecter à son compte;
+|Système|
+:Authentifier le parent;
+|Parent|    
+:Accéder à la section "Suivie de mon enfant";
+|Système|
+:Afficher les informations de l'élève;
+|Parent|
+:Consulter les notes et les absences;
+|Système|
+:Afficher les notes et les absences;
+|Parent|
+:Consulter les devoirs et les projets;
+|Système|
+:Afficher les devoirs et les projets;
+|Parent|
+:Se déconnecter;
+stop
+
+@enduml

@@ -17,6 +17,10 @@ start
 :Afficher les ressources du cours;
 |Elève|
 :Consulter les ressources du cours;
+|Système|
+:Afficher les ressources du cours;
+|Elève|
+:Se déconnecter;
 stop
 
 @enduml

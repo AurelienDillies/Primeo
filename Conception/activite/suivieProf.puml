@@ -23,6 +23,8 @@ start
 :Analyser les performances de l'élève;
 |Système|
 :Afficher les statistiques de l'élève;
+|Enseignant|
+:Se déconnecter;
 stop
 
 

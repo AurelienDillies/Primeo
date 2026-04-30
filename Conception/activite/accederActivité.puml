@@ -19,6 +19,8 @@ start
 :Participer à l'activité;
 |Système|
 :Enregistrer la participation de l'élève;
+|Elève|
+:Se déconnecter;
 stop
 
 @enduml
