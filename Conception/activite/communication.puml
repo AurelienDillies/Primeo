@@ -2,38 +2,41 @@
 
 title Communication entre les utilisateurs
 
-|Utilisateurs 1|
+|Utilisateur 1|
 start
 :Se connecter à son compte;
 |Système|
 :Authentifier l'utilisateur;
-|Utilisateurs 1|
+|Utilisateur 1|
 :Accéder à la section "Messages";
 |Système|
 :Afficher la boîte de réception;
-|Utilisateurs 1|
+|Utilisateur 1|
 :Sélectionner un message;
 |Système|
 :Afficher le contenu du message;
-|Utilisateurs 1|
-repeat
+|Utilisateur 1|
+repeat 
 :Répondre au message;
 |Système|
 :Envoyer la réponse;
-|Utilisateurs 2|
+|Utilisateur 2|
 :Recevoir la réponse;
-while (L'utilisateur  2 souhaite continuer la conversation?) is (Oui)
-  |Utilisateurs 2|
-  :Lire le message;
+if (Le message de l'utilisateur 1 nécessite une réponse?) then (Oui)
+  |Utilisateur 2|
   :Répondre au message;
   |Système|
   :Envoyer la réponse;
-  |Utilisateurs 1|
+  |Utilisateur 1|
   :Recevoir la réponse;
-endwhile
-repeat while (L'utilisateur 1 souhaite continuer la conversation?) is (Oui)
-|Utilisateurs 1|
-:Se déconnecter;
-|Utilisateurs 2|
-:Se déconnecter;
+  :Lire le message;
+else (Non)
+  |Utilisateur 2|
+  :Lire le message;
+  stop
+endif 
+|Utilisateur 1|
+repeat while(Le message de l'utilisateur 2 nécessite une réponse?) is (Oui)
+stop
+
 @enduml
