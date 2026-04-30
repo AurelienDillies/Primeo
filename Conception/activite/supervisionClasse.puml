@@ -1,0 +1,21 @@
+@startuml Supervision d'une classe
+
+title Supervision d'une classe
+
+|Administrateur|
+start
+:Se connecter;
+:Accéder à la section de supervision;
+:Sélectionner une classe à superviser;
+|Système|
+:Afficher les informations de la classe;
+|Administrateur|
+:Visualiser les informations de la classe;
+:Prendre des mesures si nécessaire;
+|Système|
+:Enregistrer les actions prises;
+|Administrateur|
+:Se déconnecter;
+stop
+
+@enduml 
