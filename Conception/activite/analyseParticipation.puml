@@ -1,0 +1,24 @@
+@startuml Analyse de la participation à une activité
+
+title Analyse de la participation à une activité
+
+|Administrateur|
+start
+:Se connecter à l'application;
+|Système|
+:Afficher la liste des activités;
+|Administrateur|
+:Sélectionner une activité pour l'analyse de participation;
+|Système|
+:Afficher les détails de l'activité;
+:Afficher les statistiques de participation (ex: nombre de participants, niveau d'engagement);
+|Administrateur|
+:Analyser les données pour identifier les points forts et les domaines à améliorer;
+:Prendre des mesures si nécessaire (ex: recommander des ressources, contacter les participants);
+|Système|
+:Enregistrer les actions prises par l'administrateur;
+|Administrateur|
+:Se déconnecter de l'application;
+stop
+
+@enduml
