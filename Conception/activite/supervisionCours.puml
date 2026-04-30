@@ -1,0 +1,24 @@
+@startuml Supervision d'un cours
+
+title Supervision d'un cours
+
+|Administrateur|
+start
+:Se connecter à l'application;
+|Système|
+:Afficher la liste des cours;
+|Administrateur|
+:Accéder à la section de supervision des cours;
+:Sélectionner un cours à superviser;
+|Système|
+:Afficher les détails du cours;
+|Administrateur|
+:Consulter les statistiques de participation;
+:Prendre des mesures si nécessaire (ex: contacter les étudiants, ajuster le contenu);
+|Système|
+:Enregistrer les actions prises par l'administrateur;
+|Administrateur|
+:Se déconnecter de l'application;
+stop
+
+@enduml
