@@ -1,0 +1,27 @@
+@startuml Gestion des requête utilisateur
+
+title Gestion des requête utilisateur
+
+|Administrateur|
+start
+:Se connecter à l'application;
+|Système|
+:Afficher le tableau de bord de gestion des requêtes;
+|Administrateur|
+:Consulter la liste des requêtes en attente;
+|Système|
+:Afficher les détails de chaque requête (ex: type de requête, utilisateur concerné, date de soumission);
+|Administrateur|
+:Traiter les requêtes (ex: approuver, rejeter, demander des informations supplémentaires);
+|Système|
+:Mettre à jour le statut de la requête en fonction de l'action de l'administrateur;
+:Notifier l'utilisateur concerné de la décision prise;
+|Administrateur|
+:Consulter l'historique des requêtes traitées;
+|Système|
+:Afficher l'historique des requêtes avec les actions prises;
+|Administrateur|
+:Se déconnecter de l'application;
+stop
+
+@enduml
