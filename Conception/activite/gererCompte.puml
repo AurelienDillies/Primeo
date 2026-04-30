@@ -1,0 +1,22 @@
+@startuml Gérer un compte
+
+title Gérer un compte
+
+|Administrateur|
+start
+:Se connecter;
+:Accéder à la section de gestion de compte;
+:Sélectionner un compte à gérer;
+|Système|
+:Afficher les informations du compte;
+|Administrateur|
+:Visualiser les informations du compte;
+:Prendre des mesures si nécessaire (modifier, supprimer, etc.);
+|Système|
+:Enregistrer les actions prises;
+|Administrateur|
+:Se déconnecter;
+stop
+
+@enduml
+
