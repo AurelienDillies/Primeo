@@ -1,0 +1,16 @@
+@startuml Création Activité
+
+title Création d'une activité
+
+|Enseignant| 
+start
+:Se connecter à l'application;
+:Accéder à la section de création d'activité;
+:Remplir les informations de l'activité;
+:Valider la création de l'activité;
+|Système|
+:Enregistrer l'activité dans la base de données;
+:Afficher un message de confirmation à l'enseignant;    
+stop
+
+@enduml
