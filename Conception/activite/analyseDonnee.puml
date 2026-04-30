@@ -1,0 +1,21 @@
+@startuml Analyse de donnée utilisateur
+
+title Analyse de donnée utilisateur
+
+|Administrateur|
+start
+:Se connecter;
+:Accéder à la section d'analyse de données;
+:Sélectionner les données à analyser;
+|Système|
+:Afficher les résultats de l'analyse;
+|Administrateur|
+:Interpréter les résultats;
+:Prendre des décisions basées sur les résultats;
+|Système|
+:Enregistrer les décisions prises;
+|Administrateur|
+:Se déconnecter;
+stop
+
+@enduml
