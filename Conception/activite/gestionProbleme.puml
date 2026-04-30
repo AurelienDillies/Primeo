@@ -1,0 +1,27 @@
+@startuml Gestion des problèmes utilisateurs
+
+title Gestion des problèmes utilisateurs
+
+|Administrateur|
+:Se connecter;
+|Système|
+:Afficher le tableau de bord des problèmes utilisateurs;
+|Administrateur|
+:Consulter la liste des problèmes;
+|Système|
+:Afficher les détails de chaque problème(ex: problèmatique, utilisateur concerné,date de soumission);
+|Administrateur|
+:Traiter les problèmes;
+|Système|
+:Enregistrer les modification apportées;
+:Notifier l'utilisateur concerné que le problème est réglé;
+|Administrateur|
+:Consulter l'historique des requêtes traitées;
+|Système|
+:Afficher l'historique des requêtes avec les actions prises;
+|Administrateur|
+:Se déconnecter de l'application;
+stop
+
+
+@enduml
