@@ -1,10 +1,10 @@
 ## couleurs: 
 
+- bleu foncé : #063B4C
 - bleu claire : #177C8B
-- bleu foncé : #084A62
-- rouge : #DC3C35
-- jaune : #FFCA5A
-- gris foncé : #333031
+- rouge : #B8322C
+- jaune : #D9A93E
+- gris foncé : #1F1E1D
 - blanc cassé (fond) #F5F7F8
 
 ## Police : 
