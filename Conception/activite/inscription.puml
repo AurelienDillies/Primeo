@@ -2,10 +2,13 @@
 
 title Inscription
 
-|Utilisateur|
+|Administrateur|
 start
-:Arrive sur la page d'accueil;
-:Clique sur le bouton "S'inscrire";
+:Créer un lien d'inscription et l'envoie à l'utilisateur en fonction de leur rôle;
+|Système|
+:Envoie le lien à l'utilisateur par email;
+|Utilisateur|
+:Clique sur le lien d'inscription reçu par email;
 |Système|
 :Ouvre la page d'inscription;
 |Utilisateur|
@@ -21,8 +24,16 @@ while (Il y aune erreur) is (Oui)
   :Valider le formulaire;
 end while
 |Système|
-:Crée un compte pour l'utilisateur;
 :Affiche un message de succès;
-:Redirige l'utilisateur vers la page d'accueil;
+|Administrateur|
+:Reçoit une notification de la nouvelle inscription;
+:Valide ou refuse l'inscription de l'utilisateur;
+|Système|
+if (L'inscription est validée?) then (Oui)
+  :Active le compte de l'utilisateur;
+  :Envoie un email de confirmation à l'utilisateur;
+else (Non)
+  :Envoie un email de refus à l'utilisateur;
+endif
 stop
 @enduml
