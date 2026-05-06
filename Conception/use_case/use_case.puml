@@ -15,6 +15,7 @@ actor :Utilisateur:
 :Utilisateur: --> (Se connecter)
 :Utilisateur: --> (Gérer son compte)
 :Utilisateur: --> (Communication avec les autres utilisateurs)
+:Utilisateur: --> (Recevoir une notification)
 
 :Enseignant: --> (Créer une classe)
 :Enseignant: --> (Gérer les classes)
@@ -38,6 +39,7 @@ actor :Utilisateur:
 (Se connecter) ..> (Créer un compte) :include
 (Gérer son compte) ..> (Créer un compte) :include
 (Communication avec les autres utilisateurs) ..> (Créer un compte) :include
+(Recevoir une notification) ..> (Communication avec les autres utilisateurs) :extends
 (Gestion des informations personnelles) ..> (Gérer son compte) :extends
 (Historique des cours suivis et activités) ..> (Gérer son compte) :extends
 (Gérer les classes) ..> (Créer une classe) :include
