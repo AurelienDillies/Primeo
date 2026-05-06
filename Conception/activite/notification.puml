@@ -1,0 +1,15 @@
+@startuml Notification
+
+title Notification
+
+|Système|
+start
+:Créer une notification;
+:Envoyer la notification à l'utilisateur;
+|Utilisateur|
+:Recevoir la notification;
+|Système|
+:Afficher la notification à l'utilisateur;
+stop
+
+@enduml
