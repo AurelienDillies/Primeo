@@ -15,3 +15,13 @@ wine: Read access denied for device L"\\??\\Z:\\", FS volume label and serial ar
 wine: Read access denied for device L"\\??\\Z:\\", FS volume label and serial are not available.
 wine: Read access denied for device L"\\??\\Z:\\", FS volume label and serial are not available.
 wine: Read access denied for device L"\\??\\Z:\\", FS volume label and serial are not available.
+0110:err:winediag:ntlm_check_version ntlm_auth was not found. Make sure that ntlm_auth >= 3.0.25 is in your path. Usually, you can find it in the winbind package of your distribution.
+0110:err:ntlm:ntlm_LsaApInitializePackage no NTLM support, expect problems
+wine: Read access denied for device L"\\??\\Z:\\", FS volume label and serial are not available.
+wine: Read access denied for device L"\\??\\Z:\\", FS volume label and serial are not available.
+wine: Read access denied for device L"\\??\\Z:\\", FS volume label and serial are not available.
+wine: Read access denied for device L"\\??\\Z:\\", FS volume label and serial are not available.
+wine: Read access denied for device L"\\??\\Z:\\", FS volume label and serial are not available.
+wine: Read access denied for device L"\\??\\Z:\\", FS volume label and serial are not available.
+wine: Read access denied for device L"\\??\\Z:\\", FS volume label and serial are not available.
+wine: Read access denied for device L"\\??\\Z:\\", FS volume label and serial are not available.
