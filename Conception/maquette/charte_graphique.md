@@ -2,7 +2,7 @@
 
 - bleu foncé : #063B4C
 - bleu claire : #177C8B
-- rouge : #B8322C
+- rouge : #D93B34
 - jaune : #D9A93E
 - gris foncé : #1F1E1D
 - blanc cassé (fond) #F5F7F8
