@@ -23,7 +23,7 @@ class Student extends User {
 }
 
 class Parent extends User {
-  +child_id : [int]
+  -child_id : [int]
 }
 
 
