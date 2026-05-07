@@ -22,6 +22,12 @@ class Student extends User {
   -enrollment_date : date
 }
 
+class Parent extends User {
+  +child_id : [int]
+}
+
+
+
 class Class {
   -class_id : int
   -class_name : string
@@ -78,19 +84,19 @@ class Report {
 ' Relations
 ' ======================
 
-Teacher "1" -- "0..*" Class : enseigne
-Class "1" -- "0..*" Course : contient
-Course "1" -- "0..*" Activity : comprend
+Teacher "1" -- "0..*" Class : teach
+Class "1" -- "0..*" Course : contains
+Course "1" -- "0..*" Activity : includes
 
-User "1" -- "0..*" Message : envoie >
-User "1" -- "0..*" Message : < reçoit
+User "1" -- "0..*" Message : send >
+User "1" -- "0..*" Message : receive
 
-Student "1" -- "0..*" Progress : a_pour_progression
-Course "1" -- "0..*" Progress : est_suivie_dans
-Activity "1" -- "0..*" Progress : évalue
+Student "1" -- "0..*" Progress : has_progress
+Course "1" -- "0..*" Progress : is_followed_in
+Activity "1" -- "0..*" Progress : evaluates
 
-User "1" -- "0..*" Report : génère
-Class "1" -- "0..*" Report : analyse_classe
-Course "1" -- "0..*" Report : analyse_cours
+User "1" -- "0..*" Report : generates
+Class "1" -- "0..*" Report : analysis
+Course "1" -- "0..*" Report : analysis
 
 @enduml
