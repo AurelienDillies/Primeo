@@ -1,4 +1,4 @@
-@startuml Digiforma
+@startuml
 
 ' ======================
 ' Classes
@@ -21,12 +21,6 @@ class Teacher extends User {
 class Student extends User {
   -enrollment_date : date
 }
-
-class Parent extends User {
-  -child_id : [int]
-}
-
-
 
 class Class {
   -class_id : int
@@ -84,19 +78,19 @@ class Report {
 ' Relations
 ' ======================
 
-Teacher "1" -- "0..*" Class : teach
-Class "1" -- "0..*" Course : contains
-Course "1" -- "0..*" Activity : includes
+Teacher "1" -- "0..*" Class : enseigne
+Class "1" -- "0..*" Course : contient
+Course "1" -- "0..*" Activity : comprend
 
-User "1" -- "0..*" Message : send >
-User "1" -- "0..*" Message : receive
+User "1" -- "0..*" Message : envoie >
+User "1" -- "0..*" Message : < reçoit
 
-Student "1" -- "0..*" Progress : has_progress
-Course "1" -- "0..*" Progress : is_followed_in
-Activity "1" -- "0..*" Progress : evaluates
+Student "1" -- "0..*" Progress : a_pour_progression
+Course "1" -- "0..*" Progress : est_suivie_dans
+Activity "1" -- "0..*" Progress : évalue
 
-User "1" -- "0..*" Report : generates
-Class "1" -- "0..*" Report : analysis
-Course "1" -- "0..*" Report : analysis
+User "1" -- "0..*" Report : génère
+Class "1" -- "0..*" Report : analyse_classe
+Course "1" -- "0..*" Report : analyse_cours
 
 @enduml
