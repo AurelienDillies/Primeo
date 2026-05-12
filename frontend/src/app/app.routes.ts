@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { Connexion } from './pages/connexion/connexion';
+import { Login } from './pages/login/login';
 
 export const routes: Routes = [
-    {path: "", component: Connexion}
+    {path:"", component: Login}
 ];
