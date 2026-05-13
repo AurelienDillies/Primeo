@@ -1,26 +1,13 @@
-<main class="inscription">
-	<div class="card">
-		<h1>Inscription</h1>
-		<p class="subtitle">Renseignez votre mail et votre mot de passe.</p>
-        <p>Si vous avez un compte <a href="/connexion">connectez-vous</a>.</p>
+<form class="form" action="#" method="post">
+	<label class="field">
+		<p class="label">Mail</p>
+		<input type="email" name="email" autocomplete="email" placeholder="exemple@mail.com" required />
+	</label>
 
-		<form class="form" action="#" method="post">
-			<label class="field">
-				<span class="label">Mail</span>
-				<input type="email" name="email" autocomplete="email" required />
-			</label>
+	<label class="field">
+		<p class="label">Mot de passe</p>
+		<input type="password" name="password" autocomplete="new-password" placeholder="Mot de passe" required />
+	</label>
 
-			<label class="field">
-				<span class="label">Mot de passe</span>
-				<input
-					type="password"
-					name="password"
-					autocomplete="new-password"
-					required
-				/>
-			</label>
-
-			<button class="btn" type="submit">Creer mon compte</button>
-		</form>
-	</div>
-</main>
+	<button class="btn" type="submit">S'inscrire</button>
+</form>
