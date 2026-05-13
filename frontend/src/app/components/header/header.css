@@ -1,0 +1,9 @@
+header {
+    background-color: var(--DarkBlue);
+    color: var(--White);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+}
