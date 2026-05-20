@@ -30,9 +30,9 @@ services:
     working_dir: /app
     volumes:
       - ./frontend:/app
-    command: sh -c "npm install && npm start"
+    command: sh -c "npm install && npm start -- --host 0.0.0.0"
     ports:
-      - "4200:4200"
+      - "4300:4200"
 
   database:
     image: mysql:8
@@ -44,7 +44,7 @@ services:
       MYSQL_USER: symfony
       MYSQL_PASSWORD: symfony
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
 

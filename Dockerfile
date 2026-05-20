@@ -30,7 +30,7 @@ WORKDIR /var/www/backend
 COPY backend/composer.json backend/composer.lock ./
 
 # Installation dépendances PHP
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+RUN composer install --no-scripts --no-interaction --prefer-dist --optimize-autoloader
 
 # Copie du backend
 COPY backend/ .
