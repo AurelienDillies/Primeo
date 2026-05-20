@@ -1,4 +1,6 @@
-*, ::before, ::after {
+*,
+::before,
+::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -13,9 +15,11 @@
     --Light: #F5F7F8;
     --Black: #000000;
     --White: #FFFFFF;
+    --ShadowCard: 4px 4px 10px rgba(0, 0, 0, 0.25);
 }
 
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
 }
