@@ -1,19 +1,18 @@
-<header>
-    <div class="logo">
-        <img src="" alt="Logo">
-    </div>
-    <div> 
-        <nav>
-            <ul>
-                <li><a >Classe</a></li>
-                <li><a >Cours</a></li>
-                <li><a >Activités</a></li>
-                <li><a >Suivi</a></li>
-                <li><a >Messages</a></li>
-            </ul>
+<header class="site-header">
+        <a class="brand" routerLink="/">
+            <img src="/logo.png" alt="logo Digiforma" class="brand-logo">
+            <span class="brand-name">Digiforma</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Navigation principale">
+            <a routerLink="/classe">Classe</a>
+            <a routerLink="/cours">Cours</a>
+            <a routerLink="/activites">Activités</a>
+            <a routerLink="/suivi">Suivi</a>
+            <a routerLink="/messages">Messages</a>
         </nav>
-    </div>
-    <div class="profile">
-        <p>Profil</p>
-    </div>
+
+        <div class="header-actions">
+            <a class="chip" routerLink="/profil">Profil</a>
+        </div>
 </header>
