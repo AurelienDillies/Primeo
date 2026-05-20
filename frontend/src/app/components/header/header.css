@@ -9,47 +9,56 @@
     background: var(--DarkBlue);
     color: var(--White);
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(12px);
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 15px 0;
+    padding: 25px 0;
 }
 
 .brand {
     display: inline-flex;
     align-items: center;
     gap: 10px;
+    text-decoration: none;
 }
 
 .brand-logo {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     background: var(--Yellow);
     border-radius: 50%;
 }
+
 .brand-name {
-    font-size: 1rem;
+    font-size: 1em;
     color: var(--White);
+    font-weight: bold;
+}
+
+.main-nav {
+    display: flex;
+    gap: 5px;
 }
 
 .main-nav a {
+    padding: 8px 14px;
     text-decoration: none;
     color: var(--White);
-    padding: 8px 14px;
-    border-radius: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(0, 0, 0, 0.18);
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-.chip {
-    min-height: 40px;
-    padding: 10px 16px;
-    border-radius: 25px;
+.header-actions {
+    padding: 10px 20px;
+    background-color: var(--Yellow);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile {
+    font-size: 1rem;
     text-decoration: none;
     font-weight: bold;
-    border: none;
-    cursor: pointer;
-    background: var(--Yellow);
     color: var(--Dark);
 }
