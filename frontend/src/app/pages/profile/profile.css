@@ -26,28 +26,17 @@
 }
 
 .btn {
-    padding: 10px 16px;
-    font-size: 1rem;
-    border-radius: 5px;
     background-color: var(--Red);
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .btn:hover {
     background-color: #EF4444;
-    transform: translateY(-2px);
 }
 
 .btn:active {
     background-color: #DC2626;
-    transform: scale(0.98);
-    transform: translateY(0px);
-
 }
 
 .btn:focus-visible {
     outline: 2px solid #DC2626;
-    outline-offset: 2px;
 }
