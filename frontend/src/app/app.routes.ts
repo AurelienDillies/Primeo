@@ -15,13 +15,13 @@ export const routes: Routes = [
     { path: '', redirectTo: 'connexion', pathMatch: 'full' },
     { path: 'connexion', component: Login },
     { path: 'inscription', component: Register },
-    { path: 'profil', component: Profile},
+    { path: 'profil', component: Profile },
     { path: 'classes', component: Classes },
-    { path: 'cours', component: Courses},
+    { path: 'cours', component: Courses },
     { path: 'activites', component: Activities },
     { path: 'suivi', component: Progress },
     { path: 'messagerie', component: Messages },
     { path: 'mentions-legales', component: LegalNotice },
     { path: 'politique-confidentialite', component: PrivacyPolicy },
-    { path: '**', component: NotFound}
+    { path: '**', component: NotFound }
 ];

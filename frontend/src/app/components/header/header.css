@@ -10,9 +10,9 @@
     color: var(--White);
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    padding: 25px 0;
+    justify-content: space-between;
+    padding: 25px 50px;
 }
 
 .brand {
@@ -37,28 +37,58 @@
 
 .main-nav {
     display: flex;
-    gap: 5px;
+    gap: 6px;
 }
 
 .main-nav a {
-    padding: 8px 14px;
+    padding: 8px 12px;
     text-decoration: none;
     color: var(--White);
-    border-radius: 5px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 6px;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
 }
 
-.header-actions {
-    padding: 10px 20px;
+.main-nav a:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.main-nav a:active {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.main-nav a:focus-visible {
+    outline: 2px solid var(--White);
+    outline-offset: 3px;
+}
+
+.main-nav a.current {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.profile-btn {
+    padding: 10px 16px;
     background-color: var(--Yellow);
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: var(--Dark);
+    font-size: 1em;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid var(--Black);
     border-radius: 5px;
     cursor: pointer;
+    transition: transform 0.1s ease, scale 0.2s ease;
 }
 
-.profile {
-    font-size: 1rem;
-    text-decoration: none;
-    font-weight: bold;
-    color: var(--Dark);
+.profile-btn:hover {
+    transform: scale(1.08);
 }
+
+.profile-btn:active {
+    transform: scale(1.04);
+}
+
+.profile-btn:focus-visible {
+    outline: 2px solid var(--White);
+    outline-offset: 3px;
+}
+
