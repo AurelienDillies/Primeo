@@ -15,13 +15,22 @@
 
 .footer-flex {
     display: flex;
-    justify-content: space-evenly;
-    gap: 40px;
+    justify-content: space-between;
 }
 
 .footer-flex a {
     color: var(--White);
     text-decoration: none;
+}
+
+.footer-flex a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.footer-flex a:focus-visible {
+    outline: 2px solid var(--White);
+    outline-offset: 3px;
 }
 
 .footer-section {
@@ -45,9 +54,9 @@
 }
 
 .footer-contact {
-    list-style: none;
     display: flex;
     flex-direction: column;
+    list-style: none;
     gap: 15px;
 }
 
