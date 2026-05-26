@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+*,
+::before,
+::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --DarkBlue: #063B4C;
+    --LightBlue: #177C8B;
+    --Red: #D93B34;
+    --Yellow: #D9A93E;
+    --Dark: #1F1E1D;
+    --Light: #F5F7F8;
+    --Black: #000000;
+    --White: #FFFFFF;
+    --ShadowCard: 4px 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: roboto, sans-serif;
+    background-color: var(--Light);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
