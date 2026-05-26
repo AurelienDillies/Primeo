@@ -25,7 +25,7 @@
     background-color: rgb(250, 250, 250);
     color: var(--Black);
     border: 1px solid var(--Black);
-    border-radius: 5px;
+    border-radius: var(--BorderRadius);
     transition: border-color 0.2s ease
 }
 
