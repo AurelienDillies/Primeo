@@ -1,0 +1,6 @@
+.card {
+    background-color: var(--White);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: var(--ShadowCard);
+}

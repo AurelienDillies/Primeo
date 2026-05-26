@@ -1,19 +1,18 @@
-.inscription {
+.text {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-}
-
-.card {
-    background-color: var(--White);
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: var(--ShadowCard);
-}
-
-.text {
-    text-align: center;
     margin-bottom: 20px;
-    gap: 100px;
+    gap: 15px;
 }
+
+.text h1 {
+    font-size: 2.3em;
+    font-weight: bold;
+}
+
+.text p {
+    font-size: 1.1em;
+}
+
+
