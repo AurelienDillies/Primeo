@@ -1,7 +1,7 @@
 :host {
     position: sticky;
     top: 0;
-    z-index: 20;
+    z-index: 999;
     display: block;
 }
 
@@ -44,7 +44,7 @@
     padding: 8px 12px;
     text-decoration: none;
     color: var(--White);
-    border-radius: 6px;
+    border-radius: var(--BorderRadiusBtn);
     border: 2px solid transparent;
     transition: all 0.2s ease;
 }
@@ -74,7 +74,7 @@
     font-weight: bold;
     text-decoration: none;
     border: 1px solid var(--Black);
-    border-radius: 5px;
+    border-radius: var(--BorderRadiusBtn);
     cursor: pointer;
     transition: transform 0.1s ease, scale 0.2s ease;
 }

@@ -1,5 +1,6 @@
 @import "./styles/forms.css";
 @import "./styles/card.css";
+@import "./styles/card-container.css";
 @import "./styles/link.css";
 @import "./styles/bouton.css";
 
@@ -21,6 +22,7 @@
     --Black: #000000;
     --White: #FFFFFF;
     --ShadowCard: 4px 4px 10px rgba(0, 0, 0, 0.25);
+    --BorderRadiusBtn: 5px;
 }
 
 body {
