@@ -1,0 +1,22 @@
+.logout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.btn {
+    background-color: var(--Red);
+}
+
+.btn:hover {
+    background-color: #EF4444;
+}
+
+.btn:active {
+    background-color: #DC2626;
+}
+
+.btn:focus-visible {
+    outline: 2px solid #DC2626;
+}

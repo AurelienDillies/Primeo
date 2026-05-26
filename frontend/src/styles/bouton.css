@@ -1,0 +1,26 @@
+.btn {
+    padding: 10px 16px;
+    font-size: 1rem;
+    border-radius: var(--BorderRadiusBtn);
+    background-color: var(--Yellow);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+    background-color: #FBBF24;
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    background-color: #F59E0B;
+    transform: scale(0.98);
+    transform: translateY(0px);
+
+}
+
+.btn:focus-visible {
+    outline: 2px solid #2563EB;
+    outline-offset: 2px;
+}

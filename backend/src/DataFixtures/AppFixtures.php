@@ -9,10 +9,6 @@ use Doctrine\Persistence\ObjectManager;
 class AppFixtures extends Fixture
 {
 
-    public function __construct()
-    {
-        $this->created_at = new \DateTimeImmutable();
-    }
     public function load(ObjectManager $manager): void
     {
         $user_admin = new User();
