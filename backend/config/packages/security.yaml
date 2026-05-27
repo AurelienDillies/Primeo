@@ -12,7 +12,7 @@ security:
                 property: email
 
     firewalls:
-          login:
+        login:
             pattern: ^/api/(login|register)
             stateless: true
             json_login:
@@ -21,15 +21,15 @@ security:
                 password_path: password
 
         # Firewall pour toutes les autres API
-            api:
-                pattern: ^/api
-                stateless: true
-                custom_authenticator: 
-                    - App\Security\JwtAuthenticator
+        api:
+            pattern: ^/api
+            stateless: true
+            custom_authenticator: 
+                - App\Security\JwtAuthenticator
 
-            dev:
-                pattern: ^/(_profiler|_wdt|assets|build)/
-                security: false
+        dev:
+            pattern: ^/(_profiler|_wdt|assets|build)/
+            security: false
 
             # Activate different ways to authenticate:
             # https://symfony.com/doc/current/security.html#the-firewall
