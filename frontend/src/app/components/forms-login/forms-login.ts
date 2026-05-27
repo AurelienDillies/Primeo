@@ -16,7 +16,20 @@ export class FormsLogin {
   constructor(private userService: UserService, private router: Router) {}
 
   onSubmit() {
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
+    this.userService.login(this.email, this.password).subscribe({
+      next: (response: any) => {
+        const token = response.token;
+        console.log('Token reçu:', response.token);
+        localStorage.setItem('jwt_token', token);
+        if(token.roles === 'ROLE_STUDENT' || token.roles === 'ROLE_TEACHER') {
+          this.router.navigate(['/classes']);
+        } else if(token.roles === 'ROLE_PARENT') {
+          this.router.navigate(['/profil']);
+        } else {
+          this.router.navigate(['/profil']);
+        } 
+      },
+      error: err => console.error('Login failed', err)
+    });
   }
 }
