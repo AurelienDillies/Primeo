@@ -1,11 +1,14 @@
-<form ngSubmit="onSubmit()">
-  <div>
+<form class="form">
+
+  <div class="field">
     <label for="email">Email : </label>
     <input id="email" type="email" ngModel name="email" placeholder="Email" required />
   </div>
-  <div>
+
+  <div class="field">
     <label for="password">Mot de passe : </label>
     <input id="password" type="password" ngModel name="password" placeholder="Mot de passe" required />
   </div>
-  <button type="submit">Connexion</button>
+
+  <button class="btn" type="submit">Connexion</button>
 </form>
