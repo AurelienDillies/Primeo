@@ -6,6 +6,7 @@ import { Classes } from './pages/classes/classes';
 import { Courses } from './pages/courses/courses';
 import { Activities } from './pages/activities/activities';
 import { Progress } from './pages/progress/progress';
+import { Childrens } from './pages/childrens/childrens';
 import { Messages } from './pages/messages/messages';
 import { LegalNotice } from './pages/legal-notice/legal-notice';
 import { PrivacyPolicy } from './pages/privacy-policy/privacy-policy';
@@ -20,6 +21,7 @@ export const routes: Routes = [
     { path: 'cours', component: Courses },
     { path: 'activites', component: Activities },
     { path: 'suivi', component: Progress },
+    { path: 'enfants', component: Childrens },
     { path: 'messagerie', component: Messages },
     { path: 'mentions-legales', component: LegalNotice },
     { path: 'politique-confidentialite', component: PrivacyPolicy },
