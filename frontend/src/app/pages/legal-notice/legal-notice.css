@@ -1,0 +1,31 @@
+.card {
+    max-width: 50%;
+    margin: 20px auto;
+}
+
+section {
+    margin-top: 24px;
+    border-top: 1px solid #1f1e1d44;
+    padding-top: 16px;
+}
+
+.sub-title {
+    margin-bottom: 5px;
+}
+
+.info-list, .bullet-list {
+	margin-top: 12px;
+	padding-left: 20px;
+	display: grid;
+	gap: 8px;
+}
+
+.info-list {
+	list-style: none;
+	padding-left: 0;
+}
+
+.access-note {
+    margin-top: 15px;
+}
+

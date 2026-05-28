@@ -1,7 +1,7 @@
 # =========================
 # Backend Symfony + PHP
 # =========================
-FROM php:8.3-fpm AS symfony
+FROM php:8.4-fpm AS symfony
 
 # Dépendances système
 RUN apt-get update && apt-get install -y \

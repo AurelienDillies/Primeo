@@ -16,7 +16,33 @@ export class FormsLogin {
   constructor(private userService: UserService, private router: Router) {}
 
   onSubmit() {
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
+    console.log(this.email, this.password);
+    this.userService.login(this.email, this.password).subscribe({
+      
+      next: (response: any) => {
+        const token = response.token;
+        this.userService.setToken(token);
+
+        const roles = this.userService.getUserRoles();
+
+        if (roles.includes('ROLE_ADMIN')) {
+          this.router.navigate(['/classes']);
+          return;
+        }
+
+        if (roles.includes('ROLE_TEACHER') || roles.includes('ROLE_STUDENT')) {
+          this.router.navigate(['/classes']);
+          return;
+        }
+
+        if (roles.includes('ROLE_PARENT')) {
+          this.router.navigate(['/enfants']);
+          return;
+        }
+
+        this.router.navigate(['/profil']);
+      },
+      error: err => console.error('Login failed', err)
+    });
   }
 }
