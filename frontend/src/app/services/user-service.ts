@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user.model';
+import { Router } from '@angular/router';
 
 type JwtPayload = {
   roles?: string[];
@@ -11,15 +12,26 @@ type JwtPayload = {
   providedIn: 'root',
 })
 export class UserService {
-  user : User | null = null;
+  user: User | null = null;
   private apiUrl = 'http://localhost:8080/api';
   private tokenKey = 'jwt_token';
 
-   constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
-   login(email: string, password: string) {
+  login(email: string, password: string) {
     return this.http.post<{ token: string }>(`${this.apiUrl}/login`, { email, password });
   }
+
+  register(user: Pick<User, 'email' | 'password'>) {
+    return this.http.post(`${this.apiUrl}/register`, user);
+  }
+
+  logout(): void {
+    this.clearToken();
+    this.user = null;
+    this.router.navigate(['/login']);
+  }
+
 
   setToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
