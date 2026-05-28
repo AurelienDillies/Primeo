@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user-service';
 import { Router } from '@angular/router';
-import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-forms-login',
@@ -21,23 +20,27 @@ export class FormsLogin {
     this.userService.login(this.email, this.password).subscribe({
       
       next: (response: any) => {
-        
         const token = response.token;
-        localStorage.setItem('jwt_token', token);
+        this.userService.setToken(token);
 
-        const decoded: any = jwtDecode(token);
+        const roles = this.userService.getUserRoles();
 
-        console.log('Decoded token:', decoded);
-
-        const roles = decoded.roles;
-
-        if (roles.includes('ROLE_STUDENT') || roles.includes('ROLE_TEACHER')) {
+        if (roles.includes('ROLE_ADMIN')) {
           this.router.navigate(['/classes']);
-        } else if (roles.includes('ROLE_PARENT')) {
-          this.router.navigate(['/profil']);
-        } else {
-          this.router.navigate(['/profil']);
+          return;
         }
+
+        if (roles.includes('ROLE_TEACHER') || roles.includes('ROLE_STUDENT')) {
+          this.router.navigate(['/classes']);
+          return;
+        }
+
+        if (roles.includes('ROLE_PARENT')) {
+          this.router.navigate(['/enfants']);
+          return;
+        }
+
+        this.router.navigate(['/profil']);
       },
       error: err => console.error('Login failed', err)
     });
