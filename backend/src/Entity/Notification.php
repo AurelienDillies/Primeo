@@ -23,6 +23,9 @@ class Notification
     #[ORM\Column]
     private ?bool $NotificationLu = null;
 
+    #[ORM\ManyToOne(inversedBy: 'notifications')]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Notification
     public function setNotificationLu(bool $NotificationLu): static
     {
         $this->NotificationLu = $NotificationLu;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
