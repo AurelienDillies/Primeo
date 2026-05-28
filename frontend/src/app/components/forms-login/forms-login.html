@@ -1,17 +1,13 @@
-<form class="form">
+<form class="form" (ngSubmit)="onSubmit()">
 
   <div class="field">
-
-    <label class="label" for="email">Email</label>
-    <input class="input" id="email" type="email" ngModel name="email" placeholder="Email" required />
-
+    <label class="label" for="email">Email : </label>
+    <input class="input" id="email" type="email" [(ngModel)]="email" name="email" placeholder="Email" required />
   </div>
 
   <div class="field">
-
-    <label class="label" for="password">Mot de passe</label>
-    <input class="input" id="password" type="password" ngModel name="password" placeholder="Mot de passe" required />
-
+    <label class="label" for="password">Mot de passe : </label>
+    <input class="input" id="password" type="password" [(ngModel)]="password" name="password" placeholder="Mot de passe" required />
   </div>
 
   <button class="btn" type="submit">Connexion</button>

@@ -7,19 +7,32 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\UserRepository;
+use App\Security\JwtService;
+use App\Entity\User;
 
 class AuthController extends AbstractController
 {
     #[Route('/api/login', name: 'api_login', methods: ['POST'])]
-    public function login(Request $request): JsonResponse
-    {
+    public function login(
+        Request $request, 
+        UserRepository $userRepository,
+        JwtService $jwtService
+    ): JsonResponse{
         $data = json_decode($request->getContent(), true);
 
-        return $this->json([
-            'success' => true,
-            'message' => 'Login works',
-            'email' => $data['email'] ?? null
+        $user = $userRepository->findOneBy(['email' => $data['email'] ?? null]);
+
+        if (!$user || !password_verify($data['password'], $user->getPassword())) {
+            return $this->json(['error' => 'Identifiants invalides'], 401);
+        }
+
+        // ✅ IMPORTANT : on génère le token avec un tableau (payload)
+        $token = $jwtService->generate([
+            'email' => $user->getEmail(),
+            'roles' => $user->getRoles(),
         ]);
+
+        return $this->json(['token' => $token]);
     }
 
     #[Route('/api/register', name: 'api_register', methods: ['GET'])]
