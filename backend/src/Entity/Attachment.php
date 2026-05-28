@@ -29,6 +29,9 @@ class Attachment
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $attachmentCreatedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'attachments')]
+    private ?Message $message = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Attachment
     public function setAttachmentCreatedAt(\DateTimeImmutable $attachmentCreatedAt): static
     {
         $this->attachmentCreatedAt = $attachmentCreatedAt;
+
+        return $this;
+    }
+
+    public function getMessage(): ?Message
+    {
+        return $this->message;
+    }
+
+    public function setMessage(?Message $message): static
+    {
+        $this->message = $message;
 
         return $this;
     }
