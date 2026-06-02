@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { User } from '../../models/user.model';
 import { UserService } from '../../services/user-service';
 
 @Component({
@@ -10,7 +9,43 @@ import { UserService } from '../../services/user-service';
   styleUrl: './header.css',
 })
 export class Header {
-userService: any;
+  isMenuOpen = false;
 
-  constructor(userService: UserService) {}
+  constructor(
+    private host: ElementRef<HTMLElement>,
+    private userService: UserService
+  ) {}
+
+  toggleMenu(event: Event): void {
+    event.stopPropagation();
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu(): void {
+    this.isMenuOpen = false;
+  }
+
+  logout(): void {
+    this.closeMenu();
+    this.userService.logout();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (!this.isMenuOpen) {
+      return;
+    }
+
+    const target = event.target as Node | null;
+    if (target && this.host.nativeElement.contains(target)) {
+      return;
+    }
+
+    this.closeMenu();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.closeMenu();
+  }
 }
