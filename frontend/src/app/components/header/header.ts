@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { User } from '../../models/user.model';
+import { UserService } from '../../services/user-service';
 
 @Component({
   selector: 'app-header',
@@ -7,4 +9,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header {}
+export class Header {
+userService: any;
+
+  constructor(userService: UserService) {}
+}
