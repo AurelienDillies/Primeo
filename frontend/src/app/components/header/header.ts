@@ -11,9 +11,12 @@ import { UserService } from '../../services/user-service';
 export class Header {
   isMenuOpen = false;
 
+  readonly rolesForClasses = ['ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT'];
+  readonly rolesForChildren = ['ROLE_ADMIN', 'ROLE_PARENT'];
+
   constructor(
     private host: ElementRef<HTMLElement>,
-    private userService: UserService
+    public userService: UserService
   ) {}
 
   toggleMenu(event: Event): void {
