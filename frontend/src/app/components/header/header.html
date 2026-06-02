@@ -3,17 +3,14 @@
             <img src="/logo.png" alt="logo Digiforma" class="brand-logo">
             <p class="brand-name">Digiforma</p>
         </a>
-        @if (userService.isAuthenticated()) {
-            <nav class="main-nav" aria-label="Navigation principale">
-                @if (userService.getUserRole() === 'ROLE_STUDENT' || userService.getUserRole() === 'ROLE_TEACHER') {
-                    <a routerLink="/classes" routerLinkActive="current">Classes</a>
-                    <a routerLink="/cours" routerLinkActive="current">Cours</a>
-                    <a routerLink="/activites" routerLinkActive="current">Activités</a>
-                }
-                
-                <a routerLink="/suivi" routerLinkActive="current">Suivi</a>
-                <a routerLink="/messagerie" routerLinkActive="current">Messages</a>
-            </nav>
+
+        <nav class="main-nav" aria-label="Navigation principale">
+            <a routerLink="/classes" routerLinkActive="current">Classes</a>
+            <a routerLink="/cours" routerLinkActive="current">Cours</a>
+            <a routerLink="/activites" routerLinkActive="current">Activités</a>
+            <a routerLink="/suivi" routerLinkActive="current">Suivi</a>
+            <a routerLink="/messagerie" routerLinkActive="current">Messages</a>
+        </nav>
 
             <div class="profile-menu" [class.open]="isMenuOpen">
                 <button

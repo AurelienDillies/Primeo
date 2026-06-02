@@ -51,4 +51,19 @@ class ClasseController extends AbstractController
         $entityManager->flush();
         return new JsonResponse(['message' => 'Classe mise à jour avec succès'], 200);
     }
+
+    #[Route('/{id}', name: 'delete_class', methods: ['DELETE'])]
+    public function deleteClasse(EntityManagerInterface $entityManager,
+    ClasseRepository $classeRepository, 
+    int $id
+    ): JsonResponse
+    {
+        $classe = $classeRepository->find($id);
+        if (!$classe) {
+            return new JsonResponse(['error' => 'Classe non trouvée'], 404);        
+        }
+        $entityManager->remove($classe);
+        $entityManager->flush();
+        return new JsonResponse(['message' => 'Classe supprimée avec succès'], 200);
+    }
 }
