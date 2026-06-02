@@ -1,16 +1,18 @@
 <header class="site-header">
-        <a class="brand" routerLink="/">
             <img src="/logo.png" alt="logo Digiforma" class="brand-logo">
-            <p class="brand-name">Digiforma</p>
-        </a>
-
-        <nav class="main-nav" aria-label="Navigation principale">
-            <a routerLink="/classes" routerLinkActive="current">Classes</a>
-            <a routerLink="/cours" routerLinkActive="current">Cours</a>
-            <a routerLink="/activites" routerLinkActive="current">Activités</a>
-            <a routerLink="/suivi" routerLinkActive="current">Suivi</a>
-            <a routerLink="/messagerie" routerLinkActive="current">Messages</a>
-        </nav>
+        @if (userService.isAuthenticated()) {
+            <nav class="main-nav" aria-label="Navigation principale">
+                @if (userService.hasAnyRole(rolesForClasses)) {
+                    <a routerLink="/classes" routerLinkActive="current">Classes</a>
+                    <a routerLink="/cours" routerLinkActive="current">Cours</a>
+                    <a routerLink="/activites" routerLinkActive="current">Activités</a>
+                }
+                @if (userService.hasAnyRole(rolesForChildren)) {
+                    <a routerLink="/enfants" routerLinkActive="current">Enfants</a>
+                }
+                <a routerLink="/suivi" routerLinkActive="current">Suivi</a>
+                <a routerLink="/messagerie" routerLinkActive="current">Messages</a>
+            </nav>
 
             <div class="profile-menu" [class.open]="isMenuOpen">
                 <button
@@ -31,5 +33,5 @@
                     </button>
                 </div>
             </div>
-
+            }
 </header>

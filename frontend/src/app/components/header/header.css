@@ -15,24 +15,11 @@
     padding: 25px 50px;
 }
 
-.brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-}
-
 .brand-logo {
     width: 60px;
     height: 60px;
     background: var(--Yellow);
     border-radius: 50%;
-}
-
-.brand-name {
-    font-size: 1em;
-    color: var(--White);
-    font-weight: bold;
 }
 
 .main-nav {
