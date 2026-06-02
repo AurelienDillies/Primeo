@@ -1,0 +1,14 @@
+<div class="card-container">
+
+    <img class="card-img" src="/logo.png" alt="image">
+
+    <div class="btn-action">
+
+        @if (userService.hasAnyRole(rolesForChange)) {
+        <button class="btn" routerLink="/cours">Modifier activité</button>
+        }
+        <button class="btn" routerLink="/cours">Voir activité</button>
+
+    </div>
+</div>
+

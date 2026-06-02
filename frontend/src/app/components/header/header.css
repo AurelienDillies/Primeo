@@ -1,0 +1,165 @@
+:host {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    display: block;
+}
+
+.site-header {
+    background: var(--DarkBlue);
+    color: var(--White);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 50px;
+}
+
+.brand-logo {
+    width: 60px;
+    height: 60px;
+    background: var(--Yellow);
+    border-radius: 50%;
+}
+
+.main-nav {
+    display: flex;
+    gap: 6px;
+}
+
+.main-nav a {
+    padding: 8px 12px;
+    text-decoration: none;
+    color: var(--White);
+    border-radius: var(--BorderRadiusBtn);
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.main-nav a:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.main-nav a:active {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.main-nav a:focus-visible {
+    outline: 2px solid var(--White);
+    outline-offset: 3px;
+}
+
+.main-nav a.current {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.profile-menu {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.profile-trigger {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid var(--Black);
+    background: var(--Yellow);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.profile-trigger:hover {
+    transform: scale(1.06);
+}
+
+.profile-trigger:active {
+    transform: scale(1.02);
+}
+
+.profile-trigger:focus-visible {
+    outline: 2px solid var(--White);
+    outline-offset: 3px;
+}
+
+.profile-icon {
+    font-size: 1.7em;
+    line-height: 1;
+    color: var(--Black);
+}
+
+.profile-dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(80% + 5px);
+    min-width: 180px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: grid;
+    gap: 6px;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.profile-menu.open .profile-dropdown {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.card {
+    border-radius: var(--BorderRadiusBtn);
+}
+
+.profile-dropdown a,
+.profile-dropdown button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: var(--BorderRadiusBtn);
+    border: none;
+    background: transparent;
+    color: var(--Black);
+    text-decoration: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s ease;
+}
+
+.profile-dropdown a:hover,
+.profile-dropdown button:hover {
+    background: rgba(15, 23, 42, 0.08);
+}
+
+.profile-dropdown a:active,
+.profile-dropdown button:active {
+    background: rgba(15, 23, 42, 0.12);
+}
+
+.profile-dropdown a:focus-visible,
+.profile-dropdown button:focus-visible {
+    outline: 2px solid var(--DarkBlue);
+    outline-offset: 2px;
+}
+
+.profile-dropdown .logout-item {
+    color: var(--Red);
+    font-size: 1em;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
