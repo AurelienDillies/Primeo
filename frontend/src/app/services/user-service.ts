@@ -29,7 +29,7 @@ export class UserService {
   logout(): void {
     this.clearToken();
     this.user = null;
-    this.router.navigate(['/login']);
+    this.router.navigate(['/connexion']);
   }
 
 
