@@ -6,6 +6,7 @@ use App\Repository\ProgressRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ProgressRepository::class)]
 class Progress
@@ -13,19 +14,23 @@ class Progress
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['student:read', 'teacher:read'])]
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['student:read', 'teacher:read'])]
     private ?float $progressPercent = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['student:read', 'teacher:read'])]
     private ?string $progressGrade = null;
 
     #[ORM\ManyToOne(inversedBy: 'progresses')]
+    #[Groups(['teacher:read'])]
     private ?Student $student = null;
 
     #[ORM\ManyToOne(inversedBy: 'progresses')]
-    private ?Course $coucourse = null;
+    private ?Course $course = null;
 
     /**
      * @var Collection<int, Activity>
@@ -79,14 +84,14 @@ class Progress
         return $this;
     }
 
-    public function getCoucourse(): ?Course
+    public function getCourse(): ?Course
     {
-        return $this->coucourse;
+        return $this->course;
     }
 
-    public function setCoucourse(?Course $coucourse): static
+    public function setCourse(?Course $course): static
     {
-        $this->coucourse = $coucourse;
+        $this->course = $course;
 
         return $this;
     }

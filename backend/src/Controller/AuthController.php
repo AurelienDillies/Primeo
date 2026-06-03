@@ -23,6 +23,7 @@ class AuthController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $user = $userRepository->findOneBy(['email' => $data['email'] ?? null]);
+        
 
         if (!$user || !password_verify($data['password'], $user->getPassword())) {
             return $this->json(['error' => 'Identifiants invalides'], 401);

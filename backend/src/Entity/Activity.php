@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ActivityRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ActivityRepository::class)]
 class Activity
@@ -12,24 +13,30 @@ class Activity
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['student:read', 'teacher:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Groups(['student:read', 'teacher:read'])]
     private ?string $activityType = null;
 
     #[ORM\Column(length: 100)]
+    #[Groups(['student:read', 'teacher:read'])]
     private ?string $activityTitle = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['student:read', 'teacher:read'])]
     private ?string $activityDescription = null;
 
     #[ORM\Column]
+    #[Groups(['student:read', 'teacher:read'])]
     private ?\DateTimeImmutable $activityDate = null;
 
     #[ORM\ManyToOne(inversedBy: 'activities')]
     private ?Course $course = null;
 
     #[ORM\ManyToOne(inversedBy: 'activities')]
+    #[Groups(['user:read', 'teacher:read', 'student:read'])]
     private ?Progress $progress = null;
 
     public function getId(): ?int
