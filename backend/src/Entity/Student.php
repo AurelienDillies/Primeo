@@ -36,7 +36,7 @@ class Student extends User
         return $this->enrollmentDate;
     }
 
-    public function setEnrollmentDate(?\DateTimeInterface $enrollmentDate): static
+    public function setEnrollmentDate(?\DateTimeInterface $enrollmentDate): self
     {
         $this->enrollmentDate = $enrollmentDate;
 

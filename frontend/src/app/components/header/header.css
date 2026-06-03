@@ -15,24 +15,11 @@
     padding: 25px 50px;
 }
 
-.brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-}
-
 .brand-logo {
     width: 60px;
     height: 60px;
     background: var(--Yellow);
     border-radius: 50%;
-}
-
-.brand-name {
-    font-size: 1em;
-    color: var(--White);
-    font-weight: bold;
 }
 
 .main-nav {
@@ -66,29 +53,113 @@
     background: rgba(255, 255, 255, 0.15);
 }
 
-.profile-btn {
-    padding: 10px 16px;
-    background-color: var(--Yellow);
-    color: var(--Dark);
-    font-size: 1em;
-    font-weight: bold;
-    text-decoration: none;
+.profile-menu {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.profile-trigger {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
     border: 1px solid var(--Black);
-    border-radius: var(--BorderRadiusBtn);
+    background: var(--Yellow);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    transition: transform 0.1s ease, scale 0.2s ease;
+    transition: transform 0.1s ease;
 }
 
-.profile-btn:hover {
-    transform: scale(1.08);
+.profile-trigger:hover {
+    transform: scale(1.06);
 }
 
-.profile-btn:active {
-    transform: scale(1.04);
+.profile-trigger:active {
+    transform: scale(1.02);
 }
 
-.profile-btn:focus-visible {
+.profile-trigger:focus-visible {
     outline: 2px solid var(--White);
     outline-offset: 3px;
+}
+
+.profile-icon {
+    font-size: 1.7em;
+    line-height: 1;
+    color: var(--Black);
+}
+
+.profile-dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(80% + 5px);
+    min-width: 180px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: grid;
+    gap: 6px;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.profile-menu.open .profile-dropdown {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.card {
+    border-radius: var(--BorderRadiusBtn);
+}
+
+.profile-dropdown a,
+.profile-dropdown button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: var(--BorderRadiusBtn);
+    border: none;
+    background: transparent;
+    color: var(--Black);
+    text-decoration: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s ease;
+}
+
+.profile-dropdown a:hover,
+.profile-dropdown button:hover {
+    background: rgba(15, 23, 42, 0.08);
+}
+
+.profile-dropdown a:active,
+.profile-dropdown button:active {
+    background: rgba(15, 23, 42, 0.12);
+}
+
+.profile-dropdown a:focus-visible,
+.profile-dropdown button:focus-visible {
+    outline: 2px solid var(--DarkBlue);
+    outline-offset: 2px;
+}
+
+.profile-dropdown .logout-item {
+    color: var(--Red);
+    font-size: 1em;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 
