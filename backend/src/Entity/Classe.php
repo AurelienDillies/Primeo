@@ -29,12 +29,12 @@ class Classe
     private Collection $courses;
 
     #[ORM\ManyToOne(inversedBy: 'teachingClasses')]
-    private ?User $teacher = null;
+    private ?Teacher $teacher = null;
 
     /**
-     * @var Collection<int, User>
+     * @var Collection<int, Student>
      */
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'classes')]
+    #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'classes')]
     private Collection $students;
 
     /**
@@ -109,12 +109,12 @@ class Classe
         return $this;
     }
 
-    public function getTeacher(): ?User
+    public function getTeacher(): ?Teacher
     {
         return $this->teacher;
     }
 
-    public function setTeacher(?User $teacher): static
+    public function setTeacher(?Teacher $teacher): static
     {
         $this->teacher = $teacher;
 
@@ -122,14 +122,14 @@ class Classe
     }
 
     /**
-     * @return Collection<int, User>
+     * @return Collection<int, Student>
      */
     public function getStudents(): Collection
     {
         return $this->students;
     }
 
-    public function addStudent(User $student): static
+    public function addStudent(Student $student): static
     {
         if (!$this->students->contains($student)) {
             $this->students->add($student);
@@ -138,7 +138,7 @@ class Classe
         return $this;
     }
 
-    public function removeStudent(User $student): static
+    public function removeStudent(Student $student): static
     {
         $this->students->removeElement($student);
 

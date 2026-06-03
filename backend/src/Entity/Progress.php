@@ -22,7 +22,7 @@ class Progress
     private ?string $progressGrade = null;
 
     #[ORM\ManyToOne(inversedBy: 'progresses')]
-    private ?User $student = null;
+    private ?Student $student = null;
 
     #[ORM\ManyToOne(inversedBy: 'progresses')]
     private ?Course $coucourse = null;
@@ -67,12 +67,12 @@ class Progress
         return $this;
     }
 
-    public function getStudent(): ?User
+    public function getStudent(): ?Student
     {
         return $this->student;
     }
 
-    public function setStudent(?User $student): static
+    public function setStudent(?Student $student): static
     {
         $this->student = $student;
 

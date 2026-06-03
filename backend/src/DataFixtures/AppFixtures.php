@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Entity\Teacher;
+use App\Entity\Student;
 use App\Entity\Classe;
 use App\Entity\Course;
 use App\Entity\Activity;
@@ -27,35 +29,35 @@ class AppFixtures extends Fixture
         $user_admin->setFirstName('John');
         $user_admin->setRoles(['ROLE_ADMIN']);
 
-        $user_teacher = new User();
+        $user_teacher = new Teacher();
         $user_teacher->setEmail('teacher@digiforma.com');
         $user_teacher->setPassword(password_hash('teacher', PASSWORD_BCRYPT));
         $user_teacher->setLastName('Smith');
         $user_teacher->setFirstName('Jane');
         $user_teacher->setRoles(['ROLE_TEACHER']);
 
-        $user_teacher2 = new User();
+        $user_teacher2 = new Teacher();
         $user_teacher2->setEmail('teacher2@digiforma.com');
         $user_teacher2->setPassword(password_hash('teacher2', PASSWORD_BCRYPT));
         $user_teacher2->setLastName('Johnson');
         $user_teacher2->setFirstName('Robert');
         $user_teacher2->setRoles(['ROLE_TEACHER']);
 
-        $user_student = new User();
+        $user_student = new Student();
         $user_student->setEmail('student@digiforma.com');
         $user_student->setPassword(password_hash('student', PASSWORD_BCRYPT));
         $user_student->setLastName('Brown');
         $user_student->setFirstName('Emily');
         $user_student->setRoles(['ROLE_STUDENT']);
 
-        $user_student2 = new User();
+        $user_student2 = new Student();
         $user_student2->setEmail('student2@digiforma.com');
         $user_student2->setPassword(password_hash('student2', PASSWORD_BCRYPT));
         $user_student2->setLastName('Garcia');
         $user_student2->setFirstName('Carlos');
         $user_student2->setRoles(['ROLE_STUDENT']);
 
-        $user_student3 = new User();
+        $user_student3 = new Student();
         $user_student3->setEmail('student3@digiforma.com');
         $user_student3->setPassword(password_hash('student3', PASSWORD_BCRYPT));
         $user_student3->setLastName('Martin');
