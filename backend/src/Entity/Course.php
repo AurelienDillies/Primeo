@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: CourseRepository::class)]
 class Course
@@ -14,18 +15,23 @@ class Course
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['student:read', 'teacher:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Groups(['student:read', 'teacher:read'])]
     private ?string $courseTitle = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['student:read', 'teacher:read'])]
     private ?string $courseDescription = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['student:read', 'teacher:read'])]
     private ?string $courseResourcefile = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['student:read', 'teacher:read'])]
     private ?string $courseVideoUrl = null;
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
@@ -35,18 +41,21 @@ class Course
      * @var Collection<int, Activity>
      */
     #[ORM\OneToMany(targetEntity: Activity::class, mappedBy: 'course')]
+    #[Groups(['student:read', 'teacher:read'])]
     private Collection $activities;
 
     /**
      * @var Collection<int, Progress>
      */
-    #[ORM\OneToMany(targetEntity: Progress::class, mappedBy: 'coucourse')]
+    #[ORM\OneToMany(targetEntity: Progress::class, mappedBy: 'course')]
+    #[Groups(['student:read', 'teacher:read'])]
     private Collection $progresses;
 
     /**
      * @var Collection<int, Report>
      */
     #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'course')]
+    #[Groups(['student:read', 'teacher:read'])]
     private Collection $reports;
 
     public function __construct()
@@ -163,7 +172,7 @@ class Course
     {
         if (!$this->progresses->contains($progress)) {
             $this->progresses->add($progress);
-            $progress->setCoucourse($this);
+            $progress->setCourse($this);
         }
 
         return $this;
@@ -173,8 +182,8 @@ class Course
     {
         if ($this->progresses->removeElement($progress)) {
             // set the owning side to null (unless already changed)
-            if ($progress->getCoucourse() === $this) {
-                $progress->setCoucourse(null);
+            if ($progress->getCourse() === $this) {
+                $progress->setCourse(null);
             }
         }
 

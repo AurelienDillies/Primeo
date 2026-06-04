@@ -5,30 +5,42 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity]
 class Student extends User
 {
     #[ORM\Column(type: 'date')]
+    #[Groups(['student:read', 'classe:read'])]
     private ?\DateTimeInterface $enrollmentDate = null;
 
     /**
      * @var Collection<int, Classe>
      */
     #[ORM\ManyToMany(targetEntity: Classe::class, inversedBy: 'students')]
+    #[Groups(['student:read'])]
     private Collection $classes;
 
     /**
      * @var Collection<int, Progress>
      */
     #[ORM\OneToMany(targetEntity: Progress::class, mappedBy: 'student')]
+    #[Groups(['student:read', 'classe:read'])]
     private Collection $progresses;
+
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'children')]
+    #[Groups(['student:read'])]
+    private Collection $parents;
 
     public function __construct()
     {
         parent::__construct();
         $this->classes = new ArrayCollection();
         $this->progresses = new ArrayCollection();
+        $this->parents = new ArrayCollection();
     }
 
     public function getEnrollmentDate(): ?\DateTimeInterface
@@ -94,6 +106,33 @@ class Student extends User
             if ($progress->getStudent() === $this) {
                 $progress->setStudent(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getParents(): Collection
+    {
+        return $this->parents;
+    }
+
+    public function addParent(User $parent): static
+    {
+        if (!$this->parents->contains($parent)) {
+            $this->parents->add($parent);
+            $parent->addChild($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParent(User $parent): static
+    {
+        if ($this->parents->removeElement($parent)) {
+            $parent->removeChild($this);
         }
 
         return $this;

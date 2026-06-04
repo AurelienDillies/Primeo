@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -20,37 +21,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['user:read', 'teacher:read', 'student:read' , 'classe:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
     private ?string $email = null;
 
     /**
      * @var list<string> The user roles
      */
     #[ORM\Column]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
     private ?string $last_name = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
     private ?string $first_name = null;
 
     #[ORM\Column(nullable: false)]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
     private \DateTimeImmutable $created_at;
-
-    /**
-     * @var Collection<int, Report>
-     */
-    #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'generatedBy')]
-    private Collection $reports;
 
     /**
      * @var Collection<int, Message>
@@ -71,26 +73,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $notifications;
 
     /**
-     * @var Collection<int, self>
+     * @var Collection<int, Student>
      */
-    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'followers')]
-    private Collection $following;
-
-    /**
-     * @var Collection<int, self>
-     */
-    #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'following')]
-    private Collection $followers;
+    #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'parents')]
+    #[Groups(['user:read', 'classe:read'])]
+    private Collection $children;
 
     public function __construct()
     {
         $this->created_at = new \DateTimeImmutable();
-        $this->reports = new ArrayCollection();
         $this->sentMessages = new ArrayCollection();
         $this->receivedMessages = new ArrayCollection();
         $this->notifications = new ArrayCollection();
-        $this->following = new ArrayCollection();
-        $this->followers = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -216,36 +211,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Report>
-     */
-    public function getReports(): Collection
-    {
-        return $this->reports;
-    }
-
-    public function addReport(Report $report): static
-    {
-        if (!$this->reports->contains($report)) {
-            $this->reports->add($report);
-            $report->setGeneratedBy($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReport(Report $report): static
-    {
-        if ($this->reports->removeElement($report)) {
-            // set the owning side to null (unless already changed)
-            if ($report->getGeneratedBy() === $this) {
-                $report->setGeneratedBy(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Message>
      */
     public function getSentMessages(): Collection
@@ -336,52 +301,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, self>
+     * @return Collection<int, Student>
      */
-    public function getFollowing(): Collection
+    public function getChildren(): Collection
     {
-        return $this->following;
+        return $this->children;
     }
 
-    public function addFollowing(self $following): static
+    public function addChild(Student $child): static
     {
-        if (!$this->following->contains($following)) {
-            $this->following->add($following);
+        if (!$this->children->contains($child)) {
+            $this->children->add($child);
         }
 
         return $this;
     }
 
-    public function removeFollowing(self $following): static
+    public function removeChild(Student $child): static
     {
-        $this->following->removeElement($following);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, self>
-     */
-    public function getFollowers(): Collection
-    {
-        return $this->followers;
-    }
-
-    public function addFollower(self $follower): static
-    {
-        if (!$this->followers->contains($follower)) {
-            $this->followers->add($follower);
-            $follower->addFollowing($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFollower(self $follower): static
-    {
-        if ($this->followers->removeElement($follower)) {
-            $follower->removeFollowing($this);
-        }
+        $this->children->removeElement($child);
 
         return $this;
     }

@@ -177,43 +177,43 @@ class AppFixtures extends Fixture
         // ===== PROGRESS =====
         $progress1 = new Progress();
         $progress1->setStudent($user_student);
-        $progress1->setCoucourse($course1);
+        $progress1->setCourse($course1);
         $progress1->setProgressPercent(75.5);
         $progress1->setProgressGrade('B+');
 
         $progress2 = new Progress();
         $progress2->setStudent($user_student);
-        $progress2->setCoucourse($course2);
+        $progress2->setCourse($course2);
         $progress2->setProgressPercent(82.0);
         $progress2->setProgressGrade('A-');
 
         $progress3 = new Progress();
         $progress3->setStudent($user_student2);
-        $progress3->setCoucourse($course1);
+        $progress3->setCourse($course1);
         $progress3->setProgressPercent(65.0);
         $progress3->setProgressGrade('C+');
 
         $progress4 = new Progress();
         $progress4->setStudent($user_student2);
-        $progress4->setCoucourse($course2);
+        $progress4->setCourse($course2);
         $progress4->setProgressPercent(70.5);
         $progress4->setProgressGrade('B');
 
         $progress5 = new Progress();
         $progress5->setStudent($user_student3);
-        $progress5->setCoucourse($course1);
+        $progress5->setCourse($course1);
         $progress5->setProgressPercent(88.0);
         $progress5->setProgressGrade('A');
 
         $progress6 = new Progress();
         $progress6->setStudent($user_student);
-        $progress6->setCoucourse($course3);
+        $progress6->setCourse($course3);
         $progress6->setProgressPercent(78.0);
         $progress6->setProgressGrade('B+');
 
         $progress7 = new Progress();
         $progress7->setStudent($user_student2);
-        $progress7->setCoucourse($course3);
+        $progress7->setCourse($course3);
         $progress7->setProgressPercent(85.0);
         $progress7->setProgressGrade('A-');
 

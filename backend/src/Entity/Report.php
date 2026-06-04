@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ReportRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ReportRepository::class)]
 class Report
@@ -12,24 +13,29 @@ class Report
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['classe:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['classe:read'])]
     private ?string $reportType = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['classe:read'])]
     private ?string $reportData = null;
 
     #[ORM\Column]
+    #[Groups(['classe:read'])]
     private ?\DateTimeImmutable $reportGeneratedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'reports')]
+    #[ORM\ManyToOne(inversedBy: 'reports')]    
     private ?Classe $classe = null;
 
-    #[ORM\ManyToOne(inversedBy: 'reports')]
+    #[ORM\ManyToOne(inversedBy: 'reports')]    
     private ?Course $course = null;
 
     #[ORM\ManyToOne(inversedBy: 'reports')]
+    #[Groups(['classe:read'])]
     private ?User $generatedBy = null;
 
     public function getId(): ?int

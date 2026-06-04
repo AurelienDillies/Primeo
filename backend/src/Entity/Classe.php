@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ClasseRepository::class)]
 class Classe
@@ -14,12 +15,15 @@ class Classe
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?string $className = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?string $classDescription = null;
 
     /**
@@ -29,18 +33,21 @@ class Classe
     private Collection $courses;
 
     #[ORM\ManyToOne(inversedBy: 'teachingClasses')]
+    #[Groups(['student:read', 'classe:read'])]
     private ?Teacher $teacher = null;
 
     /**
      * @var Collection<int, Student>
      */
     #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'classes')]
+    #[Groups(['teacher:read', 'classe:read'])]
     private Collection $students;
 
     /**
      * @var Collection<int, Report>
      */
     #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'classe')]
+    #[Groups(['classe:read', 'student:read', 'teacher:read'])]
     private Collection $reports;
 
     public function __construct()

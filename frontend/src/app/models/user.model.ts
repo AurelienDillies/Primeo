@@ -1,3 +1,5 @@
+import { Student } from "./student.model";
+
 export interface User {
   id: number;
   lastname: string;
@@ -6,4 +8,5 @@ export interface User {
   password: string;
   role: string;
   created_at: Date;
+  children: Student[];
 }
