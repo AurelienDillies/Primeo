@@ -30,6 +30,9 @@ class UserController extends AbstractController
         }
         $groups = 'user:read';
         $roles = $user->getRoles();
+        $roles = $user->getRoles();
+
+        
         if (in_array('ROLE_STUDENT', $roles)) {
             $groups = 'student:read';
         } elseif (in_array('ROLE_TEACHER', $roles)) {
