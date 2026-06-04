@@ -7,10 +7,12 @@ import { Courses } from '../pages/courses/courses';
 import { Messages } from '../pages/messages/messages';
 import { Profile } from '../pages/profile/profile';
 import { Progress } from '../pages/progress/progress';
+import { Users } from '../pages/users/users';
 
 const ALL_ROLES = ['ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT', 'ROLE_STUDENT'];
 const TEACHER_STUDENT_ADMIN = ['ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT'];
 const PARENT_ADMIN = ['ROLE_ADMIN', 'ROLE_PARENT'];
+const ADMIN = ['ROLE_ADMIN'];
 
 export const roleRoutes: Routes = [
   {
@@ -55,4 +57,10 @@ export const roleRoutes: Routes = [
     canActivate: [roleGuard],
     data: { roles: PARENT_ADMIN },
   },
+  {
+    path: 'utilisateur',
+    component: Users,
+    canActivate: [roleGuard],
+    data: { roles: ADMIN },
+  }
 ];

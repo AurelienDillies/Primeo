@@ -13,6 +13,7 @@ export class Header {
 
   readonly rolesForClasses = ['ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT'];
   readonly rolesForChildren = ['ROLE_ADMIN', 'ROLE_PARENT'];
+  readonly rolesForAdmin = ['ROLE_ADMIN'];
 
   constructor(
     private host: ElementRef<HTMLElement>,
