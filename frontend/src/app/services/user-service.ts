@@ -27,8 +27,8 @@ export class UserService {
   }
 
   update(user: Pick<User, 'first_name' | 'last_name' | 'email' | 'password'>) {
-    return this.http.put(`${this.apiUrl}/profile`, user);
-  }
+  return this.http.put<User>(`${this.apiUrl}/profile`, user);
+}
 
   logout(): void {
     this.clearToken();

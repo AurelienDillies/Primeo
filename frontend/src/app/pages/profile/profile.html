@@ -1,11 +1,13 @@
 <div class="card">
+  <div class="text">
+    <h1 class="card-title">Mon profil</h1>
+  </div>
 
-    <div class="text">
+  @if (user) {
+    <p><strong>Prénom :</strong> <span>{{ user.first_name }}</span></p>
+    <p><strong>Nom :</strong> <span>{{ user.last_name }}</span></p>
+    <p><strong>Email :</strong> <span>{{ user.email }}</span></p>
 
-        <h1 class="card-title">Modifier mon profil</h1>
-
-    </div>
-
-    <app-forms-profile></app-forms-profile>
-
+    <app-forms-profile [user]="user"></app-forms-profile>
+  }
 </div>
