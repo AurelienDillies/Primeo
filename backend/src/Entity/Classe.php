@@ -30,6 +30,7 @@ class Classe
      * @var Collection<int, Course>
      */
     #[ORM\OneToMany(targetEntity: Course::class, mappedBy: 'classe')]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private Collection $courses;
 
     #[ORM\ManyToOne(inversedBy: 'teachingClasses')]

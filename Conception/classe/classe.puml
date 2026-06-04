@@ -22,6 +22,10 @@ class Student extends User {
   -enrollment_date : date
 }
 
+class Parent extends User {
+  - children : Student []
+}
+
 class Class {
   -class_id : int
   -class_name : string
