@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsProfile } from '../../components/forms-profile/forms-profile';
 import { UserService } from '../../services/user-service';
 import { User } from '../../models/user.model';
@@ -14,7 +14,10 @@ export class Profile implements OnInit {
 
   user: User | null = null;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     const userId = this.userService.getUserId();
@@ -22,8 +25,10 @@ export class Profile implements OnInit {
     if (!userId) return;
 
     this.userService.getUserInfo(userId).subscribe({
-      next: (user) => this.user = user,
-      error: (err) => console.error(err)
+      next: (user) => {
+        this.user = user;
+        this.cdr.detectChanges();
+      }
     });
   }
 }
