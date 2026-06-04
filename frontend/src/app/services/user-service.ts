@@ -22,11 +22,11 @@ export class UserService {
     return this.http.post<{ token: string }>(`${this.apiUrl}/login`, { email, password });
   }
 
-  register(user: Pick<User, 'firstname' | 'lastname' | 'email' | 'password' | 'role'>) {
+  register(user: Pick<User, 'first_name' | 'last_name' | 'email' | 'password' | 'roles'>) {
     return this.http.post(`${this.apiUrl}/register`, user);
   }
 
-  update(user: Pick<User, 'firstname' | 'lastname' | 'email' | 'password'>) {
+  update(user: Pick<User, 'first_name' | 'last_name' | 'email' | 'password'>) {
     return this.http.put(`${this.apiUrl}/profile`, user);
   }
 

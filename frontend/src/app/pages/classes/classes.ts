@@ -26,9 +26,11 @@ export class Classes implements OnInit {
       this.userService.getUserInfo(userId).subscribe((userInfo) => {
         console.log('User info received:', userInfo);
         if (userInfo.roles.includes('ROLE_STUDENT')) {
+          console.log('User is a student');
           this.student = userInfo as Student;
           this.classes = this.student.classes;
           console.log(this.student);
+          console.log();
         } else if (userInfo.roles.includes('ROLE_TEACHER')) {
           this.teacher = userInfo;
           this.classes = this.teacher.classes;

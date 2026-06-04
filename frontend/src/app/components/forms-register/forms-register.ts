@@ -24,7 +24,7 @@ export class FormsRegister {
       lastname: this.lastname,
       email: this.email,
       password: this.password,
-      role: this.role,
+      roles: [this.role],
     };
 
     this.userService.register(user).subscribe({

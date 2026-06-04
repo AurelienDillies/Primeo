@@ -19,8 +19,8 @@ export class FormsProfile {
 
   onSubmit() {
     const user = {
-      firstname: this.firstname,
-      lastname: this.lastname,
+      first_name: this.firstname,
+      last_name: this.lastname,
       email: this.email,
       password: this.password,
     };
