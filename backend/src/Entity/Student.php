@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
 class Student extends User
 {
     #[ORM\Column(type: 'date')]
-    #[Groups(['student:read'])]
+    #[Groups(['student:read', 'classe:read'])]
     private ?\DateTimeInterface $enrollmentDate = null;
 
     /**
@@ -25,7 +25,7 @@ class Student extends User
      * @var Collection<int, Progress>
      */
     #[ORM\OneToMany(targetEntity: Progress::class, mappedBy: 'student')]
-    #[Groups(['student:read'])]
+    #[Groups(['student:read', 'classe:read'])]
     private Collection $progresses;
 
     /**

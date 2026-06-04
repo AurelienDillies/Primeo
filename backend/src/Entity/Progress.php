@@ -30,6 +30,7 @@ class Progress
     private ?Student $student = null;
 
     #[ORM\ManyToOne(inversedBy: 'progresses')]
+    #[Groups(['student:read', 'teacher:read'])]
     private ?Course $course = null;
 
     /**

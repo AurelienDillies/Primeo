@@ -67,4 +67,22 @@ export class UserService {
     const userRoles = this.getUserRoles();
     return roles.some((role) => userRoles.includes(role));
   }
+  
+  getUserId(): number | null {
+    const token = this.getToken();
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const decoded = jwtDecode<{ id: number }>(token);
+      return decoded.id;
+    } catch {
+      return null;
+    }
+  }
+
+  getUserInfo(id : number) {
+    return this.http.get<User>(`${this.apiUrl}/users/${id}`); // Remplacez {id} par l'ID de l'utilisateur connecté
+  }
 }

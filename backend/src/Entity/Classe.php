@@ -15,15 +15,15 @@ class Classe
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?string $className = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?string $classDescription = null;
 
     /**
@@ -33,14 +33,14 @@ class Classe
     private Collection $courses;
 
     #[ORM\ManyToOne(inversedBy: 'teachingClasses')]
-    #[Groups(['student:read'])]
+    #[Groups(['student:read', 'classe:read'])]
     private ?Teacher $teacher = null;
 
     /**
      * @var Collection<int, Student>
      */
     #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'classes')]
-    #[Groups(['teacher:read'])]
+    #[Groups(['teacher:read', 'classe:read'])]
     private Collection $students;
 
     /**

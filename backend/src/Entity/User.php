@@ -21,37 +21,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['user:read', 'teacher:read', 'student:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read' , 'classe:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    #[Groups(['user:read', 'teacher:read', 'student:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
     private ?string $email = null;
 
     /**
      * @var list<string> The user roles
      */
     #[ORM\Column]
-    #[Groups(['user:read', 'teacher:read', 'student:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Groups(['user:read', 'teacher:read', 'student:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['user:read', 'teacher:read', 'student:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
     private ?string $last_name = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['user:read', 'teacher:read', 'student:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
     private ?string $first_name = null;
 
     #[ORM\Column(nullable: false)]
-    #[Groups(['user:read', 'teacher:read', 'student:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
     private \DateTimeImmutable $created_at;
 
     /**
@@ -76,7 +76,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, Student>
      */
     #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'parents')]
-    #[Groups(['user:read'])]
+    #[Groups(['user:read', 'classe:read'])]
     private Collection $children;
 
     public function __construct()

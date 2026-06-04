@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
 class Teacher extends User
 {
     #[ORM\Column(length: 255)]
-    #[Groups(['teacher:read'])]
+    #[Groups(['teacher:read', 'classe:read'])]
     private ?string $subject = null;
 
     /**
