@@ -28,8 +28,15 @@ class UserController extends AbstractController
         if (!$user) {
             return $this->json(['error' => 'Utilisateur non trouvé'], 404);
         }
+        $groups = 'user:read';
+        $roles = $user->getRoles();
+        if (in_array('ROLE_STUDENT', $roles)) {
+            $groups = 'student:read';
+        } elseif (in_array('ROLE_TEACHER', $roles)) {
+            $groups = 'teacher:read';
+        }
 
-        return $this->json($user, 200, [], ['groups' => 'user:read']);
+        return $this->json($user, 200, [], ['groups' => $groups]);
     }
 
     #[Route('/{id}', name: 'api_user_update', methods: ['PUT'])]
@@ -48,8 +55,11 @@ class UserController extends AbstractController
         $user->setFirstName($data['firstName'] ?? $user->getFirstName());
         $user->setLastName($data['lastName'] ?? $user->getLastName());
         $user->setEmail($data['email'] ?? $user->getEmail());
-        $user->setPassword($passwordHasher->hashPassword($user, $data['password']));
-
+        if (!empty($data['password'])) {
+            $user->setPassword(
+                $passwordHasher->hashPassword($user, $data['password'])
+            );
+        }
         $entityManager->flush();
 
         return $this->json(['message' => 'Utilisateur mis à jour avec succès'], 200);
