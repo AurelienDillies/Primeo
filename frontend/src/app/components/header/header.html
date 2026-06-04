@@ -4,7 +4,7 @@
             <nav class="main-nav" aria-label="Navigation principale">
 
                 @if (userService.hasAnyRole(rolesForAdmin)) {
-                    <a routerLink="/utilisateur" routerLinkActive="current">Utilisateurs</a>
+                    <a routerLink="/utilisateurs" routerLinkActive="current">Utilisateurs</a>
                 }
                 @if (userService.hasAnyRole(rolesForChildren)) {
                     <a routerLink="/enfants" routerLinkActive="current">Enfants</a>
