@@ -9,8 +9,8 @@ export interface Student extends User {
     }[];
     teacher: {
         id: number;
-        lastname: string;
-        firstname: string;
+        last_name: string;
+        first_name: string;
         email: string;
         subject: string;
     };
@@ -31,8 +31,8 @@ export interface Student extends User {
     }[];
     parents: {
         id: number;
-        lastname: string;
-        firstname: string;
+        last_name: string;
+        first_name: string;
         email: string;
     }[];
 

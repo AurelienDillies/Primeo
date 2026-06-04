@@ -10,8 +10,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './forms-register.css',
 })
 export class FormsRegister {
-  firstname: string = '';
-  lastname: string = '';
+  first_name: string = '';
+  last_name: string = '';
   email: string = '';
   password: string = '';
   role: string = '';
@@ -20,8 +20,8 @@ export class FormsRegister {
 
   onSubmit() {
     const user = {
-      firstname: this.firstname,
-      lastname: this.lastname,
+      first_name: this.first_name,
+      last_name: this.last_name,
       email: this.email,
       password: this.password,
       role: this.role,
