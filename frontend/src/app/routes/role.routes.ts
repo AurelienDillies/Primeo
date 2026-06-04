@@ -8,6 +8,8 @@ import { Messages } from '../pages/messages/messages';
 import { Profile } from '../pages/profile/profile';
 import { Progress } from '../pages/progress/progress';
 import { Users } from '../pages/users/users';
+import { CourseDetails } from '../pages/course-details/course-details';
+import { ActivityDetails } from '../pages/activity-details/activity-details';
 
 const ALL_ROLES = ['ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT', 'ROLE_STUDENT'];
 const TEACHER_STUDENT_ADMIN = ['ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT'];
@@ -40,10 +42,22 @@ export const roleRoutes: Routes = [
     data: { roles: TEACHER_STUDENT_ADMIN },
   },
   {
+    path: 'cours-details',
+    component: CourseDetails,
+    canActivate: [roleGuard],
+    data: { roles: TEACHER_STUDENT_ADMIN }
+  },
+  {
     path: 'activites',
     component: Activities,
     canActivate: [roleGuard],
     data: { roles: TEACHER_STUDENT_ADMIN },
+  },
+  {
+    path: 'activite-details',
+    component: ActivityDetails,
+    canActivate: [roleGuard],
+    data: { roles: TEACHER_STUDENT_ADMIN }
   },
   {
     path: 'suivi',

@@ -26,7 +26,7 @@ export class FormsLogin {
         const roles = this.userService.getUserRoles();
 
         if (roles.includes('ROLE_ADMIN')) {
-          this.router.navigate(['/classes']);
+          this.router.navigate(['/utilisateurs']);
           return;
         }
 
