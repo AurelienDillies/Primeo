@@ -4,9 +4,11 @@
   </div>
 
   @if (user) {
-    <p><strong>Prénom :</strong> <span>{{ user.first_name }}</span></p>
-    <p><strong>Nom :</strong> <span>{{ user.last_name }}</span></p>
-    <p><strong>Email :</strong> <span>{{ user.email }}</span></p>
+    <div class="info">
+      <p class="name">Prénom : <span>{{ user.first_name }} </span></p>
+      <p class="name">Nom : <span>{{ user.last_name }}</span></p>
+      <p class="name">Email : <span>{{ user.email }}</span></p>
+    </div>
 
     <app-forms-profile [user]="user"></app-forms-profile>
   }
