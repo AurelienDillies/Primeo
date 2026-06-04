@@ -1,0 +1,1 @@
+{"version":2,"defects":{"App\\Tests\\Integration\\CourseIntegrationTest::testPersistCourse":8,"App\\Tests\\Integration\\StudentProgressIntegrationTest::testStudentProgressRelation":7},"times":{"App\\Tests\\Integration\\CourseIntegrationTest::testPersistCourse":0.01,"App\\Tests\\Integration\\StudentProgressIntegrationTest::testStudentProgressRelation":0.006}}
