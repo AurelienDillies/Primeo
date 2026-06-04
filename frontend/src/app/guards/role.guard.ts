@@ -20,3 +20,31 @@ export const roleGuard: CanActivateFn = (route) => {
 
   return isAllowed ? true : router.createUrlTree(['/profil']);
 };
+
+export const guestGuard: CanActivateFn = () => {
+  const userService = inject(UserService);
+  const router = inject(Router);
+
+  if (userService.isAuthenticated()) {
+    const userRoles = userService.getUserRoles();
+
+    if (userRoles.includes('ROLE_ADMIN')) {
+      return router.createUrlTree(['/utilisateurs']);
+    }
+
+    if (
+      userRoles.includes('ROLE_TEACHER') ||
+      userRoles.includes('ROLE_STUDENT')
+    ) {
+      return router.createUrlTree(['/classes']);
+    }
+
+    if (userRoles.includes('ROLE_PARENT')) {
+      return router.createUrlTree(['/enfants']);
+    }
+
+    return router.createUrlTree(['/profil']);
+  }
+
+  return true;
+};

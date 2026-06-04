@@ -58,7 +58,7 @@ export const roleRoutes: Routes = [
     data: { roles: PARENT_ADMIN },
   },
   {
-    path: 'utilisateur',
+    path: 'utilisateurs',
     component: Users,
     canActivate: [roleGuard],
     data: { roles: ADMIN },
