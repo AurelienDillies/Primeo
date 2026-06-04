@@ -1,9 +1,34 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { UserService } from '../../services/user-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forms-profile',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './forms-profile.html',
   styleUrl: './forms-profile.css',
 })
-export class FormsProfile {}
+export class FormsProfile {
+  firstname: string = '';
+  lastname: string = '';
+  email: string = '';
+  password: string = '';
+
+    constructor(private userService: UserService, private router: Router) {}
+
+  onSubmit() {
+    const user = {
+      firstname: this.firstname,
+      lastname: this.lastname,
+      email: this.email,
+      password: this.password,
+    };
+    this.userService.update(user).subscribe({
+      next: () => {
+        console.log('Profile updated successfully');
+        this.router.navigate(['/profile']);
+      }
+    });
+  }
+}
