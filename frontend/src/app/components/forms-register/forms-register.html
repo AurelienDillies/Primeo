@@ -2,16 +2,45 @@
 
 	<div class="field">
 
+		<label class="label" for="firstname">Prénom</label>
+		<input class="input" id="firstname" type="text" [(ngModel)]="firstname" name="firstname"
+			autocomplete="given-name" placeholder="Jean" required />
+
+	</div>
+
+	<div class="field">
+
+		<label class="label" for="lastname">Nom</label>
+		<input class="input" id="lastname" type="text" [(ngModel)]="lastname" name="lastname" autocomplete="lastname"
+			placeholder="Dupont" required />
+
+	</div>
+
+	<div class="field">
+
 		<label class="label" for="email">Email</label>
-		<input class="input" id="email" type="email" [(ngModel)]="email" name="email" autocomplete="email" placeholder="exemple@mail.com" required />
+		<input class="input" id="email" type="email" [(ngModel)]="email" name="email" autocomplete="email"
+			placeholder="exemple@mail.com" required />
 
 	</div>
 
 	<div class="field">
 
 		<label class="label" for="password">Mot de passe</label>
-		<input class="input" id="password" type="password" [(ngModel)]="password" name="password" autocomplete="new-password" placeholder="Mot de passe" required />
+		<input class="input" id="password" type="password" [(ngModel)]="password" name="password"
+			autocomplete="new-password" placeholder="Mot de passe" required />
 
+	</div>
+
+	<div class="field">
+
+		<label class="label" for="role">Rôle</label>
+		<select class="input" id="role" [(ngModel)]="role" name="role" required>
+			<option value="" disabled selected>Choisissez un rôle</option>
+			<option value="student">Étudiant</option>
+			<option value="parent">Parent</option>
+			<option value="teacher">Enseignant</option>
+		</select>
 	</div>
 
 	<button class="btn" type="submit">S'inscrire</button>

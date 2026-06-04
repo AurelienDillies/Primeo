@@ -10,6 +10,7 @@ import { Progress } from '../pages/progress/progress';
 import { Users } from '../pages/users/users';
 import { CourseDetails } from '../pages/course-details/course-details';
 import { ActivityDetails } from '../pages/activity-details/activity-details';
+import { Register } from '../pages/register/register';
 
 const ALL_ROLES = ['ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT', 'ROLE_STUDENT'];
 const TEACHER_STUDENT_ADMIN = ['ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT'];
@@ -74,6 +75,12 @@ export const roleRoutes: Routes = [
   {
     path: 'utilisateurs',
     component: Users,
+    canActivate: [roleGuard],
+    data: { roles: ADMIN },
+  },
+  {
+    path: 'inscription',
+    component: Register,
     canActivate: [roleGuard],
     data: { roles: ADMIN },
   }

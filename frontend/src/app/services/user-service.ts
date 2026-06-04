@@ -22,8 +22,12 @@ export class UserService {
     return this.http.post<{ token: string }>(`${this.apiUrl}/login`, { email, password });
   }
 
-  register(user: Pick<User, 'email' | 'password'>) {
+  register(user: Pick<User, 'firstname' | 'lastname' | 'email' | 'password' | 'role'>) {
     return this.http.post(`${this.apiUrl}/register`, user);
+  }
+
+  update(user: Pick<User, 'firstname' | 'lastname' | 'email' | 'password'>) {
+    return this.http.put(`${this.apiUrl}/profile`, user);
   }
 
   logout(): void {
@@ -31,7 +35,6 @@ export class UserService {
     this.user = null;
     this.router.navigate(['/connexion']);
   }
-
 
   setToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);

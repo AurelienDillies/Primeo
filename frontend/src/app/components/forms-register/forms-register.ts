@@ -10,21 +10,27 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './forms-register.css',
 })
 export class FormsRegister {
+  firstname: string = '';
+  lastname: string = '';
   email: string = '';
   password: string = '';
+  role: string = '';
 
   constructor(private userService: UserService, private router: Router) {}
 
   onSubmit() {
     const user = {
+      firstname: this.firstname,
+      lastname: this.lastname,
       email: this.email,
       password: this.password,
+      role: this.role,
     };
 
     this.userService.register(user).subscribe({
       next: () => {
         console.log('Registration successful');
-        this.router.navigate(['/connexion']);
+        this.router.navigate(['/utilsateurs']);
       },
       error: err => console.error('Registration failed', err)
     });
