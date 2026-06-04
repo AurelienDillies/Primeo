@@ -5,8 +5,7 @@ export interface User {
   lastname: string;
   firstname: string;
   email: string;
-  password: string;
-  role: string;
+  roles: string[];
   created_at: Date;
   children: Student[];
 }
