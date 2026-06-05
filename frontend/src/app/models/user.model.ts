@@ -8,5 +8,4 @@ export interface User {
   password: string;
   roles: string[];
   created_at: Date;
-  children: Student[];
 }

@@ -2,7 +2,9 @@
     <div class="text">
         <h1 class="card-title">Sélection de la classe</h1>
     </div>
-
-    <app-classe></app-classe>
+    @for (item of classes; track $index) {
+        <app-classe [Classe]="item"></app-classe>
+    }
+    
 
 </div>  

@@ -8,7 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity]
-class Parents extends User{
+class Parents extends User
+{
     /**
      * @var Collection<int, Student>
      */
