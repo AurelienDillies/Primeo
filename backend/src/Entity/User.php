@@ -18,37 +18,38 @@ use Symfony\Component\Serializer\Attribute\Groups;
 #[ORM\DiscriminatorMap([
     'user' => User::class,
     'teacher' => Teacher::class,
-    'student' => Student::class
+    'student' => Student::class,
+    'parents' => Parents::class
 ])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read'])]
     private ?string $email = null;
 
     #[ORM\Column]
-    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read'])]
     private array $roles = [];
 
     #[ORM\Column]
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read'])]
     private ?string $last_name = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read'])]
     private ?string $first_name = null;
 
     #[ORM\Column]
-    #[Groups(['user:read', 'teacher:read', 'student:read', 'classe:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read'])]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'sender')]
@@ -59,18 +60,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'user')]
     private Collection $notifications;
-
-    #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'parents')]
-    #[Groups(['user:read', 'classe:read'])]
-    private Collection $children;
-
+   
     public function __construct()
     {
         $this->created_at = new \DateTimeImmutable();
         $this->sentMessages = new ArrayCollection();
         $this->receivedMessages = new ArrayCollection();
         $this->notifications = new ArrayCollection();
-        $this->children = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -150,29 +147,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->created_at = $created_at;
         return $this;
     }
-
-    /**
-     * @return Collection<int, Student>
-     */
-    public function getChildren(): Collection
-    {
-        return $this->children;
-    }
-
-    public function addChild(Student $child): static
-    {
-        if (!$this->children->contains($child)) {
-            $this->children->add($child);
-        }
-        return $this;
-    }
-
-    public function removeChild(Student $child): static
-    {
-        $this->children->removeElement($child);
-        return $this;
-    }
-
+   
     public function getSentMessages(): Collection { return $this->sentMessages; }
     public function getReceivedMessages(): Collection { return $this->receivedMessages; }
     public function getNotifications(): Collection { return $this->notifications; }

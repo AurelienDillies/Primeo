@@ -1,4 +1,4 @@
-@startuml
+@startuml Diagramme de classe 
 
 ' ======================
 ' Classes
@@ -20,6 +20,10 @@ class Teacher extends User {
 
 class Student extends User {
   -enrollment_date : date
+}
+
+class Parent extends User {
+  - children : Student []
 }
 
 class Class {

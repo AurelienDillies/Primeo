@@ -15,23 +15,23 @@ class Course
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?string $courseTitle = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?string $courseDescription = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?string $courseResourcefile = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?string $courseVideoUrl = null;
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
@@ -41,7 +41,7 @@ class Course
      * @var Collection<int, Activity>
      */
     #[ORM\OneToMany(targetEntity: Activity::class, mappedBy: 'course')]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private Collection $activities;
 
     /**
@@ -55,7 +55,7 @@ class Course
      * @var Collection<int, Report>
      */
     #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'course')]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private Collection $reports;
 
     public function __construct()

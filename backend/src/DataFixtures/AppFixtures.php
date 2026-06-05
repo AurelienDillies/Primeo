@@ -12,6 +12,7 @@ use App\Entity\Progress;
 use App\Entity\Message;
 use App\Entity\Attachment;
 use App\Entity\Notification;
+use App\Entity\Parents;
 use App\Entity\Report;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -35,6 +36,7 @@ class AppFixtures extends Fixture
         $user_teacher->setLastName('Smith');
         $user_teacher->setFirstName('Jane');
         $user_teacher->setRoles(['ROLE_TEACHER']);
+        $user_teacher->setSubject('Mathématiques');
 
         $user_teacher2 = new Teacher();
         $user_teacher2->setEmail('teacher2@digiforma.com');
@@ -42,6 +44,7 @@ class AppFixtures extends Fixture
         $user_teacher2->setLastName('Johnson');
         $user_teacher2->setFirstName('Robert');
         $user_teacher2->setRoles(['ROLE_TEACHER']);
+        $user_teacher2->setSubject('Français');
 
         $user_student = new Student();
         $user_student->setEmail('student@digiforma.com');
@@ -64,19 +67,22 @@ class AppFixtures extends Fixture
         $user_student3->setFirstName('Sophie');
         $user_student3->setRoles(['ROLE_STUDENT']);
 
-        $user_parent = new User();  
+        $user_parent = new Parents();  
         $user_parent->setEmail('parent@digiforma.com');
         $user_parent->setPassword(password_hash('parent', PASSWORD_BCRYPT));
         $user_parent->setLastName('Wilson');
         $user_parent->setFirstName('Michael');
         $user_parent->setRoles(['ROLE_PARENT']);
+        $user_parent->addChild($user_student);
+        $user_parent->addChild($user_student2);
 
-        $user_parent2 = new User();  
+        $user_parent2 = new Parents();  
         $user_parent2->setEmail('parent2@digiforma.com');
         $user_parent2->setPassword(password_hash('parent2', PASSWORD_BCRYPT));
         $user_parent2->setLastName('Davis');
         $user_parent2->setFirstName('Lisa');
         $user_parent2->setRoles(['ROLE_PARENT']);
+        $user_parent2->addChild($user_student3);
 
         $manager->persist($user_admin);
         $manager->persist($user_teacher);
@@ -92,9 +98,13 @@ class AppFixtures extends Fixture
         $classe1->setClassName('Classe 10A');
         $classe1->setClassDescription('Classe de mathématiques et sciences niveau 10');
         $classe1->setTeacher($user_teacher);
+        $user_teacher->addTeachingClass($classe1);
         $classe1->addStudent($user_student);
         $classe1->addStudent($user_student2);
         $classe1->addStudent($user_student3);
+        $user_student->addClass($classe1);
+        $user_student2->addClass($classe1);
+        $user_student3->addClass($classe1);
 
         $classe2 = new Classe();
         $classe2->setClassName('Classe 11B');
@@ -102,9 +112,19 @@ class AppFixtures extends Fixture
         $classe2->setTeacher($user_teacher2);
         $classe2->addStudent($user_student);
         $classe2->addStudent($user_student2);
+        $user_teacher2->addTeachingClass($classe2);
+        $classe2->addStudent($user_student);
+        $classe2->addStudent($user_student2);
+        $user_student->addClass($classe2);
+        $user_student2->addClass($classe2);
 
         $manager->persist($classe1);
         $manager->persist($classe2);
+        $manager->persist($user_teacher);
+        $manager->persist($user_teacher2);
+        $manager->persist($user_student);
+        $manager->persist($user_student2);
+        $manager->persist($user_student3);
 
         // ===== COURSES =====
         $course1 = new Course();

@@ -25,13 +25,13 @@ class Student extends User
      * @var Collection<int, Progress>
      */
     #[ORM\OneToMany(targetEntity: Progress::class, mappedBy: 'student')]
-    #[Groups(['student:read', 'classe:read'])]
+    #[Groups(['student:read'])]
     private Collection $progresses;
 
     /**
-     * @var Collection<int, User>
+     * @var Collection<int, Parents>
      */
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'children')]
+    #[ORM\ManyToMany(targetEntity: Parents::class, mappedBy: 'children')]
     #[Groups(['student:read'])]
     private Collection $parents;
 
@@ -112,14 +112,14 @@ class Student extends User
     }
 
     /**
-     * @return Collection<int, User>
+     * @return Collection<int, Parents>
      */
     public function getParents(): Collection
     {
         return $this->parents;
     }
 
-    public function addParent(User $parent): static
+    public function addParent(Parents $parent): static
     {
         if (!$this->parents->contains($parent)) {
             $this->parents->add($parent);
@@ -129,7 +129,7 @@ class Student extends User
         return $this;
     }
 
-    public function removeParent(User $parent): static
+    public function removeParent(Parents $parent): static
     {
         if ($this->parents->removeElement($parent)) {
             $parent->removeChild($this);

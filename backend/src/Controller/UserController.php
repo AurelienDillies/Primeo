@@ -37,6 +37,8 @@ class UserController extends AbstractController
             $groups = 'student:read';
         } elseif (in_array('ROLE_TEACHER', $roles)) {
             $groups = 'teacher:read';
+        } elseif (in_array('ROLE_PARENT', $roles)) {
+            $groups = 'parent:read';
         }
 
         return $this->json($user, 200, [], ['groups' => $groups]);
