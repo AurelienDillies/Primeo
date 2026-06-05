@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4ee5c1d9b4254bbcdcacceabae704c4",
+    "content-hash": "d09155cc951ef9d5e1b801df671401f1",
     "packages": [
         {
             "name": "composer/semver",
@@ -712,30 +712,29 @@
         },
         {
             "name": "doctrine/instantiator",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "c6222283fa3f4ac679f8b9ced9a4e23f163e80d0"
+                "reference": "23da848e1a2308728fe5fdddabf4be17ff9720c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/c6222283fa3f4ac679f8b9ced9a4e23f163e80d0",
-                "reference": "c6222283fa3f4ac679f8b9ced9a4e23f163e80d0",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/23da848e1a2308728fe5fdddabf4be17ff9720c7",
+                "reference": "23da848e1a2308728fe5fdddabf4be17ff9720c7",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.1"
+                "php": "^8.4"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^11",
+                "doctrine/coding-standard": "^14",
                 "ext-pdo": "*",
                 "ext-phar": "*",
                 "phpbench/phpbench": "^1.2",
-                "phpstan/phpstan": "^1.9.4",
-                "phpstan/phpstan-phpunit": "^1.3",
-                "phpunit/phpunit": "^9.5.27",
-                "vimeo/psalm": "^5.4"
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpunit/phpunit": "^10.5.58"
             },
             "type": "library",
             "autoload": {
@@ -762,7 +761,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/instantiator/issues",
-                "source": "https://github.com/doctrine/instantiator/tree/2.0.0"
+                "source": "https://github.com/doctrine/instantiator/tree/2.1.0"
             },
             "funding": [
                 {
@@ -778,7 +777,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-30T00:23:10+00:00"
+            "time": "2026-01-05T06:47:08+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -1558,16 +1557,16 @@
         },
         {
             "name": "nelmio/api-doc-bundle",
-            "version": "v5.10.2",
+            "version": "v5.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "84888f8914670868d853b1a3468243e6de29fcf2"
+                "reference": "e6b6d3f4e413f8f9a78b8470a082b9e4ffb49533"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/84888f8914670868d853b1a3468243e6de29fcf2",
-                "reference": "84888f8914670868d853b1a3468243e6de29fcf2",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/e6b6d3f4e413f8f9a78b8470a082b9e4ffb49533",
+                "reference": "e6b6d3f4e413f8f9a78b8470a082b9e4ffb49533",
                 "shasum": ""
             },
             "require": {
@@ -1669,7 +1668,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nelmio/NelmioApiDocBundle/issues",
-                "source": "https://github.com/nelmio/NelmioApiDocBundle/tree/v5.10.2"
+                "source": "https://github.com/nelmio/NelmioApiDocBundle/tree/v5.10.3"
             },
             "funding": [
                 {
@@ -1677,7 +1676,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-05-08T12:08:58+00:00"
+            "time": "2026-06-01T07:56:07+00:00"
         },
         {
             "name": "nelmio/cors-bundle",
@@ -3867,16 +3866,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v2.10.0",
+            "version": "v2.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "9cd384775973eabbf6e8b05784dda279fc67c28d"
+                "reference": "4a6d98eea3ebc7f68d82810cb682eedca2649e99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/9cd384775973eabbf6e8b05784dda279fc67c28d",
-                "reference": "9cd384775973eabbf6e8b05784dda279fc67c28d",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/4a6d98eea3ebc7f68d82810cb682eedca2649e99",
+                "reference": "4a6d98eea3ebc7f68d82810cb682eedca2649e99",
                 "shasum": ""
             },
             "require": {
@@ -3889,9 +3888,9 @@
             },
             "require-dev": {
                 "composer/composer": "^2.1",
-                "symfony/dotenv": "^6.4|^7.4|^8.0",
+                "phpunit/phpunit": "^12.4",
+                "symfony/dotenv": "^6.4.41|^7.4.13|^8.0.13",
                 "symfony/filesystem": "^6.4|^7.4|^8.0",
-                "symfony/phpunit-bridge": "^6.4|^7.4|^8.0",
                 "symfony/process": "^6.4|^7.4|^8.0"
             },
             "type": "composer-plugin",
@@ -3916,7 +3915,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v2.10.0"
+                "source": "https://github.com/symfony/flex/tree/v2.11.0"
             },
             "funding": [
                 {
@@ -3936,7 +3935,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-11-16T09:38:19+00:00"
+            "time": "2026-05-29T17:25:22+00:00"
         },
         {
             "name": "symfony/form",
@@ -6967,16 +6966,16 @@
         },
         {
             "name": "symfony/stimulus-bundle",
-            "version": "v2.35.0",
+            "version": "v2.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stimulus-bundle.git",
-                "reference": "05af0259f201dbbd15c103bea289989a4b483b5b"
+                "reference": "377a3d1ec5834631a7db53bd275276ff3c5b49df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/stimulus-bundle/zipball/05af0259f201dbbd15c103bea289989a4b483b5b",
-                "reference": "05af0259f201dbbd15c103bea289989a4b483b5b",
+                "url": "https://api.github.com/repos/symfony/stimulus-bundle/zipball/377a3d1ec5834631a7db53bd275276ff3c5b49df",
+                "reference": "377a3d1ec5834631a7db53bd275276ff3c5b49df",
                 "shasum": ""
             },
             "require": {
@@ -7016,7 +7015,7 @@
                 "symfony-ux"
             ],
             "support": {
-                "source": "https://github.com/symfony/stimulus-bundle/tree/v2.35.0"
+                "source": "https://github.com/symfony/stimulus-bundle/tree/v2.36.0"
             },
             "funding": [
                 {
@@ -7036,7 +7035,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-03-22T22:21:50+00:00"
+            "time": "2026-05-06T04:31:36+00:00"
         },
         {
             "name": "symfony/stopwatch",
@@ -7667,16 +7666,16 @@
         },
         {
             "name": "symfony/ux-turbo",
-            "version": "v2.35.0",
+            "version": "v2.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-turbo.git",
-                "reference": "4309a4299f5f1b9b7ce4c13ed6d1b77a5472c216"
+                "reference": "c16f0fdcc8eb22d80a02949447e561c145fa1bc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-turbo/zipball/4309a4299f5f1b9b7ce4c13ed6d1b77a5472c216",
-                "reference": "4309a4299f5f1b9b7ce4c13ed6d1b77a5472c216",
+                "url": "https://api.github.com/repos/symfony/ux-turbo/zipball/c16f0fdcc8eb22d80a02949447e561c145fa1bc8",
+                "reference": "c16f0fdcc8eb22d80a02949447e561c145fa1bc8",
                 "shasum": ""
             },
             "require": {
@@ -7746,7 +7745,7 @@
                 "turbo-stream"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-turbo/tree/v2.35.0"
+                "source": "https://github.com/symfony/ux-turbo/tree/v2.36.0"
             },
             "funding": [
                 {
@@ -7766,7 +7765,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-03T05:13:59+00:00"
+            "time": "2026-05-06T04:31:36+00:00"
         },
         {
             "name": "symfony/validator",
@@ -8279,16 +8278,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.27.0",
+            "version": "v3.27.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "04ae1bfe9463c816cf72ca0abe7eae2c77a9a9ed"
+                "reference": "ae2071bffb38f04847fc0864d730c94b9cb8ab74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/04ae1bfe9463c816cf72ca0abe7eae2c77a9a9ed",
-                "reference": "04ae1bfe9463c816cf72ca0abe7eae2c77a9a9ed",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/ae2071bffb38f04847fc0864d730c94b9cb8ab74",
+                "reference": "ae2071bffb38f04847fc0864d730c94b9cb8ab74",
                 "shasum": ""
             },
             "require": {
@@ -8343,7 +8342,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.27.0"
+                "source": "https://github.com/twigphp/Twig/tree/v3.27.1"
             },
             "funding": [
                 {
@@ -8355,7 +8354,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-27T13:05:51+00:00"
+            "time": "2026-05-30T17:09:26+00:00"
         },
         {
             "name": "webmozart/assert",

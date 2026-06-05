@@ -14,6 +14,14 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/api/classes')]
 class ClasseController extends AbstractController
 {
+    #[Route('/', name: 'get_classes', methods: ['GET'])]
+    public function getClasses(ClasseRepository $classeRepository, SerializerInterface $serializer): JsonResponse
+    {
+        $classes = $classeRepository->findAll();
+        $json = $serializer->serialize($classes, 'json', ['groups' => 'classe:read']);
+        return new JsonResponse($json, 200, [], true);
+    }
+    
     #[Route('/{id}', name: 'get_class', methods: ['GET'])]
     public function getClasse(ClasseRepository $classeRepository, SerializerInterface $serializer, int $id): JsonResponse
     {

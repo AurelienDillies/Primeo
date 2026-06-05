@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Entity\Teacher;
+use App\Entity\Student;
 use App\Entity\Classe;
 use App\Entity\Course;
 use App\Entity\Activity;
@@ -10,6 +12,7 @@ use App\Entity\Progress;
 use App\Entity\Message;
 use App\Entity\Attachment;
 use App\Entity\Notification;
+use App\Entity\Parents;
 use App\Entity\Report;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -27,54 +30,59 @@ class AppFixtures extends Fixture
         $user_admin->setFirstName('John');
         $user_admin->setRoles(['ROLE_ADMIN']);
 
-        $user_teacher = new User();
+        $user_teacher = new Teacher();
         $user_teacher->setEmail('teacher@digiforma.com');
         $user_teacher->setPassword(password_hash('teacher', PASSWORD_BCRYPT));
         $user_teacher->setLastName('Smith');
         $user_teacher->setFirstName('Jane');
         $user_teacher->setRoles(['ROLE_TEACHER']);
+        $user_teacher->setSubject('Mathématiques');
 
-        $user_teacher2 = new User();
+        $user_teacher2 = new Teacher();
         $user_teacher2->setEmail('teacher2@digiforma.com');
         $user_teacher2->setPassword(password_hash('teacher2', PASSWORD_BCRYPT));
         $user_teacher2->setLastName('Johnson');
         $user_teacher2->setFirstName('Robert');
         $user_teacher2->setRoles(['ROLE_TEACHER']);
+        $user_teacher2->setSubject('Français');
 
-        $user_student = new User();
+        $user_student = new Student();
         $user_student->setEmail('student@digiforma.com');
         $user_student->setPassword(password_hash('student', PASSWORD_BCRYPT));
         $user_student->setLastName('Brown');
         $user_student->setFirstName('Emily');
         $user_student->setRoles(['ROLE_STUDENT']);
 
-        $user_student2 = new User();
+        $user_student2 = new Student();
         $user_student2->setEmail('student2@digiforma.com');
         $user_student2->setPassword(password_hash('student2', PASSWORD_BCRYPT));
         $user_student2->setLastName('Garcia');
         $user_student2->setFirstName('Carlos');
         $user_student2->setRoles(['ROLE_STUDENT']);
 
-        $user_student3 = new User();
+        $user_student3 = new Student();
         $user_student3->setEmail('student3@digiforma.com');
         $user_student3->setPassword(password_hash('student3', PASSWORD_BCRYPT));
         $user_student3->setLastName('Martin');
         $user_student3->setFirstName('Sophie');
         $user_student3->setRoles(['ROLE_STUDENT']);
 
-        $user_parent = new User();  
+        $user_parent = new Parents();  
         $user_parent->setEmail('parent@digiforma.com');
         $user_parent->setPassword(password_hash('parent', PASSWORD_BCRYPT));
         $user_parent->setLastName('Wilson');
         $user_parent->setFirstName('Michael');
         $user_parent->setRoles(['ROLE_PARENT']);
+        $user_parent->addChild($user_student);
+        $user_parent->addChild($user_student2);
 
-        $user_parent2 = new User();  
+        $user_parent2 = new Parents();  
         $user_parent2->setEmail('parent2@digiforma.com');
         $user_parent2->setPassword(password_hash('parent2', PASSWORD_BCRYPT));
         $user_parent2->setLastName('Davis');
         $user_parent2->setFirstName('Lisa');
         $user_parent2->setRoles(['ROLE_PARENT']);
+        $user_parent2->addChild($user_student3);
 
         $manager->persist($user_admin);
         $manager->persist($user_teacher);
@@ -90,9 +98,13 @@ class AppFixtures extends Fixture
         $classe1->setClassName('Classe 10A');
         $classe1->setClassDescription('Classe de mathématiques et sciences niveau 10');
         $classe1->setTeacher($user_teacher);
+        $user_teacher->addTeachingClass($classe1);
         $classe1->addStudent($user_student);
         $classe1->addStudent($user_student2);
         $classe1->addStudent($user_student3);
+        $user_student->addClass($classe1);
+        $user_student2->addClass($classe1);
+        $user_student3->addClass($classe1);
 
         $classe2 = new Classe();
         $classe2->setClassName('Classe 11B');
@@ -100,9 +112,19 @@ class AppFixtures extends Fixture
         $classe2->setTeacher($user_teacher2);
         $classe2->addStudent($user_student);
         $classe2->addStudent($user_student2);
+        $user_teacher2->addTeachingClass($classe2);
+        $classe2->addStudent($user_student);
+        $classe2->addStudent($user_student2);
+        $user_student->addClass($classe2);
+        $user_student2->addClass($classe2);
 
         $manager->persist($classe1);
         $manager->persist($classe2);
+        $manager->persist($user_teacher);
+        $manager->persist($user_teacher2);
+        $manager->persist($user_student);
+        $manager->persist($user_student2);
+        $manager->persist($user_student3);
 
         // ===== COURSES =====
         $course1 = new Course();
@@ -175,43 +197,43 @@ class AppFixtures extends Fixture
         // ===== PROGRESS =====
         $progress1 = new Progress();
         $progress1->setStudent($user_student);
-        $progress1->setCoucourse($course1);
+        $progress1->setCourse($course1);
         $progress1->setProgressPercent(75.5);
         $progress1->setProgressGrade('B+');
 
         $progress2 = new Progress();
         $progress2->setStudent($user_student);
-        $progress2->setCoucourse($course2);
+        $progress2->setCourse($course2);
         $progress2->setProgressPercent(82.0);
         $progress2->setProgressGrade('A-');
 
         $progress3 = new Progress();
         $progress3->setStudent($user_student2);
-        $progress3->setCoucourse($course1);
+        $progress3->setCourse($course1);
         $progress3->setProgressPercent(65.0);
         $progress3->setProgressGrade('C+');
 
         $progress4 = new Progress();
         $progress4->setStudent($user_student2);
-        $progress4->setCoucourse($course2);
+        $progress4->setCourse($course2);
         $progress4->setProgressPercent(70.5);
         $progress4->setProgressGrade('B');
 
         $progress5 = new Progress();
         $progress5->setStudent($user_student3);
-        $progress5->setCoucourse($course1);
+        $progress5->setCourse($course1);
         $progress5->setProgressPercent(88.0);
         $progress5->setProgressGrade('A');
 
         $progress6 = new Progress();
         $progress6->setStudent($user_student);
-        $progress6->setCoucourse($course3);
+        $progress6->setCourse($course3);
         $progress6->setProgressPercent(78.0);
         $progress6->setProgressGrade('B+');
 
         $progress7 = new Progress();
         $progress7->setStudent($user_student2);
-        $progress7->setCoucourse($course3);
+        $progress7->setCourse($course3);
         $progress7->setProgressPercent(85.0);
         $progress7->setProgressGrade('A-');
 

@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ClasseRepository::class)]
 class Classe
@@ -14,33 +15,40 @@ class Classe
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?string $className = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?string $classDescription = null;
 
     /**
      * @var Collection<int, Course>
      */
     #[ORM\OneToMany(targetEntity: Course::class, mappedBy: 'classe')]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private Collection $courses;
 
     #[ORM\ManyToOne(inversedBy: 'teachingClasses')]
-    private ?User $teacher = null;
+    #[Groups(['student:read', 'classe:read'])]
+    private ?Teacher $teacher = null;
 
     /**
-     * @var Collection<int, User>
+     * @var Collection<int, Student>
      */
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'classes')]
+    #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'classes')]
+    #[Groups(['teacher:read', 'classe:read'])]
     private Collection $students;
 
     /**
      * @var Collection<int, Report>
      */
     #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'classe')]
+    #[Groups(['classe:read', 'student:read', 'teacher:read'])]
     private Collection $reports;
 
     public function __construct()
@@ -109,12 +117,12 @@ class Classe
         return $this;
     }
 
-    public function getTeacher(): ?User
+    public function getTeacher(): ?Teacher
     {
         return $this->teacher;
     }
 
-    public function setTeacher(?User $teacher): static
+    public function setTeacher(?Teacher $teacher): static
     {
         $this->teacher = $teacher;
 
@@ -122,14 +130,14 @@ class Classe
     }
 
     /**
-     * @return Collection<int, User>
+     * @return Collection<int, Student>
      */
     public function getStudents(): Collection
     {
         return $this->students;
     }
 
-    public function addStudent(User $student): static
+    public function addStudent(Student $student): static
     {
         if (!$this->students->contains($student)) {
             $this->students->add($student);
@@ -138,7 +146,7 @@ class Classe
         return $this;
     }
 
-    public function removeStudent(User $student): static
+    public function removeStudent(Student $student): static
     {
         $this->students->removeElement($student);
 

@@ -23,6 +23,7 @@ class AuthController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $user = $userRepository->findOneBy(['email' => $data['email'] ?? null]);
+        
 
         if (!$user || !password_verify($data['password'], $user->getPassword())) {
             return $this->json(['error' => 'Identifiants invalides'], 401);
@@ -30,6 +31,7 @@ class AuthController extends AbstractController
 
         // ✅ IMPORTANT : on génère le token avec un tableau (payload)
         $token = $jwtService->generate([
+            'id' => $user->getId(),
             'email' => $user->getEmail(),
             'roles' => $user->getRoles(),
         ]);
@@ -56,10 +58,20 @@ class AuthController extends AbstractController
         }
 
         $user = new User();
-        $user->setEmail($data['email']);
-        $user->setPassword($passwordHasher->hashPassword($user, $data['password']));
         $user->setFirstName($data['first_name'] ?? null);
         $user->setLastName($data['last_name'] ?? null);
+        $user->setEmail($data['email']);
+        $user->setPassword($passwordHasher->hashPassword($user, $data['password']));
+        switch ($data['role'] ?? 'student') {
+            case 'parent':
+                $user->setRoles(['ROLE_PARENT']);
+                break;
+            case 'teacher':
+                $user->setRoles(['ROLE_TEACHER']);
+                break;
+            default:
+                $user->setRoles(['ROLE_STUDENT']);
+        }
 
         $entityManager->persist($user);
         $entityManager->flush();
@@ -75,23 +87,5 @@ class AuthController extends AbstractController
     public function logout(): JsonResponse
     {
         return $this->json(['message' => 'Vous êtes bien déconnecté']);
-    }
-
-    #[Route('/api/users', name: 'api_users', methods: ['GET'])]
-    public function listUsers(UserRepository $userRepository): JsonResponse
-    {
-        $users = $userRepository->findAll();
-
-        $data = array_map(function ($user) {
-            return [
-                'id' => $user->getId(),
-                'email' => $user->getEmail(),
-                'first_name' => $user->getFirstName(),
-                'last_name' => $user->getLastName(),
-                'created_at' => $user->getCreatedAt()->format('c'),
-            ];
-        }, $users);
-
-        return $this->json($data);
     }
 }

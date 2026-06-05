@@ -1,18 +1,25 @@
 <header class="site-header">
-            <img src="/logo.png" alt="logo Digiforma" class="brand-logo">
+            <a routerLink="/connexion" class="brand-link">
+                <img src="/logo.png" alt="logo Digiforma" class="brand-logo">
+            </a>
         @if (userService.isAuthenticated()) {
             <nav class="main-nav" aria-label="Navigation principale">
+
+                @if (userService.hasAnyRole(rolesForAdmin)) {
+                    <a routerLink="/utilisateurs" routerLinkActive="current">Utilisateurs</a>
+                }
+                @if (userService.hasAnyRole(rolesForChildren)) {
+                    <a routerLink="/enfants" routerLinkActive="current">Enfants</a>
+                }
                 @if (userService.hasAnyRole(rolesForClasses)) {
                     <a routerLink="/classes" routerLinkActive="current">Classes</a>
                     <a routerLink="/cours" routerLinkActive="current">Cours</a>
                     <a routerLink="/activites" routerLinkActive="current">Activités</a>
                 }
-                @if (userService.hasAnyRole(rolesForChildren)) {
-                    <a routerLink="/enfants" routerLinkActive="current">Enfants</a>
-                }
                 <a routerLink="/suivi" routerLinkActive="current">Suivi</a>
                 <a routerLink="/messagerie" routerLinkActive="current">Messages</a>
             </nav>
+        }
 
             <div class="profile-menu" [class.open]="isMenuOpen">
                 <button
@@ -27,11 +34,15 @@
                     <i class="fa-solid fa-user profile-icon" aria-hidden="true"></i>
                 </button>
                 <div class="profile-dropdown card" id="profile-menu" role="menu">
-                    <a role="menuitem" routerLink="/profil" (click)="closeMenu()">Profil</a>
-                    <button type="button" role="menuitem" class="logout-item" (click)="logout()">
-                        <span>Se déconnecter</span>
-                    </button>
+                    @if (! userService.isAuthenticated()) {
+                        <a role="menuitem" routerLink="/" >Se connecter</a>
+                    }
+                    @if (userService.isAuthenticated()) {
+                        <a role="menuitem" routerLink="/profil" (click)="closeMenu()">Profil</a>
+                        <button type="button" role="menuitem" class="logout-item" (click)="logout()">
+                            <span>Se déconnecter</span>
+                        </button>
+                    }
                 </div>
             </div>
-            }
 </header>

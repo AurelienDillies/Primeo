@@ -22,16 +22,19 @@ export class UserService {
     return this.http.post<{ token: string }>(`${this.apiUrl}/login`, { email, password });
   }
 
-  register(user: Pick<User, 'email' | 'password'>) {
+  register(user: Pick<User, 'first_name' | 'last_name' | 'email' | 'password' | 'roles'>) {
     return this.http.post(`${this.apiUrl}/register`, user);
   }
+
+  update(user: Pick<User, 'first_name' | 'last_name' | 'email' | 'password'>) {
+  return this.http.put<User>(`${this.apiUrl}/profile`, user);
+}
 
   logout(): void {
     this.clearToken();
     this.user = null;
     this.router.navigate(['/connexion']);
   }
-
 
   setToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
@@ -66,5 +69,23 @@ export class UserService {
   hasAnyRole(roles: string[]): boolean {
     const userRoles = this.getUserRoles();
     return roles.some((role) => userRoles.includes(role));
+  }
+  
+  getUserId(): number | null {
+    const token = this.getToken();
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const decoded = jwtDecode<{ id: number }>(token);
+      return decoded.id;
+    } catch {
+      return null;
+    }
+  }
+
+  getUserInfo(id : number) {
+    return this.http.get<User>(`${this.apiUrl}/users/${id}`); // Remplacez {id} par l'ID de l'utilisateur connecté
   }
 }

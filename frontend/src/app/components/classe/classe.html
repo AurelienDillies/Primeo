@@ -2,6 +2,8 @@
 
     <img class="card-img" src="/logo.png" alt="image">
 
+    <h2 class="card-title title-card">{{Classe.className}}</h2>
+
     <div class="btn-action">
         @if (userService.hasAnyRole(rolesForChange)) {
         <button class="btn" routerLink="/cours">Modifier classe</button>

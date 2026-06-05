@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { UserService } from '../../services/user-service';
 
@@ -9,6 +9,7 @@ import { UserService } from '../../services/user-service';
   styleUrl: './classe.css',
 })
 export class Classe {
+  @Input() Classe!: any;
 
   readonly rolesForChange = ['ROLE_ADMIN', 'ROLE_TEACHER'];
 
