@@ -25,3 +25,15 @@
 .sub-title {
     font-size: 1.8em;
 }
+
+.title-card {
+    color: var(--White);
+    margin-top: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}

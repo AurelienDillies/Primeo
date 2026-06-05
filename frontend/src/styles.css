@@ -3,6 +3,7 @@
 @import "./styles/card-container.css";
 @import "./styles/link.css";
 @import "./styles/bouton.css";
+@import "./styles/users-structure.css";
 
 *,
 ::before,
@@ -28,7 +29,4 @@
 body {
     font-family: roboto, sans-serif;
     background-color: var(--Light);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
 }

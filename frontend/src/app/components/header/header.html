@@ -1,5 +1,7 @@
 <header class="site-header">
-            <img src="/logo.png" alt="logo Digiforma" class="brand-logo">
+            <a routerLink="/connexion" class="brand-link">
+                <img src="/logo.png" alt="logo Digiforma" class="brand-logo">
+            </a>
         @if (userService.isAuthenticated()) {
             <nav class="main-nav" aria-label="Navigation principale">
 
