@@ -28,7 +28,4 @@
 body {
     font-family: roboto, sans-serif;
     background-color: var(--Light);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
 }

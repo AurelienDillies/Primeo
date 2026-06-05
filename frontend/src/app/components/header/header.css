@@ -15,6 +15,31 @@
     padding: 25px 50px;
 }
 
+.brand-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 50%;
+}
+
+.brand-link:hover {
+    transform: scale(1.06);
+}
+
+.brand-link:active {
+    transform: scale(1.02);
+}
+
+.brand-link:focus-visible {
+    outline: 2px solid var(--White);
+    outline-offset: 3px;
+}
+
+.profile-trigger:focus-visible {
+    outline: 2px solid var(--White);
+    outline-offset: 3px;
+}
+
 .brand-logo {
     width: 60px;
     height: 60px;
