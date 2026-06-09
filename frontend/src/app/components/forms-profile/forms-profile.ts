@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UserService } from '../../services/user-service';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user-service';
 import { User } from '../../models/user.model';
 
 @Component({
@@ -25,31 +25,35 @@ export class FormsProfile implements OnChanges {
     private router: Router
   ) {}
 
-    ngOnChanges(changes: SimpleChanges): void {
-      if (this.user) {
-        this.first_name = this.user.first_name;
-        this.last_name = this.user.last_name;
-        this.email = this.user.email;
-      }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['user']?.currentValue) {
+      const user = changes['user'].currentValue as User;
+
+      this.first_name = user.first_name;
+      this.last_name = user.last_name;
+      this.email = user.email;
     }
+  }
 
   onSubmit(): void {
-    const payload: any = {
+    const payload: Partial<User> & { password?: string } = {
       first_name: this.first_name,
       last_name: this.last_name,
       email: this.email,
     };
 
-    if (this.password?.trim()) {
+    if (this.password.trim()) {
       payload.password = this.password;
     }
 
-    this.userService.update(payload).subscribe({
+    this.userService.update(payload as any).subscribe({
       next: () => {
         console.log('Profil mis à jour');
         this.router.navigate(['/profile']);
       },
-      error: (err) => console.error(err)
+      error: (err) => {
+        console.error(err);
+      }
     });
   }
 }

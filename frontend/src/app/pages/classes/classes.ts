@@ -1,42 +1,49 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Classe } from '../../components/classe/classe';
 import { Student } from '../../models/student.model';
+import { User } from '../../models/user.model';
 import { UserService } from '../../services/user-service';
+import { CommonModule } from '@angular/common';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
+type ClassesVM = {
+  classes: any[];
+  student: Student | null;
+  teacher: User | null;
+};
 
 @Component({
   selector: 'app-classes',
-  imports: [Classe],
+  standalone: true,
+  imports: [CommonModule, Classe],
   templateUrl: './classes.html',
   styleUrl: './classes.css',
 })
-export class Classes implements OnInit {
-  student: Student | null = null;
-  teacher: any = null;
-  classes: any[] = [];
-  token: string | null = null;
+export class Classes {
 
-  constructor(private userService: UserService, private cdr: ChangeDetectorRef) {}
+  vm$: Observable<ClassesVM>;
 
-  ngOnInit() {
-    this.token = this.userService.getToken();
+  constructor(private userService: UserService) {
+
     const userId = this.userService.getUserId();
-    if (userId) {
-      this.userService.getUserInfo(userId).subscribe((userInfo) => {
-        if (userInfo.roles.includes('ROLE_STUDENT')) {
-          this.student = userInfo as Student;
-          this.classes = this.student.classes;
-          console.log(this.student);
-          console.log(this.classes);
-        } else if (userInfo.roles.includes('ROLE_TEACHER')) {
-          this.teacher = userInfo;
-          this.classes = this.teacher.classes;
-          console.log(this.teacher);
-        }
-        this.cdr.detectChanges();
-      });
-    }
-  }
-    
 
+    this.vm$ = userId
+      ? this.userService.getUserInfo(userId).pipe(
+          map((userInfo: any) => ({
+            classes: userInfo.classes ?? [],
+            student: userInfo.roles.includes('ROLE_STUDENT')
+              ? userInfo as Student
+              : null,
+            teacher: userInfo.roles.includes('ROLE_TEACHER')
+              ? userInfo as User
+              : null
+          }))
+        )
+      : of({
+          classes: [],
+          student: null,
+          teacher: null
+        });
+  }
 }
