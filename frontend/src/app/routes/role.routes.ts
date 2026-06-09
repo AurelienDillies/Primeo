@@ -23,65 +23,76 @@ export const roleRoutes: Routes = [
     component: Profile,
     canActivate: [roleGuard],
     data: { roles: ALL_ROLES },
+    title: 'Profil'
   },
   {
     path: 'messagerie',
     component: Messages,
     canActivate: [roleGuard],
     data: { roles: ALL_ROLES },
+    title: 'Messagerie'
   },
   {
     path: 'classes',
     component: Classes,
     canActivate: [roleGuard],
     data: { roles: TEACHER_STUDENT_ADMIN },
+    title: 'Classes'
   },
   {
     path: 'cours',
     component: Courses,
     canActivate: [roleGuard],
     data: { roles: TEACHER_STUDENT_ADMIN },
+    title: 'Cours'
   },
   {
     path: 'cours-details',
     component: CourseDetails,
     canActivate: [roleGuard],
-    data: { roles: TEACHER_STUDENT_ADMIN }
+    data: { roles: TEACHER_STUDENT_ADMIN },
+    title: 'Détails du cours'
   },
   {
     path: 'activites',
     component: Activities,
     canActivate: [roleGuard],
     data: { roles: TEACHER_STUDENT_ADMIN },
+    title: 'Activités'
   },
   {
     path: 'activite-details',
     component: ActivityDetails,
     canActivate: [roleGuard],
-    data: { roles: TEACHER_STUDENT_ADMIN }
+    data: { roles: TEACHER_STUDENT_ADMIN },
+    title: 'Détails de l\'activité'
   },
   {
     path: 'suivi',
     component: Progress,
     canActivate: [roleGuard],
     data: { roles: ALL_ROLES },
+    title: 'Suivi'
   },
   {
     path: 'enfants',
     component: Childrens,
     canActivate: [roleGuard],
     data: { roles: PARENT_ADMIN },
+    title: 'Enfants'
   },
   {
     path: 'utilisateurs',
     component: Users,
     canActivate: [roleGuard],
     data: { roles: ADMIN },
+    title: 'Utilisateurs'
   },
   {
     path: 'inscription',
     component: Register,
     canActivate: [roleGuard],
     data: { roles: ADMIN },
+    title: 'Inscription'
   }
 ];
