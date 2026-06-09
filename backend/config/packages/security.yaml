@@ -24,8 +24,7 @@ security:
         api:
             pattern: ^/api
             stateless: true
-            custom_authenticator: 
-                - App\Security\JwtAuthenticator
+            jwt: ~
 
         dev:
             pattern: ^/(_profiler|_wdt|assets|build)/
