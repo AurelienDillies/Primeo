@@ -3,7 +3,7 @@
     <h1 class="card-title">Mon profil</h1>
   </div>
 
-  @if (user) {
+  @if (user$ | async; as user) {
     <div class="info">
       <p class="name">Prénom : <span>{{ user.first_name }} </span></p>
       <p class="name">Nom : <span>{{ user.last_name }}</span></p>

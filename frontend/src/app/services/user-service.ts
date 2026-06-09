@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 type JwtPayload = {
   roles?: string[];
@@ -13,26 +15,44 @@ type JwtPayload = {
 })
 export class UserService {
   user: User | null = null;
+
   private apiUrl = 'http://localhost:8080/api';
   private tokenKey = 'jwt_token';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  private cachedUser: User | null = null;
+
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   login(email: string, password: string) {
-    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, { email, password });
+    return this.http.post<{ token: string }>(
+      `${this.apiUrl}/login`,
+      { email, password }
+    );
   }
 
-  register(user: Pick<User, 'first_name' | 'last_name' | 'email' | 'password' | 'roles'>) {
+  register(
+    user: Pick<User, 'first_name' | 'last_name' | 'email' | 'password' | 'roles'>
+  ) {
     return this.http.post(`${this.apiUrl}/register`, user);
   }
 
-  update(user: Pick<User, 'first_name' | 'last_name' | 'email' | 'password'>) {
-  return this.http.put<User>(`${this.apiUrl}/profile`, user);
-}
+  update(
+    user: Pick<User, 'first_name' | 'last_name' | 'email' | 'password'>
+  ) {
+    return this.http.put<User>(`${this.apiUrl}/profile`, user).pipe(
+      tap((updatedUser) => {
+        this.cachedUser = updatedUser;
+      })
+    );
+  }
 
   logout(): void {
     this.clearToken();
     this.user = null;
+    this.cachedUser = null;
     this.router.navigate(['/connexion']);
   }
 
@@ -54,6 +74,7 @@ export class UserService {
 
   getUserRoles(): string[] {
     const token = this.getToken();
+
     if (!token) {
       return [];
     }
@@ -70,9 +91,10 @@ export class UserService {
     const userRoles = this.getUserRoles();
     return roles.some((role) => userRoles.includes(role));
   }
-  
+
   getUserId(): number | null {
     const token = this.getToken();
+
     if (!token) {
       return null;
     }
@@ -85,7 +107,21 @@ export class UserService {
     }
   }
 
-  getUserInfo(id : number) {
-    return this.http.get<User>(`${this.apiUrl}/users/${id}`); // Remplacez {id} par l'ID de l'utilisateur connecté
+  getUserInfo(id: number) {
+    if (this.cachedUser) {
+      return of(this.cachedUser);
+    }
+
+    return this.http
+      .get<User>(`${this.apiUrl}/users/${id}`)
+      .pipe(
+        tap((user) => {
+          this.cachedUser = user;
+        })
+      );
+  }
+
+  clearUserCache(): void {
+    this.cachedUser = null;
   }
 }
