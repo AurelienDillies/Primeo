@@ -6,7 +6,7 @@ import { guestGuard } from '../guards/role.guard';
 
 
 export const publicRoutes: Routes = [
-  { path: 'connexion', component: Login, canActivate: [guestGuard] },
-  { path: 'mentions-legales', component: LegalNotice },
-  { path: 'politique-confidentialite', component: PrivacyPolicy },
+  { path: 'connexion', component: Login, canActivate: [guestGuard], title: 'Connexion' },
+  { path: 'mentions-legales', component: LegalNotice, title: 'Mentions légales' },
+  { path: 'politique-confidentialite', component: PrivacyPolicy, title: 'Politique de confidentialité' },
 ];
