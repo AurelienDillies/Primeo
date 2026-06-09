@@ -12,8 +12,10 @@ Ce dépôt contient une application full stack organisée en plusieurs parties :
 ## 📁 Structure du projet
 - /backend        → API Symfony
 - /frontend       → Application Angular
-- docker          → Configuration Docker (ou docker-compose)
+- /docker         → Configuration nginx
 - /conception     → Diagrammes, spécifications, analyse, maquettes
+- compose.yaml    → Configuration Docker
+- Dockerfile      → Lancement Docker
 
 ---
 
