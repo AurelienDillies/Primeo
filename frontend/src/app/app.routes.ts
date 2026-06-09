@@ -7,5 +7,5 @@ export const routes: Routes = [
     { path: '', redirectTo: 'connexion', pathMatch: 'full' },
     ...publicRoutes,
     ...roleRoutes,
-    { path: '**', component: NotFound },
+    { path: '**', component: NotFound, title: 'Page non trouvée' },
 ];
