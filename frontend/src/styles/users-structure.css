@@ -1,0 +1,32 @@
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--Black);
+    border-radius: 8px;
+}
+
+.user-table thead {
+    background-color: var(--Dark);
+    color: var(--White);
+}
+
+.user-table th {
+    text-align: left;
+    padding: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid #444;
+}
+
+.user-table td {
+    padding: 12px;
+    border-bottom: 1px solid #333;
+}
+
+.user-table tbody tr:hover, .user-table tbody tr:nth-child(even):hover {
+    background: rgba(15, 23, 42, 0.1);
+    transition: background 0.2s ease;
+}
+
+.user-table tbody tr:nth-child(even) {
+    background-color: var(--Light);
+}

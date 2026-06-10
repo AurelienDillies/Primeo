@@ -1,34 +1,26 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsProfile } from '../../components/forms-profile/forms-profile';
 import { UserService } from '../../services/user-service';
 import { User } from '../../models/user.model';
+import { Observable, of} from 'rxjs';
 
 @Component({
   selector: 'app-profile',
-  standalone: true,
-  imports: [FormsProfile],
+  imports: [CommonModule, FormsProfile],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
-export class Profile implements OnInit {
+export class Profile {
 
-  user: User | null = null;
+  user$: Observable<User | null>;
 
-  constructor(
-    private userService: UserService,
-    private cdr: ChangeDetectorRef
-  ) { }
+  constructor(private userService: UserService) {
 
-  ngOnInit(): void {
     const userId = this.userService.getUserId();
 
-    if (!userId) return;
-
-    this.userService.getUserInfo(userId).subscribe({
-      next: (user) => {
-        this.user = user;
-        this.cdr.detectChanges();
-      }
-    });
+    this.user$ = userId
+      ? this.userService.getUserInfo(userId)
+      : of(null);
   }
 }

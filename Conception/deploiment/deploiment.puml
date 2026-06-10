@@ -1,0 +1,31 @@
+@startuml Diagramme de déploiement
+
+node "Poste Utilisateur" {
+    node "Navigateur Web" <<device>> {
+        artifact "App Angular (Fichiers JS/CSS)" as angular_art
+    }
+}
+
+node "Serveur Cloud (Linux)" {
+    
+    node "Docker : Nginx Container" <<node>> {
+        artifact "Build Angular" as dist
+        artifact "Vhost Config" as vhost
+    }
+
+    node "Docker : PHP Container" <<node>> {
+        artifact "Symfony Source Code" as symfony_code
+        artifact "Vendor Dependencies" as vendor
+    }
+
+    node "Docker : Database Container" <<node>> {
+        database "MySQL Database" as db
+    }
+}
+
+' Relations de communication
+"Poste Utilisateur" -- "Docker : Nginx Container" : HTTP/HTTPS (Port 80/443)
+"Docker : Nginx Container" -- "Docker : PHP Container" : FastCGI (Port 9000)
+"Docker : PHP Container" -- "Docker : Database Container" : TCP/IP (Port 3306)
+
+@enduml
