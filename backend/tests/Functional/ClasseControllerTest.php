@@ -4,6 +4,7 @@ namespace App\Tests;
 
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Security\JwtService;
 
 class ClasseControllerTest extends WebTestCase
 {
@@ -18,10 +19,11 @@ class ClasseControllerTest extends WebTestCase
             ->findOneBy(['email' => 'admin@digiforma.com']);
 
         $this->assertNotNull($user, 'User not found in database');
-      
-        $token = $container
-            ->get('lexik_jwt_authentication.jwt_manager')
-            ->create($user);
+        $jwtService = $container->get(JwtService::class); 
+
+        $token = $jwtService->generate([
+            'email' => $user->getEmail()
+        ]);
 
         $client->setServerParameter(
             'HTTP_AUTHORIZATION',
