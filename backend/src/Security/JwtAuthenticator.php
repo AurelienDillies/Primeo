@@ -5,7 +5,6 @@ namespace App\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
@@ -13,7 +12,6 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 class JwtAuthenticator extends AbstractAuthenticator
 {
     public function __construct(
-        private UserProviderInterface $userProvider,
         private JwtService $jwtService
     ) {}
 
@@ -22,7 +20,6 @@ class JwtAuthenticator extends AbstractAuthenticator
         return str_starts_with($request->getPathInfo(), '/api');
     }
 
-    // ✅ Signature correcte pour Symfony 7.4
     public function authenticate(Request $request): SelfValidatingPassport
     {
         dump($request->headers->all());
@@ -43,16 +40,16 @@ class JwtAuthenticator extends AbstractAuthenticator
         if (!isset($payload['email'])) {
             throw new AuthenticationException('Payload invalide');
         }
-        
+
 
         return new SelfValidatingPassport(
             new UserBadge($payload['email'])
         );
     }
 
-    public function onAuthenticationSuccess(Request $request, $token, string $firewallName): ?JsonResponse
+    public function onAuthenticationSuccess(Request $request, $token , string $firewallName): ?JsonResponse
     {
-        return null; // continue
+        return null;
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?JsonResponse
