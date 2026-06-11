@@ -29,7 +29,6 @@ class AuthController extends AbstractController
             return $this->json(['error' => 'Identifiants invalides'], 401);
         }
 
-        // ✅ IMPORTANT : on génère le token avec un tableau (payload)
         $token = $jwtService->generate([
             'id' => $user->getId(),
             'email' => $user->getEmail(),
