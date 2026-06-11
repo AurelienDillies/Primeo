@@ -29,7 +29,7 @@ class Attachment
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $attachmentCreatedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'attachments')]
+    #[ORM\ManyToOne(inversedBy: 'attachments', cascade: ['persist', 'remove'])]
     private ?Message $message = null;
 
     public function getId(): ?int

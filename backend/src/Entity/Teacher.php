@@ -17,7 +17,7 @@ class Teacher extends User
     /**
      * @var Collection<int, Classe>
      */
-    #[ORM\OneToMany(targetEntity: Classe::class, mappedBy: 'teacher')]
+    #[ORM\OneToMany(targetEntity: Classe::class, mappedBy: 'teacher', cascade: ['persist', 'remove'])]
     private Collection $teachingClasses;
 
     public function __construct()
