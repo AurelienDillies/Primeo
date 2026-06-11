@@ -22,16 +22,16 @@ class Message
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $MessageSent = null;
 
-    #[ORM\ManyToOne(inversedBy: 'sentMessages')]
+    #[ORM\ManyToOne(inversedBy: 'sentMessages', cascade: ['persist', 'remove'])]
     private ?User $sender = null;
 
-    #[ORM\ManyToOne(inversedBy: 'receivedMessages')]
+    #[ORM\ManyToOne(inversedBy: 'receivedMessages', cascade: ['persist', 'remove'])]
     private ?User $receiver = null;
 
     /**
      * @var Collection<int, Attachment>
      */
-    #[ORM\OneToMany(targetEntity: Attachment::class, mappedBy: 'message')]
+    #[ORM\OneToMany(targetEntity: Attachment::class, mappedBy: 'message', cascade: ['persist', 'remove'])]
     private Collection $attachments;
 
     public function __construct()

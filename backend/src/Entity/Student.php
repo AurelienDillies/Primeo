@@ -17,21 +17,21 @@ class Student extends User
     /**
      * @var Collection<int, Classe>
      */
-    #[ORM\ManyToMany(targetEntity: Classe::class, inversedBy: 'students')]
+    #[ORM\ManyToMany(targetEntity: Classe::class, inversedBy: 'students', cascade: ['persist', 'remove'])]
     #[Groups(['student:read'])]
     private Collection $classes;
 
     /**
      * @var Collection<int, Progress>
      */
-    #[ORM\OneToMany(targetEntity: Progress::class, mappedBy: 'student')]
+    #[ORM\OneToMany(targetEntity: Progress::class, mappedBy: 'student', cascade: ['persist', 'remove'])]
     #[Groups(['student:read'])]
     private Collection $progresses;
 
     /**
      * @var Collection<int, Parents>
      */
-    #[ORM\ManyToMany(targetEntity: Parents::class, mappedBy: 'children')]
+    #[ORM\ManyToMany(targetEntity: Parents::class, mappedBy: 'children', cascade: ['persist', 'remove'])]
     #[Groups(['student:read'])]
     private Collection $parents;
 

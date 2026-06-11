@@ -18,7 +18,11 @@ class ClasseController extends AbstractController
     public function getClasses(ClasseRepository $classeRepository, SerializerInterface $serializer): JsonResponse
     {
         $classes = $classeRepository->findAll();
-        $json = $serializer->serialize($classes, 'json', ['groups' => 'classe:read']);
+        try{
+            $json = $serializer->serialize($classes, 'json', ['groups' => 'classe:read']);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'Erreur de sérialisation: ' . $e->getMessage()], 500);
+        }
         return new JsonResponse($json, 200, [], true);
     }
 
@@ -26,7 +30,11 @@ class ClasseController extends AbstractController
     public function getClasse(ClasseRepository $classeRepository, SerializerInterface $serializer, int $id): JsonResponse
     {
         $classe = $classeRepository->find($id);
-        $json = $serializer->serialize($classe, 'json', ['groups' => 'classe:read']);
+        try{
+            $json = $serializer->serialize($classe, 'json', ['groups' => 'classe:read']);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'Erreur de sérialisation: ' . $e->getMessage()], 500);
+        }
         return new JsonResponse($json, 200, [], true);
     }
 
