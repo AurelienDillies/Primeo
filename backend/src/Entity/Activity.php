@@ -32,10 +32,10 @@ class Activity
     #[Groups(['student:read', 'teacher:read'])]
     private ?\DateTimeImmutable $activityDate = null;
 
-    #[ORM\ManyToOne(inversedBy: 'activities', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'activities')]
     private ?Course $course = null;
 
-    #[ORM\ManyToOne(inversedBy: 'activities', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'activities')]
     #[Groups(['user:read', 'teacher:read', 'student:read'])]
     private ?Progress $progress = null;
 

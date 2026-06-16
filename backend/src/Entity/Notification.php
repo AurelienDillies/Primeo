@@ -23,7 +23,7 @@ class Notification
     #[ORM\Column]
     private ?bool $NotificationLu = null;
 
-    #[ORM\ManyToOne(inversedBy: 'notifications', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'notifications')]
     private ?User $user = null;
 
     public function getId(): ?int

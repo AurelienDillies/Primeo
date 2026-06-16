@@ -13,7 +13,7 @@ class Parents extends User
     /**
      * @var Collection<int, Student>
      */
-    #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'parents', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'parents')]
     #[Groups(['parent:read'])]
     private Collection $children;
 

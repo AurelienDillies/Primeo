@@ -33,14 +33,14 @@ class Classe
     #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private Collection $courses;
 
-    #[ORM\ManyToOne(inversedBy: 'teachingClasses', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'teachingClasses', cascade: ['persist'])]
     #[Groups(['student:read', 'classe:read'])]
     private ?Teacher $teacher = null;
 
     /**
      * @var Collection<int, Student>
      */
-    #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'classes', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'classes', cascade: ['persist'])]
     #[Groups(['teacher:read', 'classe:read'])]
     private Collection $students;
 

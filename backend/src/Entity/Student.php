@@ -17,7 +17,7 @@ class Student extends User
     /**
      * @var Collection<int, Classe>
      */
-    #[ORM\ManyToMany(targetEntity: Classe::class, inversedBy: 'students', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToMany(targetEntity: Classe::class, inversedBy: 'students')]
     #[Groups(['student:read'])]
     private Collection $classes;
 
@@ -31,7 +31,7 @@ class Student extends User
     /**
      * @var Collection<int, Parents>
      */
-    #[ORM\ManyToMany(targetEntity: Parents::class, mappedBy: 'children', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToMany(targetEntity: Parents::class, mappedBy: 'children')]
     #[Groups(['student:read'])]
     private Collection $parents;
 

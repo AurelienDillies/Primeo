@@ -34,7 +34,7 @@ class Course
     #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?string $courseVideoUrl = null;
 
-    #[ORM\ManyToOne(inversedBy: 'courses', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'courses')]
     private ?Classe $classe = null;
 
     /**
