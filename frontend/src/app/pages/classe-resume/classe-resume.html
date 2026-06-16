@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="text">
+    <h1 class="card-title">Cours associés à cette classe</h1>
+  </div>
+
+  @if (vm$ | async; as vm) {
+
+    <div class="container">
+      @for (item of vm.classes; track $index) {
+        <app-classe [Classe]="item"></app-classe>
+      }
+    </div>
+
+  }
+</div>
