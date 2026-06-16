@@ -25,18 +25,18 @@ class Progress
     #[Groups(['student:read', 'teacher:read'])]
     private ?string $progressGrade = null;
 
-    #[ORM\ManyToOne(inversedBy: 'progresses', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'progresses', cascade: ['persist'])]
     #[Groups(['teacher:read'])]
     private ?Student $student = null;
 
-    #[ORM\ManyToOne(inversedBy: 'progresses', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'progresses', cascade: ['persist'])]
     
     private ?Course $course = null;
 
     /**
      * @var Collection<int, Activity>
      */
-    #[ORM\OneToMany(targetEntity: Activity::class, mappedBy: 'progress', cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: Activity::class, mappedBy: 'progress')]
     private Collection $activities;
 
     public function __construct()
