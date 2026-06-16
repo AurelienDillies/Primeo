@@ -13,9 +13,9 @@ export class AppTitleStrategy extends TitleStrategy {
     const routeTitle = this.buildTitle(snapshot);
 
     if (routeTitle) {
-      this.title.setTitle(`Digiforma - ${routeTitle}`);
+      this.title.setTitle(`Priméo - ${routeTitle}`);
     } else {
-      this.title.setTitle('Digiforma');
+      this.title.setTitle('Priméo');
     }
   }
 }
