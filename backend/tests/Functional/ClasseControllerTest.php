@@ -16,7 +16,7 @@ class ClasseControllerTest extends WebTestCase
         $em = $container->get('doctrine')->getManager();
 
         $user = $em->getRepository(User::class)
-            ->findOneBy(['email' => 'admin@digiforma.com']);
+            ->findOneBy(['email' => 'admin@primeo.com']);
 
         $this->assertNotNull($user, 'User not found in database');
         $jwtService = $container->get(JwtService::class); 

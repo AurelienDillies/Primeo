@@ -24,14 +24,14 @@ class AppFixtures extends Fixture
     {
         // ===== USERS =====
         $user_admin = new User();
-        $user_admin->setEmail('admin@digiforma.com');
+        $user_admin->setEmail('admin@primeo.com');
         $user_admin->setPassword(password_hash('admin', PASSWORD_BCRYPT));
         $user_admin->setLastName('Doe');
         $user_admin->setFirstName('John');
         $user_admin->setRoles(['ROLE_ADMIN']);
 
         $user_teacher = new Teacher();
-        $user_teacher->setEmail('teacher@digiforma.com');
+        $user_teacher->setEmail('teacher@primeo.com');
         $user_teacher->setPassword(password_hash('teacher', PASSWORD_BCRYPT));
         $user_teacher->setLastName('Smith');
         $user_teacher->setFirstName('Jane');
@@ -39,7 +39,7 @@ class AppFixtures extends Fixture
         $user_teacher->setSubject('Mathématiques');
 
         $user_teacher2 = new Teacher();
-        $user_teacher2->setEmail('teacher2@digiforma.com');
+        $user_teacher2->setEmail('teacher2@primeo.com');
         $user_teacher2->setPassword(password_hash('teacher2', PASSWORD_BCRYPT));
         $user_teacher2->setLastName('Johnson');
         $user_teacher2->setFirstName('Robert');
@@ -47,28 +47,28 @@ class AppFixtures extends Fixture
         $user_teacher2->setSubject('Français');
 
         $user_student = new Student();
-        $user_student->setEmail('student@digiforma.com');
+        $user_student->setEmail('student@primeo.com');
         $user_student->setPassword(password_hash('student', PASSWORD_BCRYPT));
         $user_student->setLastName('Brown');
         $user_student->setFirstName('Emily');
         $user_student->setRoles(['ROLE_STUDENT']);
 
         $user_student2 = new Student();
-        $user_student2->setEmail('student2@digiforma.com');
+        $user_student2->setEmail('student2@primeo.com');
         $user_student2->setPassword(password_hash('student2', PASSWORD_BCRYPT));
         $user_student2->setLastName('Garcia');
         $user_student2->setFirstName('Carlos');
         $user_student2->setRoles(['ROLE_STUDENT']);
 
         $user_student3 = new Student();
-        $user_student3->setEmail('student3@digiforma.com');
+        $user_student3->setEmail('student3@primeo.com');
         $user_student3->setPassword(password_hash('student3', PASSWORD_BCRYPT));
         $user_student3->setLastName('Martin');
         $user_student3->setFirstName('Sophie');
         $user_student3->setRoles(['ROLE_STUDENT']);
 
         $user_parent = new Parents();  
-        $user_parent->setEmail('parent@digiforma.com');
+        $user_parent->setEmail('parent@primeo.com');
         $user_parent->setPassword(password_hash('parent', PASSWORD_BCRYPT));
         $user_parent->setLastName('Wilson');
         $user_parent->setFirstName('Michael');
@@ -77,7 +77,7 @@ class AppFixtures extends Fixture
         $user_parent->addChild($user_student2);
 
         $user_parent2 = new Parents();  
-        $user_parent2->setEmail('parent2@digiforma.com');
+        $user_parent2->setEmail('parent2@primeo.com');
         $user_parent2->setPassword(password_hash('parent2', PASSWORD_BCRYPT));
         $user_parent2->setLastName('Davis');
         $user_parent2->setFirstName('Lisa');
@@ -337,7 +337,7 @@ class AppFixtures extends Fixture
         $notification4->setUser($user_student3);
 
         $notification5 = new Notification();
-        $notification5->setNotificationMessage('Bienvenue sur DigiForma');
+        $notification5->setNotificationMessage('Bienvenue sur Priméo');
         $notification5->setNotificationDate(new \DateTimeImmutable('2026-05-01'));
         $notification5->setNotificationLu(true);
         $notification5->setUser($user_parent);
