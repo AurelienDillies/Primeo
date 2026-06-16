@@ -1,4 +1,4 @@
-# Digiforma
+# Priméo
 
 Ce dépôt contient une application full stack organisée en plusieurs parties :
 

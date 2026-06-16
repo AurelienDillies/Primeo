@@ -54,6 +54,13 @@ export const roleRoutes: Routes = [
     title: 'Détails du cours'
   },
   {
+    path: 'resume-classes',
+    component: Courses,
+    canActivate: [roleGuard],
+    data: { roles: TEACHER_STUDENT_ADMIN },
+    title: 'Résumé des classes'
+  },
+  {
     path: 'activites',
     component: Activities,
     canActivate: [roleGuard],

@@ -29,25 +29,25 @@ class Classe
     /**
      * @var Collection<int, Course>
      */
-    #[ORM\OneToMany(targetEntity: Course::class, mappedBy: 'classe')]
+    #[ORM\OneToMany(targetEntity: Course::class, mappedBy: 'classe', cascade: ['persist', 'remove'])]
     #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private Collection $courses;
 
-    #[ORM\ManyToOne(inversedBy: 'teachingClasses')]
+    #[ORM\ManyToOne(inversedBy: 'teachingClasses', cascade: ['persist', 'remove'])]
     #[Groups(['student:read', 'classe:read'])]
     private ?Teacher $teacher = null;
 
     /**
      * @var Collection<int, Student>
      */
-    #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'classes')]
+    #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'classes', cascade: ['persist', 'remove'])]
     #[Groups(['teacher:read', 'classe:read'])]
     private Collection $students;
 
     /**
      * @var Collection<int, Report>
      */
-    #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'classe')]
+    #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'classe', cascade: ['persist', 'remove'])]
     #[Groups(['classe:read', 'student:read', 'teacher:read'])]
     private Collection $reports;
 

@@ -1,4 +1,4 @@
-@startuml Digiforma
+@startuml Priméo
 left to right direction
 
 actor :Enseignant:
