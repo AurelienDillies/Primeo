@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Attribute\Route;  
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/api/classes')]
@@ -25,7 +25,7 @@ class ClasseController extends AbstractController
         }
         return new JsonResponse($json, 200, [], true);
     }
-    
+
     #[Route('/{id}', name: 'get_class', methods: ['GET'])]
     public function getClasse(ClasseRepository $classeRepository, SerializerInterface $serializer, int $id): JsonResponse
     {
@@ -37,11 +37,11 @@ class ClasseController extends AbstractController
         }
         return new JsonResponse($json, 200, [], true);
     }
-    
+
     #[Route('/', name: 'create_class', methods: ['POST'])]
     public function createClasse(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);      
+        $data = json_decode($request->getContent(), true);
         $classe = new Classe();
         $classe->setClassName($data['className'] ?? null);
         $classe->setClassDescription($data['classDescription'] ?? null);
@@ -51,15 +51,15 @@ class ClasseController extends AbstractController
     }
 
     #[Route('/{id}', name: 'update_class', methods: ['PUT'])]
-    public function updateClasse(Request $request, 
-    EntityManagerInterface $entityManager, 
-    ClasseRepository $classeRepository, 
-    int $id
-    ): JsonResponse
-    {
+    public function updateClasse(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        ClasseRepository $classeRepository,
+        int $id
+    ): JsonResponse {
         $classe = $classeRepository->find($id);
         if (!$classe) {
-            return new JsonResponse(['error' => 'Classe non trouvée'], 404);        
+            return new JsonResponse(['error' => 'Classe non trouvée'], 404);
         }
         $data = json_decode($request->getContent(), true);
         $classe->setClassName($data['className'] ?? null);
@@ -69,14 +69,14 @@ class ClasseController extends AbstractController
     }
 
     #[Route('/{id}', name: 'delete_class', methods: ['DELETE'])]
-    public function deleteClasse(EntityManagerInterface $entityManager,
-    ClasseRepository $classeRepository, 
-    int $id
-    ): JsonResponse
-    {
+    public function deleteClasse(
+        EntityManagerInterface $entityManager,
+        ClasseRepository $classeRepository,
+        int $id
+    ): JsonResponse {
         $classe = $classeRepository->find($id);
         if (!$classe) {
-            return new JsonResponse(['error' => 'Classe non trouvée'], 404);        
+            return new JsonResponse(['error' => 'Classe non trouvée'], 404);
         }
         $entityManager->remove($classe);
         $entityManager->flush();
