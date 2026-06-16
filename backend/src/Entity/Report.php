@@ -28,10 +28,10 @@ class Report
     #[Groups(['classe:read'])]
     private ?\DateTimeImmutable $reportGeneratedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'reports', cascade: ['persist', 'remove'])]    
+    #[ORM\ManyToOne(inversedBy: 'reports', cascade: ['persist'])]    
     private ?Classe $classe = null;
 
-    #[ORM\ManyToOne(inversedBy: 'reports', cascade: ['persist', 'remove'])]    
+    #[ORM\ManyToOne(inversedBy: 'reports', cascade: ['persist'])]    
     private ?Course $course = null;
 
     #[ORM\ManyToOne(inversedBy: 'reports', cascade: ['persist', 'remove'])]

@@ -22,10 +22,10 @@ class Message
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $MessageSent = null;
 
-    #[ORM\ManyToOne(inversedBy: 'sentMessages', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'sentMessages')]
     private ?User $sender = null;
 
-    #[ORM\ManyToOne(inversedBy: 'receivedMessages', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'receivedMessages')]
     private ?User $receiver = null;
 
     /**
