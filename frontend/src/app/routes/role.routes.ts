@@ -14,6 +14,9 @@ import { Register } from '../pages/register/register';
 import { CreateCourse } from '../create/create-course/create-course';
 import { CreateActivitie } from '../create/create-activitie/create-activitie';
 import { CreateClasse } from '../create/create-classe/create-classe';
+import { UpdateClasse } from '../update/update-classe/update-classe';
+import { UpdateCourse } from '../update/update-course/update-course';
+import { UpdateActivitie } from '../update/update-activitie/update-activitie';
 
 const ALL_ROLES = ['ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT', 'ROLE_STUDENT'];
 const TEACHER_STUDENT_ADMIN = ['ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT'];
@@ -112,6 +115,27 @@ export const roleRoutes: Routes = [
     canActivate: [roleGuard],
     data: { roles: TEACHER_ADMIN },
     title: 'Nouvelle activité'
+  },
+  {
+    path: 'modifier-classe',
+    component: UpdateClasse,
+    canActivate: [roleGuard],
+    data: { roles: TEACHER_ADMIN },
+    title: 'Modifier la classe'
+  },
+  {
+    path: 'modifier-cours',
+    component: UpdateCourse,
+    canActivate: [roleGuard],
+    data: { roles: TEACHER_ADMIN },
+    title: 'Modifier le cours'
+  },
+  {
+    path: 'modifier-activite',
+    component: UpdateActivitie,
+    canActivate: [roleGuard],
+    data: { roles: TEACHER_ADMIN },
+    title: 'Modifier l\'activité'
   },
   {
     path: 'utilisateurs',
