@@ -5,12 +5,14 @@
 
   @if (vm$ | async; as vm) {
 
-    <div class="container">
-      @for (item of vm.classes; track $index) {
-        <app-classe [Classe]="item"></app-classe>
-      }
-    </div>
+  <div class="container">
+    @if (canCreateClass) {
+    <button class="btn btn-create" routerLink="/classes/create">+</button>
+    }
+    @for (item of vm.classes; track $index) {
+    <app-classe [Classe]="item"></app-classe>
+    }
+  </div>
 
   }
 </div>
-

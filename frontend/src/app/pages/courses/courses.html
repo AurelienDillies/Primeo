@@ -4,6 +4,9 @@
     </div>
 
     <div class="container">
+         @if (userService.hasAnyRole(rolesForChange)) {
+        <button class="btn btn-create" routerLink="/courses/create">+</button>
+        }
         <app-course></app-course>
     </div>
 
