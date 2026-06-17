@@ -11,10 +11,14 @@ import { Users } from '../pages/users/users';
 import { CourseDetails } from '../pages/course-details/course-details';
 import { ActivityDetails } from '../pages/activity-details/activity-details';
 import { Register } from '../pages/register/register';
+import { CreateCourse } from '../create/create-course/create-course';
+import { CreateActivitie } from '../create/create-activitie/create-activitie';
+import { CreateClasse } from '../create/create-classe/create-classe';
 
 const ALL_ROLES = ['ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT', 'ROLE_STUDENT'];
 const TEACHER_STUDENT_ADMIN = ['ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT'];
 const PARENT_ADMIN = ['ROLE_ADMIN', 'ROLE_PARENT'];
+const TEACHER_ADMIN = ['ROLE_ADMIN', 'ROLE_TEACHER'];
 const ADMIN = ['ROLE_ADMIN'];
 
 export const roleRoutes: Routes = [
@@ -87,6 +91,27 @@ export const roleRoutes: Routes = [
     canActivate: [roleGuard],
     data: { roles: PARENT_ADMIN },
     title: 'Enfants'
+  },
+  {
+    path: 'nouvelle-classe',
+    component: CreateClasse,
+    canActivate: [roleGuard],
+    data: { roles: TEACHER_ADMIN },
+    title: 'Nouvelle classe'
+  },
+  {
+    path: 'nouveau-cours',
+    component: CreateCourse,
+    canActivate: [roleGuard],
+    data: { roles: TEACHER_ADMIN },
+    title: 'Nouveau cours'
+  },
+  {
+    path: 'nouvelle-activite',
+    component: CreateActivitie,
+    canActivate: [roleGuard],
+    data: { roles: TEACHER_ADMIN },
+    title: 'Nouvelle activité'
   },
   {
     path: 'utilisateurs',
