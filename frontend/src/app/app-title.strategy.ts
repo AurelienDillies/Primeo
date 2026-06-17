@@ -13,7 +13,7 @@ export class AppTitleStrategy extends TitleStrategy {
     const routeTitle = this.buildTitle(snapshot);
 
     if (routeTitle) {
-      this.title.setTitle(`Priméo - ${routeTitle}`);
+      this.title.setTitle(`${routeTitle} – Priméo`);
     } else {
       this.title.setTitle('Priméo');
     }
