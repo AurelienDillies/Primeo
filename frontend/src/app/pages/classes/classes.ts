@@ -6,6 +6,7 @@ import { UserService } from '../../services/user-service';
 import { CommonModule } from '@angular/common';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Teacher } from '../../models/teacher.model';
 
 type ClassesVM = {
   classes: any[];
@@ -36,7 +37,7 @@ export class Classes {
               ? userInfo as Student
               : null,
             teacher: userInfo.roles.includes('ROLE_TEACHER')
-              ? userInfo as User
+              ? userInfo as Teacher
               : null
           }))
         )
