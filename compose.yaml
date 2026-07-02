@@ -8,6 +8,11 @@ services:
     working_dir: /var/www/backend
     volumes:
       - ./backend:/var/www/backend
+    command: >
+      sh -c "
+      composer install --no-interaction &&
+      php-fpm
+      "
     depends_on:
       - database
     networks:

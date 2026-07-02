@@ -8,11 +8,11 @@ RUN apt-get update && apt-get install -y \
     git \
     unzip \
     curl \
+    zip \
+    npm \
     libicu-dev \
     libonig-dev \
     libzip-dev \
-    zip \
-    npm \
     && docker-php-ext-install \
     intl \
     pdo \
@@ -30,17 +30,20 @@ WORKDIR /var/www/backend
 COPY backend/composer.json backend/composer.lock ./
 
 # Installation dépendances PHP
-RUN composer install --no-scripts --no-interaction --prefer-dist --optimize-autoloader
+RUN composer install \
+    --no-interaction \
+    --prefer-dist \
+    --optimize-autoloader \
+    --no-scripts
 
 # Copie du backend
 COPY backend/ .
 
 # Permissions Symfony
-RUN mkdir -p var/cache var/log && \
-    chown -R www-data:www-data var
+RUN mkdir -p var/cache var/log
 
 # =========================
-# Frontend Angular Build
+# Frontend Angular build
 # =========================
 FROM node:20 AS angular-build
 
@@ -62,16 +65,15 @@ RUN npm run build -- --configuration production
 # =========================
 FROM nginx:stable-alpine
 
-# Copie frontend Angular compilé
-COPY --from=angular-build /app/dist /usr/share/nginx/html
-
-# Copie config nginx
+# Config nginx
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
-# Copie backend Symfony
+# Symfony backend
 COPY --from=symfony /var/www/backend /var/www/backend
 
-# Exposition port
+# Copie frontend Angular compilé
+COPY --from=angular-build /app/dist/frontend /usr/share/nginx/html
+
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
