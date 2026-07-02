@@ -26,17 +26,14 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Dossier de travail Symfony
 WORKDIR /var/www/backend
 
-# Copie des fichiers composer
-COPY backend/composer.json backend/composer.lock ./
+# Copie du backend
+COPY backend/ .
 
 # Installation dépendances PHP
 RUN composer install \
     --no-interaction \
     --prefer-dist \
-    --optimize-autoloader 
-
-# Copie du backend
-COPY backend/ .
+    --optimize-autoloader
 
 # Permissions Symfony
 RUN mkdir -p var/cache var/log
