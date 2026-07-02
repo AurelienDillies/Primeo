@@ -8,6 +8,7 @@ services:
     working_dir: /var/www/backend
     volumes:
       - ./backend:/var/www/backend
+      - vendor:/var/www/backend/vendor
     command: >
       sh -c "
       composer install --no-interaction &&
@@ -102,6 +103,7 @@ services:
       - app_network
 
 volumes:
+  vendor:
   db_data:
   db_test_data:
   cloudbeaver_workspace:
