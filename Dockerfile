@@ -29,12 +29,6 @@ WORKDIR /var/www/backend
 # Copie du backend
 COPY backend/ .
 
-# Installation dépendances PHP
-RUN composer install \
-    --no-interaction \
-    --prefer-dist \
-    --optimize-autoloader
-
 # Permissions Symfony
 RUN mkdir -p var/cache var/log
 
