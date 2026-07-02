@@ -33,14 +33,19 @@ COPY backend/composer.json backend/composer.lock ./
 RUN composer install \
     --no-interaction \
     --prefer-dist \
-    --optimize-autoloader \
-    --no-scripts
+    --optimize-autoloader 
 
 # Copie du backend
 COPY backend/ .
 
 # Permissions Symfony
 RUN mkdir -p var/cache var/log
+
+# EntryPoint Symfony
+COPY docker/php/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
 
 # =========================
 # Frontend Angular build
