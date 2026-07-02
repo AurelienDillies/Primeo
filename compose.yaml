@@ -32,7 +32,9 @@ services:
     working_dir: /app
     volumes:
       - ./frontend:/app
-    command: sh -c "npm install && npm start -- --host 0.0.0.0"
+      - node_modules:/app/node_modules
+      - ./docker/angular/entrypoint.sh:/entrypoint.sh:ro
+    entrypoint: ["sh", "/entrypoint.sh"]
     ports:
       - "4300:4200"
     networks:
@@ -104,6 +106,7 @@ volumes:
   db_test_data:
   cloudbeaver_workspace:
   vendor:
+  node_modules:
 
 networks:
   app_network:
