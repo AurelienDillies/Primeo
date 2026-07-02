@@ -9,5 +9,4 @@ if [ ! -f "vendor/autoload.php" ]; then
   composer install --no-interaction --prefer-dist
 fi
 
-echo "Starting PHP-FPM..."
-exec php-fpm
+exec php-fpm -F

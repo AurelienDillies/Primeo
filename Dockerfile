@@ -36,7 +36,7 @@ RUN mkdir -p var/cache var/log
 COPY docker/php/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["sh", "/entrypoint.sh"]
 
 # =========================
 # Frontend Angular build
