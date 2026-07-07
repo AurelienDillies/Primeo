@@ -8,34 +8,38 @@ services:
     working_dir: /var/www/backend
     volumes:
       - ./backend:/var/www/backend
+      - vendor:/var/www/backend/vendor
     depends_on:
       - database
     networks:
       - app_network
+
   nginx:
     image: nginx:stable-alpine
     container_name: nginx
     ports:
       - "8080:80"
     volumes:
-      - ./backend:/var/www/backend
-      - ./frontend/dist/frontend/browser:/usr/share/nginx/html
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
     networks:
       - app_network
+
   angular:
     image: node:20
     container_name: angular
     working_dir: /app
     volumes:
       - ./frontend:/app
-    command: sh -c "npm install && npm start -- --host 0.0.0.0"
+      - node_modules:/app/node_modules
+      - ./docker/angular/entrypoint.sh:/entrypoint.sh:ro
+    entrypoint: ["sh", "/entrypoint.sh"]
     ports:
       - "4300:4200"
     networks:
       - app_network
+
   database:
     image: mysql:8.0
     container_name: mysql
@@ -52,7 +56,6 @@ services:
       - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
-
     networks:
       - app_network
     healthcheck:
@@ -61,9 +64,11 @@ services:
       timeout: 5s
       retries: 30
       start_period: 40s
+
   database_test:
     image: mysql:8
     container_name: mysql_test
+    restart: always
     environment:
       MYSQL_DATABASE: app_test
       MYSQL_ROOT_PASSWORD: root
@@ -72,9 +77,9 @@ services:
     ports:
       - "3308:3306"
     volumes:
-    - db_test_data:/var/lib/mysql
+      - db_test_data:/var/lib/mysql
     networks:
-    - app_network
+      - app_network
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -proot --silent"]
       interval: 10s
@@ -100,6 +105,8 @@ volumes:
   db_data:
   db_test_data:
   cloudbeaver_workspace:
+  vendor:
+  node_modules:
 
 networks:
   app_network:

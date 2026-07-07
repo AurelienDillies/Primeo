@@ -6,6 +6,7 @@ import { UserService } from '../../services/user-service';
 import { CommonModule } from '@angular/common';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { RouterLink } from '@angular/router';
 import { Teacher } from '../../models/teacher.model';
 
 type ClassesVM = {
@@ -17,16 +18,14 @@ type ClassesVM = {
 @Component({
   selector: 'app-classes',
   standalone: true,
-  imports: [CommonModule, Classe],
+  imports: [CommonModule, Classe, RouterLink],
   templateUrl: './classes.html',
   styleUrl: './classes.css',
 })
 export class Classes {
-
   vm$: Observable<ClassesVM>;
 
   constructor(private userService: UserService) {
-
     const userId = this.userService.getUserId();
 
     this.vm$ = userId
@@ -42,9 +41,16 @@ export class Classes {
           }))
         )
       : of({
-          classes: [],
-          student: null,
-          teacher: null
-        });
+        classes: [],
+        student: null,
+        teacher: null,
+      });
+  }
+
+  get canCreateClass(): boolean {
+    return this.userService.hasAnyRole([
+      'ROLE_ADMIN',
+      'ROLE_TEACHER',
+    ]);
   }
 }
