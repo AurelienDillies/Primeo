@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RouterLink } from '@angular/router';
+import { Teacher } from '../../models/teacher.model';
 
 type ClassesVM = {
   classes: any[];
@@ -29,16 +30,16 @@ export class Classes {
 
     this.vm$ = userId
       ? this.userService.getUserInfo(userId).pipe(
-        map((userInfo: any) => ({
-          classes: userInfo.classes ?? [],
-          student: userInfo.roles.includes('ROLE_STUDENT')
-            ? (userInfo as Student)
-            : null,
-          teacher: userInfo.roles.includes('ROLE_TEACHER')
-            ? (userInfo as User)
-            : null,
-        }))
-      )
+          map((userInfo: any) => ({
+            classes: userInfo.classes ?? [],
+            student: userInfo.roles.includes('ROLE_STUDENT')
+              ? userInfo as Student
+              : null,
+            teacher: userInfo.roles.includes('ROLE_TEACHER')
+              ? userInfo as Teacher
+              : null
+          }))
+        )
       : of({
         classes: [],
         student: null,
