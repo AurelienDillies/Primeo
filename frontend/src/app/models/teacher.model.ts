@@ -18,7 +18,7 @@ export interface Teacher extends User {
                 activityTitle: string;
                 activityDescription: string;
                 activityDate: Date;
-                progresses: {
+                progress: {
                     id: number;
                     progressPercent: number;
                     progressGrade: string;
