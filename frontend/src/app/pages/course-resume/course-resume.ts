@@ -1,37 +1,50 @@
+import { CommonModule, Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { Activitie } from '../../components/activitie/activitie';
+import { AcademicActivity } from '../../models/academic.model';
+import { CourseDataService } from '../../services/course-data.service';
 
 type CourseNavigationContext = {
   from: 'cours' | 'classe-resume';
   classId?: number;
 };
 
+type CourseResumeVM = {
+  courseId: number | null;
+  activities: AcademicActivity[];
+};
+
 @Component({
-  selector: 'app-course-details',
-  imports: [CommonModule, RouterLink],
-  templateUrl: './course-details.html',
-  styleUrl: './course-details.css',
+  selector: 'app-course-resume',
+  imports: [CommonModule, Activitie],
+  templateUrl: './course-resume.html',
+  styleUrl: './course-resume.css',
 })
-export class CourseDetails {
-  courseId$: Observable<number | null>;
+export class CourseResume {
+  vm$: Observable<CourseResumeVM>;
   private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
+  private readonly courseDataService = inject(CourseDataService);
   private readonly location = inject(Location);
+  private readonly router = inject(Router);
 
   constructor() {
-    this.courseId$ = this.route.paramMap.pipe(
+    this.vm$ = this.route.paramMap.pipe(
       map((params) => {
         const rawId = params.get('courseId');
-        if (!rawId) {
-          return null;
+        return rawId ? Number(rawId) : null;
+      }),
+      switchMap((courseId) => {
+        if (!courseId || Number.isNaN(courseId)) {
+          return of<CourseResumeVM>({ courseId: null, activities: [] });
         }
 
-        const parsed = Number(rawId);
-        return Number.isNaN(parsed) ? null : parsed;
+        return this.courseDataService.getActivitiesByCourseId(courseId).pipe(
+          map((activities): CourseResumeVM => ({ courseId, activities })),
+          catchError(() => of<CourseResumeVM>({ courseId, activities: [] }))
+        );
       })
     );
   }
@@ -58,8 +71,12 @@ export class CourseDetails {
     return { from: 'cours' };
   }
 
-  get resumeState(): CourseNavigationContext {
-    return this.context;
+  get parentFromForActivities(): 'cours' | 'classe-resume' {
+    return this.context.from;
+  }
+
+  get parentClassIdForActivities(): number | undefined {
+    return this.context.classId;
   }
 
   goBack(): void {

@@ -10,13 +10,31 @@ import { AcademicCourse } from '../../models/academic.model';
   styleUrl: './course.css',
 })
 export class Course {
-    @Input() course?: AcademicCourse;
+  @Input() course?: AcademicCourse;
+  @Input() sourceClassId?: number;
 
-    readonly rolesForChange = ['ROLE_ADMIN', 'ROLE_TEACHER'];
-  
-    constructor(private readonly userService: UserService) {}
+  readonly rolesForChange = ['ROLE_ADMIN', 'ROLE_TEACHER'];
 
-    get canEdit(): boolean {
-      return this.userService.hasAnyRole(this.rolesForChange);
+  constructor(private readonly userService: UserService) {}
+
+  get canEdit(): boolean {
+    return this.userService.hasAnyRole(this.rolesForChange);
+  }
+
+  get detailsRoute(): (string | number)[] {
+    return this.course?.id
+      ? ['/cours-details', this.course.id]
+      : ['/cours-details'];
+  }
+
+  get detailsState(): Record<string, string | number> {
+    if (this.sourceClassId) {
+      return {
+        from: 'classe-resume',
+        classId: this.sourceClassId,
+      };
     }
+
+    return { from: 'cours' };
+  }
 }

@@ -9,7 +9,7 @@
         @if (canEdit) {
         <button class="btn" routerLink="/modifier-cours">Modifier cours</button>
         }
-        <button class="btn" routerLink="/cours-details">Voir cours</button>
+        <button class="btn" [routerLink]="detailsRoute" [state]="detailsState">Voir cours</button>
 
     </div>
 </div>

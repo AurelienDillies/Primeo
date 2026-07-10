@@ -1,35 +1,44 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Classe } from '../../components/classe/classe';
-import { UserService } from '../../services/user-service';
-import { AcademicClass } from '../../models/academic.model';
-import { AcademicStructureService } from '../../services/academic-structure.service';
+import { ActivatedRoute } from '@angular/router';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { Course } from '../../components/course/course';
+import { AcademicCourse } from '../../models/academic.model';
+import { ClassDataService } from '../../services/class-data.service';
+
+type ClasseResumeVM = {
+  classId: number | null;
+  courses: AcademicCourse[];
+};
 
 @Component({
   selector: 'app-classe-resume',
-  imports: [CommonModule, Classe],
+  imports: [CommonModule, Course],
   templateUrl: './classe-resume.html',
   styleUrl: './classe-resume.css',
 })
 export class ClasseResume {
-  private readonly userService = inject(UserService);
-  private readonly academicStructureService = inject(AcademicStructureService);
-  classes: AcademicClass[] = [];
+  vm$: Observable<ClasseResumeVM>;
+  private readonly route = inject(ActivatedRoute);
+  private readonly classDataService = inject(ClassDataService);
 
   constructor() {
-    const userId = this.userService.getUserId();
+    this.vm$ = this.route.paramMap.pipe(
+      map((params) => {
+        const rawId = params.get('classId');
+        return rawId ? Number(rawId) : null;
+      }),
+      switchMap((classId) => {
+        if (!classId || Number.isNaN(classId)) {
+          return of({ classId: null, courses: [] });
+        }
 
-    if (!userId) {
-      return;
-    }
-
-    this.userService.getUserInfo(userId).subscribe({
-      next: (userInfo: any) => {
-        this.classes = this.academicStructureService.getClasses(userInfo);
-      },
-      error: () => {
-        this.classes = [];
-      }
-    });
+        return this.classDataService.getCoursesByClassId(classId).pipe(
+          map((courses) => ({ classId, courses })),
+          catchError(() => of({ classId, courses: [] }))
+        );
+      })
+    );
   }
 }

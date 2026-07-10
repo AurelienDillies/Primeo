@@ -12,6 +12,7 @@ import { CourseDetails } from '../pages/course-details/course-details';
 import { ActivityDetails } from '../pages/activity-details/activity-details';
 import { Register } from '../pages/register/register';
 import { ClasseResume } from '../pages/classe-resume/classe-resume';
+import { CourseResume } from '../pages/course-resume/course-resume';
 import { CreateCourse } from '../create/create-course/create-course';
 import { CreateActivitie } from '../create/create-activitie/create-activitie';
 import { CreateClasse } from '../create/create-classe/create-classe';
@@ -55,11 +56,39 @@ export const roleRoutes: Routes = [
     title: 'Cours'
   },
   {
+    path: 'cours-details/:courseId',
+    component: CourseDetails,
+    canActivate: [roleGuard],
+    data: { roles: TEACHER_STUDENT_ADMIN },
+    title: 'Détails du cours'
+  },
+  {
     path: 'cours-details',
     component: CourseDetails,
     canActivate: [roleGuard],
     data: { roles: TEACHER_STUDENT_ADMIN },
     title: 'Détails du cours'
+  },
+  {
+    path: 'resume-cours/:courseId',
+    component: CourseResume,
+    canActivate: [roleGuard],
+    data: { roles: TEACHER_STUDENT_ADMIN },
+    title: 'Résumé du cours'
+  },
+  {
+    path: 'resume-cours',
+    component: CourseResume,
+    canActivate: [roleGuard],
+    data: { roles: TEACHER_STUDENT_ADMIN },
+    title: 'Résumé du cours'
+  },
+  {
+    path: 'resume-classes/:classId',
+    component: ClasseResume,
+    canActivate: [roleGuard],
+    data: { roles: TEACHER_STUDENT_ADMIN },
+    title: 'Résumé des classes'
   },
   {
     path: 'resume-classes',

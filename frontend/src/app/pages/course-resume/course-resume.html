@@ -1,0 +1,32 @@
+<div class="card">
+    <div class="text">
+        <h1 class="card-title">Activités du cours</h1>
+    </div>
+
+    <div class="container-actions">
+        <button class="btn" type="button" (click)="goBack()">Retour</button>
+    </div>
+
+    @if (vm$ | async; as vm) {
+    <div class="container">
+        @if (!$any(vm).courseId) {
+        <p>Aucun cours sélectionné.</p>
+        }
+
+        @for (activity of $any(vm).activities; track activity.id) {
+        <app-activitie
+            [activity]="activity"
+            [sourceCourseId]="$any(vm).courseId ?? undefined"
+            [parentFrom]="parentFromForActivities"
+            [parentClassId]="parentClassIdForActivities"
+        ></app-activitie>
+        }
+
+        @if ($any(vm).courseId && !$any(vm).activities.length) {
+        <p>Aucune activité disponible pour ce cours.</p>
+        }
+    </div>
+    } @else {
+    <p>Chargement des activités du cours...</p>
+    }
+</div>

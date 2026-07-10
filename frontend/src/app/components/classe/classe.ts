@@ -20,4 +20,10 @@ export class Classe {
     return this.userService.hasAnyRole(this.rolesForChange);
   }
 
+  get resumeRoute(): (string | number)[] {
+    return this.classe?.id
+      ? ['/resume-classes', this.classe.id]
+      : ['/resume-classes'];
+  }
+
 }

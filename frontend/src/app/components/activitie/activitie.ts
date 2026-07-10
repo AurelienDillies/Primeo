@@ -11,6 +11,9 @@ import { AcademicActivity } from '../../models/academic.model';
 })
 export class Activitie {
   @Input() activity?: AcademicActivity;
+  @Input() sourceCourseId?: number;
+  @Input() parentFrom?: 'cours' | 'classe-resume';
+  @Input() parentClassId?: number;
 
   readonly rolesForChange = ['ROLE_ADMIN', 'ROLE_TEACHER'];
 
@@ -18,5 +21,23 @@ export class Activitie {
 
   get canEdit(): boolean {
     return this.userService.hasAnyRole(this.rolesForChange);
+  }
+
+  get detailsState(): Record<string, string | number> {
+    if (this.sourceCourseId) {
+      const state: Record<string, string | number> = {
+        from: 'course-resume',
+        courseId: this.sourceCourseId,
+        parentFrom: this.parentFrom ?? 'cours',
+      };
+
+      if (this.parentClassId) {
+        state['parentClassId'] = this.parentClassId;
+      }
+
+      return state;
+    }
+
+    return { from: 'activites' };
   }
 }
