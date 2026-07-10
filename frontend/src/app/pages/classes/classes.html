@@ -9,9 +9,12 @@
     @if (canCreateClass) {
     <button class="btn btn-create" routerLink="/nouvelle-classe">+</button>
     }
-    @for (item of vm.classes; track $index) {
-    <app-classe [Classe]="item"></app-classe>
+    @for (item of vm.classes; track item.id) {
+    <app-classe [classe]="item"></app-classe>
     }
+    @if (!vm.classes.length) {
+        <p>Aucune classe disponible pour le moment.</p>
+        }
   </div>
 
   }

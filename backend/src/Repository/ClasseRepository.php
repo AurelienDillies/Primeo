@@ -16,6 +16,24 @@ class ClasseRepository extends ServiceEntityRepository
         parent::__construct($registry, Classe::class);
     }
 
+    /**
+     * @return Classe[]
+     */
+    public function findAllForAdminRead(): array
+    {
+        return $this->createQueryBuilder('classe')
+            ->select('DISTINCT classe', 'teacher', 'students', 'classReports', 'courses', 'activities', 'courseReports')
+            ->leftJoin('classe.teacher', 'teacher')
+            ->leftJoin('classe.students', 'students')
+            ->leftJoin('classe.reports', 'classReports')
+            ->leftJoin('classe.courses', 'courses')
+            ->leftJoin('courses.activities', 'activities')
+            ->leftJoin('courses.reports', 'courseReports')
+            ->orderBy('classe.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Classe[] Returns an array of Classe objects
     //     */

@@ -11,6 +11,7 @@ import { Users } from '../pages/users/users';
 import { CourseDetails } from '../pages/course-details/course-details';
 import { ActivityDetails } from '../pages/activity-details/activity-details';
 import { Register } from '../pages/register/register';
+import { ClasseResume } from '../pages/classe-resume/classe-resume';
 import { CreateCourse } from '../create/create-course/create-course';
 import { CreateActivitie } from '../create/create-activitie/create-activitie';
 import { CreateClasse } from '../create/create-classe/create-classe';
@@ -62,7 +63,7 @@ export const roleRoutes: Routes = [
   },
   {
     path: 'resume-classes',
-    component: Courses,
+    component: ClasseResume,
     canActivate: [roleGuard],
     data: { roles: TEACHER_STUDENT_ADMIN },
     title: 'Résumé des classes'

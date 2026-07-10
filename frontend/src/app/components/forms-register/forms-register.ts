@@ -30,7 +30,7 @@ export class FormsRegister {
     this.userService.register(user).subscribe({
       next: () => {
         console.log('Registration successful');
-        this.router.navigate(['/utilsateurs']);
+        this.router.navigate(['/utilisateurs']);
       },
       error: err => console.error('Registration failed', err)
     });

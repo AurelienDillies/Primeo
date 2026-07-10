@@ -1,18 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Classe } from '../../components/classe/classe';
-import { Student } from '../../models/student.model';
-import { User } from '../../models/user.model';
 import { UserService } from '../../services/user-service';
 import { CommonModule } from '@angular/common';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { RouterLink } from '@angular/router';
-import { Teacher } from '../../models/teacher.model';
+import { AcademicClass, AcademicUser } from '../../models/academic.model';
+import { AcademicStructureService } from '../../services/academic-structure.service';
+import { AdminAcademicDataService } from '../../services/admin-academic-data.service';
 
 type ClassesVM = {
-  classes: any[];
-  student: Student | null;
-  teacher: User | null;
+  classes: AcademicClass[];
 };
 
 @Component({
@@ -24,27 +22,26 @@ type ClassesVM = {
 })
 export class Classes {
   vm$: Observable<ClassesVM>;
+  private readonly userService = inject(UserService);
+  private readonly academicStructureService = inject(AcademicStructureService);
+  private readonly adminAcademicDataService = inject(AdminAcademicDataService);
 
-  constructor(private userService: UserService) {
+  constructor() {
     const userId = this.userService.getUserId();
 
-    this.vm$ = userId
-      ? this.userService.getUserInfo(userId).pipe(
-          map((userInfo: any) => ({
-            classes: userInfo.classes ?? [],
-            student: userInfo.roles.includes('ROLE_STUDENT')
-              ? userInfo as Student
-              : null,
-            teacher: userInfo.roles.includes('ROLE_TEACHER')
-              ? userInfo as Teacher
-              : null
-          }))
+    this.vm$ = this.userService.hasAnyRole(['ROLE_ADMIN'])
+      ? this.adminAcademicDataService.getAllClasses().pipe(
+          map((classes) => ({ classes })),
+          catchError(() => of({ classes: [] }))
         )
-      : of({
-        classes: [],
-        student: null,
-        teacher: null,
-      });
+      : userId
+        ? this.userService.getUserInfo(userId).pipe(
+            map((userInfo: AcademicUser) => ({
+              classes: this.academicStructureService.getClasses(userInfo),
+            })),
+            catchError(() => of({ classes: [] }))
+          )
+        : of({ classes: [] });
   }
 
   get canCreateClass(): boolean {

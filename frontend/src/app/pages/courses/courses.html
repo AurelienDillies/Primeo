@@ -3,11 +3,18 @@
         <h1 class="card-title">Sélection du cours</h1>
     </div>
 
+    @if (vm$ | async; as vm) {
     <div class="container">
-         @if (userService.hasAnyRole(rolesForChange)) {
+        @if (canEdit) {
         <button class="btn btn-create" routerLink="/nouveau-cours">+</button>
         }
-        <app-course></app-course>
+        @for (course of vm.courses; track course.id) {
+        <app-course [course]="course"></app-course>
+        }
+        @if (!vm.courses.length) {
+        <p>Aucun cours disponible pour le moment.</p>
+        }
     </div>
+    }
 
 </div>

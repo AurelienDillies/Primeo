@@ -16,6 +16,20 @@ class CourseRepository extends ServiceEntityRepository
         parent::__construct($registry, Course::class);
     }
 
+    /**
+     * @return Course[]
+     */
+    public function findAllForAdminRead(): array
+    {
+        return $this->createQueryBuilder('course')
+            ->select('DISTINCT course', 'activities', 'reports')
+            ->leftJoin('course.activities', 'activities')
+            ->leftJoin('course.reports', 'reports')
+            ->orderBy('course.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Course[] Returns an array of Course objects
     //     */

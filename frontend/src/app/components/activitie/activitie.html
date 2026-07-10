@@ -2,10 +2,11 @@
 
     <img class="card-img" src="/logo.png" alt="image">
 
-    <h2 class="card-title title-card">test</h2>
+    <h2 class="card-title title-card">{{ activity?.activityTitle ?? 'Activité sans titre' }}</h2>
+    <p class="card-description">{{ activity?.activityType ?? 'Type non précisé' }}</p>
 
     <div class="btn-action">
-        @if (userService.hasAnyRole(rolesForChange)) {
+        @if (canEdit) {
         <button class="btn" routerLink="/modifier-activite">Modifier activité</button>
         }
         <button class="btn" routerLink="/activite-details">Voir activité</button>

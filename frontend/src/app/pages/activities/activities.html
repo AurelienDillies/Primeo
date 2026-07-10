@@ -3,11 +3,18 @@
         <h1 class="card-title">Sélection de l'activité</h1>
     </div>
 
+    @if (vm$ | async; as vm) {
     <div class="container">
-        @if (userService.hasAnyRole(rolesForChange)) {
+        @if (canEdit) {
         <button class="btn btn-create" routerLink="/nouvelle-activite">+</button>
         }
-        <app-activitie></app-activitie>
+        @for (activity of vm.activities; track activity.id) {
+        <app-activitie [activity]="activity"></app-activitie>
+        }
+        @if (!vm.activities.length) {
+        <p>Aucune activité disponible pour le moment.</p>
+        }
     </div>
+    }
 
 </div>
