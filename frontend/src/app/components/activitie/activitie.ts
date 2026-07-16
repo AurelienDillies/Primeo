@@ -9,7 +9,7 @@ import { UserService } from '../../services/user-service';
   styleUrl: './activitie.css',
 })
 export class Activitie {
-      readonly rolesForChange = ['ROLE_ADMIN', 'ROLE_TEACHER'];
-    
-      constructor(public userService: UserService) {}
+  readonly rolesForChange = ['ROLE_ADMIN', 'ROLE_TEACHER'];
+
+  constructor(public userService: UserService) { }
 }
