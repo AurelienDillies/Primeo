@@ -22,7 +22,6 @@ class JwtAuthenticator extends AbstractAuthenticator
 
     public function authenticate(Request $request): SelfValidatingPassport
     {
-        dump($request->headers->all());
         $authHeader = $request->headers->get('Authorization');
 
         if (!$authHeader || !str_starts_with($authHeader, 'Bearer ')) {

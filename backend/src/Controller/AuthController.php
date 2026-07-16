@@ -11,6 +11,7 @@ use App\Security\JwtService;
 use App\Entity\User;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Dto\User\RegisterUserDto;
 
 class AuthController extends AbstractController
 {
@@ -18,14 +19,25 @@ class AuthController extends AbstractController
     public function login(
         Request $request, 
         UserRepository $userRepository,
-        JwtService $jwtService
+        JwtService $jwtService,
+        UserPasswordHasherInterface $passwordHasher
     ): JsonResponse{
         $data = json_decode($request->getContent(), true);
+        if (!is_array($data)) {
+            return $this->json(['error' => 'Payload JSON invalide'], 400);
+        }
 
-        $user = $userRepository->findOneBy(['email' => $data['email'] ?? null]);
+        $email = is_string($data['email'] ?? null) ? trim($data['email']) : null;
+        $password = is_string($data['password'] ?? null) ? $data['password'] : null;
+
+        if (!$email || !$password) {
+            return $this->json(['error' => 'Email et mot de passe requis'], 400);
+        }
+
+        $user = $userRepository->findOneBy(['email' => $email]);
         
 
-        if (!$user || !password_verify($data['password'], $user->getPassword())) {
+        if (!$user || !$passwordHasher->isPasswordValid($user, $password)) {
             return $this->json(['error' => 'Identifiants invalides'], 401);
         }
 
@@ -35,7 +47,14 @@ class AuthController extends AbstractController
             'roles' => $user->getRoles(),
         ]);
 
-        return $this->json(['token' => $token]);
+        return $this->json([
+            'token' => $token,
+            'user' => [
+                'id' => $user->getId(),
+                'email' => $user->getEmail(),
+                'roles' => $user->getRoles(),
+            ],
+        ], 200);
     }
 
     #[Route('/api/register', name: 'api_register', methods: ['POST'])]
@@ -46,40 +65,37 @@ class AuthController extends AbstractController
     ): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-
-        if (empty($data['email']) || empty($data['password'])) {
-            return $this->json(['error' => 'Email et mot de passe requis'], 400);
+        if (!is_array($data)) {
+            return $this->json(['error' => 'Payload JSON invalide'], 400);
         }
 
-        $existingUser = $entityManager->getRepository(User::class)->findOneBy(['email' => $data['email']]);
+        $dto = RegisterUserDto::fromArray($data);
+        $errors = $dto->validate();
+        if ($errors !== []) {
+            return $this->json(['errors' => $errors], 400);
+        }
+
+        $existingUser = $entityManager->getRepository(User::class)->findOneBy(['email' => $dto->email]);
         if ($existingUser) {
-            return $this->json(['error' => 'Email déjà utilisé'], 400);
+            return $this->json(['error' => 'Email déjà utilisé'], 409);
         }
 
         $user = new User();
-        $user->setFirstName($data['first_name'] ?? null);
-        $user->setLastName($data['last_name'] ?? null);
-        $user->setEmail($data['email']);
-        $user->setPassword($passwordHasher->hashPassword($user, $data['password']));
-        switch ($data['role'] ?? 'student') {
-            case 'parent':
-                $user->setRoles(['ROLE_PARENT']);
-                break;
-            case 'teacher':
-                $user->setRoles(['ROLE_TEACHER']);
-                break;
-            default:
-                $user->setRoles(['ROLE_STUDENT']);
-        }
+        $user->setFirstName($dto->firstName);
+        $user->setLastName($dto->lastName);
+        $user->setEmail($dto->email);
+        $user->setPassword($passwordHasher->hashPassword($user, $dto->password));
+        $user->setRoles([$dto->role]);
 
         $entityManager->persist($user);
         $entityManager->flush();
 
         return $this->json([
-            'success' => true,
+            'id' => $user->getId(),
+            'email' => $user->getEmail(),
+            'roles' => $user->getRoles(),
             'message' => 'Inscription réussie',
-            'email' => $data['email'] ?? null
-        ]);
+        ], 201);
     }
 
     #[Route('/api/logout', name: 'api_logout', methods: ['POST'])]

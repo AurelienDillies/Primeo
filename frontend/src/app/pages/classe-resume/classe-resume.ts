@@ -1,48 +1,44 @@
-import { Component } from '@angular/core';
-import { Classe } from '../../components/classe/classe';
-import { Student } from '../../models/student.model';
-import { User } from '../../models/user.model';
-import { UserService } from '../../services/user-service';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Course } from '../../components/course/course';
+import { AcademicCourse } from '../../models/academic.model';
+import { ClassDataService } from '../../services/class-data.service';
 
-type ClassesVM = {
-  classes: any[];
-  student: Student | null;
-  teacher: User | null;
+type ClasseResumeVM = {
+  classId: number | null;
+  courses: AcademicCourse[];
 };
 
 @Component({
   selector: 'app-classe-resume',
-  imports: [CommonModule, Classe],
+  imports: [CommonModule, Course],
   templateUrl: './classe-resume.html',
   styleUrl: './classe-resume.css',
 })
 export class ClasseResume {
+  vm$: Observable<ClasseResumeVM>;
+  private readonly route = inject(ActivatedRoute);
+  private readonly classDataService = inject(ClassDataService);
 
-  vm$: Observable<ClassesVM>;
+  constructor() {
+    this.vm$ = this.route.paramMap.pipe(
+      map((params) => {
+        const rawId = params.get('classId');
+        return rawId ? Number(rawId) : null;
+      }),
+      switchMap((classId) => {
+        if (!classId || Number.isNaN(classId)) {
+          return of({ classId: null, courses: [] });
+        }
 
-  constructor(private userService: UserService) {
-
-    const userId = this.userService.getUserId();
-
-    this.vm$ = userId
-      ? this.userService.getUserInfo(userId).pipe(
-        map((userInfo: any) => ({
-          classes: userInfo.classes ?? [],
-          student: userInfo.roles.includes('ROLE_STUDENT')
-            ? userInfo as Student
-            : null,
-          teacher: userInfo.roles.includes('ROLE_TEACHER')
-            ? userInfo as User
-            : null
-        }))
-      )
-      : of({
-        classes: [],
-        student: null,
-        teacher: null
-      });
+        return this.classDataService.getCoursesByClassId(classId).pipe(
+          map((courses) => ({ classId, courses })),
+          catchError(() => of({ classId, courses: [] }))
+        );
+      })
+    );
   }
 }

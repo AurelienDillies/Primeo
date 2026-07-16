@@ -1,10 +1,34 @@
-<div class="card-container">
+@if (vm$ | async; as vm) {
+    @if (vm.loading) {
+    <p>Chargement des enfants...</p>
+    }
 
-    <img class="card-img" src="/logo.png" alt="image">
+    @if (vm.error) {
+    <p>{{ vm.error }}</p>
+    }
 
-    <h2 class="card-title title-card">test</h2>
+    @if (!vm.loading && !vm.error) {
+        @if (!vm.children.length) {
+        <p>Aucun enfant n'est associé à ce compte parent.</p>
+        }
 
-    <div class="btn-action">
-        <button class="btn" routerLink="/cours">Voir enfant</button>
-    </div>
-</div>
+        <div class="children-grid">
+            @for (child of vm.children; track child.id) {
+            <article class="card-container" [class.selected]="vm.selectedChildId === child.id">
+                <img class="card-img" src="/logo.png" alt="Avatar enfant">
+
+                <h2 class="card-title title-card">{{ child.first_name }} {{ child.last_name }}</h2>
+                <p class="card-description">{{ child.email }}</p>
+                <p class="card-description">Classes suivies : {{ child.classesCount }}</p>
+                <p class="card-description">Progressions disponibles : {{ child.progressCount }}</p>
+
+                <div class="btn-action">
+                    <button class="btn" type="button" (click)="openProgress(child.id)">
+                        Voir le suivi de cet enfant
+                    </button>
+                </div>
+            </article>
+            }
+        </div>
+    }
+}

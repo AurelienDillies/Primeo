@@ -1,15 +1,23 @@
 <div class="card">
   <div class="text">
-    <h1 class="card-title">Cours associés à cette classe</h1>
+    <h1 class="card-title">Cours de cette classe</h1>
   </div>
 
   @if (vm$ | async; as vm) {
+  <div class="container">
+    @if (!vm.classId) {
+    <p>Aucune classe sélectionnée.</p>
+    }
 
-    <div class="container">
-      @for (item of vm.classes; track $index) {
-        <app-classe [Classe]="item"></app-classe>
-      }
-    </div>
+    @for (course of vm.courses; track course.id) {
+    <app-course [course]="course" [sourceClassId]="vm.classId ?? undefined"></app-course>
+    }
 
+    @if (vm.classId && !vm.courses.length) {
+    <p>Aucun cours disponible pour cette classe.</p>
+    }
+  </div>
+  } @else {
+  <p>Chargement des cours de la classe...</p>
   }
 </div>

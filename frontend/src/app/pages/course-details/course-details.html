@@ -2,7 +2,13 @@
     <div class="text">
         <h1 class="card-title">Contenu du cours</h1>
     </div>
-    <a routerLink="/cours">Retour à la liste des cours</a>
+    <button class="btn" type="button" (click)="goBack()">Retour</button>
+
+    @if (courseId$ | async; as courseId) {
+    <a [routerLink]="['/resume-cours', courseId]" [state]="resumeState">Voir les activités du cours</a>
+    } @else {
+    <a routerLink="/resume-course">Voir les activités du cours</a>
+    }
 
 
 </div>

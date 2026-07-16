@@ -2,6 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Parents;
+use App\Entity\Student;
+use App\Entity\Teacher;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -31,6 +34,52 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newHashedPassword);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+    }
+
+    public function findOneForApiRead(int $id, string $readGroup): ?User
+    {
+        if ($readGroup === 'student:read') {
+            return $this->getEntityManager()->createQueryBuilder()
+                ->select('DISTINCT student', 'classes', 'courses', 'activities', 'progresses')
+                ->from(Student::class, 'student')
+                ->leftJoin('student.classes', 'classes')
+                ->leftJoin('classes.courses', 'courses')
+                ->leftJoin('courses.activities', 'activities')
+                ->leftJoin('courses.progresses', 'progresses')
+                ->andWhere('student.id = :id')
+                ->setParameter('id', $id)
+                ->getQuery()
+                ->getOneOrNullResult();
+        }
+
+        if ($readGroup === 'teacher:read') {
+            return $this->getEntityManager()->createQueryBuilder()
+                ->select('DISTINCT teacher', 'teachingClasses', 'students', 'courses', 'activities', 'progresses', 'progressStudent')
+                ->from(Teacher::class, 'teacher')
+                ->leftJoin('teacher.teachingClasses', 'teachingClasses')
+                ->leftJoin('teachingClasses.students', 'students')
+                ->leftJoin('teachingClasses.courses', 'courses')
+                ->leftJoin('courses.activities', 'activities')
+                ->leftJoin('courses.progresses', 'progresses')
+                ->leftJoin('progresses.student', 'progressStudent')
+                ->andWhere('teacher.id = :id')
+                ->setParameter('id', $id)
+                ->getQuery()
+                ->getOneOrNullResult();
+        }
+
+        if ($readGroup === 'parent:read') {
+            return $this->getEntityManager()->createQueryBuilder()
+                ->select('DISTINCT parent', 'children')
+                ->from(Parents::class, 'parent')
+                ->leftJoin('parent.children', 'children')
+                ->andWhere('parent.id = :id')
+                ->setParameter('id', $id)
+                ->getQuery()
+                ->getOneOrNullResult();
+        }
+
+        return $this->find($id);
     }
 
     //    /**

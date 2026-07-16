@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AcademicProgressCard } from '../../models/academic.model';
 
 @Component({
   selector: 'app-advance',
@@ -7,4 +8,6 @@ import { RouterLink } from '@angular/router';
   templateUrl: './advance.html',
   styleUrl: './advance.css',
 })
-export class Advance {}
+export class Advance {
+  @Input() progressCard?: AcademicProgressCard;
+}

@@ -18,7 +18,7 @@ export class FormsLogin {
   onSubmit() {
     this.userService.login(this.email, this.password).subscribe({
       
-      next: (response: any) => {
+      next: (response: { token: string }) => {
         const token = response.token;
         this.userService.setToken(token);
 

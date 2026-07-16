@@ -1,29 +1,62 @@
+@if (loading) {
+<p>Chargement des utilisateurs...</p>
+}
+
+@if (errorMessage) {
+<p class="message error">{{ errorMessage }}</p>
+}
+
+@if (successMessage) {
+<p class="message success">{{ successMessage }}</p>
+}
+
 <table class="user-table">
     <thead>
         <tr>
             <th>Nom</th>
             <th>Prénom</th>
             <th>Email</th>
-            <th>Téléphone</th>
             <th>Rôle</th>
+            <th>Actions</th>
         </tr>
     </thead>
 
     <tbody>
+        @for (user of users; track user.id) {
         <tr>
-            <td>Dupont</td>
-            <td>Jean</td>
-            <td>jean.dupont@example.com</td>
-            <td>06 06 06 06 06</td>
-            <td>Admin</td>
+            @if (editingUserId === user.id) {
+            <td>
+                <input class="edit-input" type="text" [(ngModel)]="editLastName" name="lastName-{{ user.id }}" required />
+            </td>
+            <td>
+                <input class="edit-input" type="text" [(ngModel)]="editFirstName" name="firstName-{{ user.id }}" required />
+            </td>
+            <td>
+                <input class="edit-input" type="email" [(ngModel)]="editEmail" name="email-{{ user.id }}" required />
+                <input class="edit-input" type="password" [(ngModel)]="editPassword" name="password-{{ user.id }}" placeholder="Nouveau mot de passe (optionnel)" />
+            </td>
+            <td>{{ displayRole(user.roles) }}</td>
+            <td class="actions">
+                <button class="btn-action save" type="button" (click)="saveEdit(user.id)">Enregistrer</button>
+                <button class="btn-action cancel" type="button" (click)="cancelEdit()">Annuler</button>
+            </td>
+            } @else {
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ displayRole(user.roles) }}</td>
+            <td class="actions">
+                <button class="btn-action edit" type="button" (click)="startEdit(user)">Modifier</button>
+                <button class="btn-action delete" type="button" (click)="deleteUser(user)">Supprimer</button>
+            </td>
+            }
         </tr>
+        }
 
-         <tr>
-            <td>Dupont</td>
-            <td>Jean</td>
-            <td>jean.dupont@example.com</td>
-            <td>06 06 06 06 06</td>
-            <td>Admin</td>
+        @if (!loading && !users.length) {
+        <tr>
+            <td colspan="5">Aucun utilisateur trouvé.</td>
         </tr>
+        }
     </tbody>
 </table>

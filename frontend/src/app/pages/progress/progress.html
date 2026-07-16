@@ -3,8 +3,64 @@
         <h1 class="card-title">Votre progression</h1>
     </div>
 
+    @if (vm$ | async; as vm) {
+    @if (vm.isParent && vm.selectedChildName) {
+    <p class="child-context">Suivi de l'enfant : {{ vm.selectedChildName }}</p>
+    }
+
+    @if (vm.needsChildSelection) {
+    <p>Veuillez d'abord sélectionner un enfant pour consulter son suivi.</p>
+    <button type="button" (click)="goToChildrenPage()">Aller à la page Enfants</button>
+    }
+
+    @if (vm.error) {
+    <p>{{ vm.error }}</p>
+    <button type="button" (click)="goToChildrenPage()">Retour à la sélection des enfants</button>
+    }
+
+    @if (!vm.needsChildSelection && !vm.error) {
     <div class="container">
-        <app-advance></app-advance>
+        @for (progressCard of vm.progressCards; track progressCard.id) {
+        <app-advance [progressCard]="progressCard"></app-advance>
+        }
+        @if (!vm.progressCards.length) {
+        <p>Aucune progression disponible pour le moment.</p>
+        }
     </div>
+
+    <section class="section-block">
+        <h2>Cours suivis</h2>
+        @if (vm.courses.length) {
+        <ul>
+            @for (course of vm.courses; track course.id) {
+            <li>
+                <strong>{{ course.courseTitle }}</strong>
+                <p>{{ course.courseDescription }}</p>
+            </li>
+            }
+        </ul>
+        } @else {
+        <p>Aucun cours disponible.</p>
+        }
+    </section>
+
+    <section class="section-block">
+        <h2>Activités réalisées ou planifiées</h2>
+        @if (vm.activities.length) {
+        <ul>
+            @for (activity of vm.activities; track activity.id) {
+            <li>
+                <strong>{{ activity.activityTitle }}</strong>
+                <p>Type : {{ activity.activityType }}</p>
+                <p>Date : {{ activity.activityDate | date: 'dd/MM/yyyy' }}</p>
+            </li>
+            }
+        </ul>
+        } @else {
+        <p>Aucune activité disponible.</p>
+        }
+    </section>
+    }
+    }
 
 </div>

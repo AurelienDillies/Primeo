@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../../services/user-service';
+import { UserProfileUpdate, UserService } from '../../services/user-service';
 import { User } from '../../models/user.model';
 
 @Component({
@@ -36,7 +36,7 @@ export class FormsProfile implements OnChanges {
   }
 
   onSubmit(): void {
-    const payload: Partial<User> & { password?: string } = {
+    const payload: UserProfileUpdate = {
       first_name: this.first_name,
       last_name: this.last_name,
       email: this.email,
@@ -46,10 +46,10 @@ export class FormsProfile implements OnChanges {
       payload.password = this.password;
     }
 
-    this.userService.update(payload as any).subscribe({
+    this.userService.update(payload).subscribe({
       next: () => {
         console.log('Profil mis à jour');
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/profil']);
       },
       error: (err) => {
         console.error(err);
