@@ -30,6 +30,22 @@ class CourseRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return Course[]
+     */
+    public function findByClasseIdForRead(int $classId): array
+    {
+        return $this->createQueryBuilder('course')
+            ->select('DISTINCT course', 'activities', 'reports')
+            ->leftJoin('course.activities', 'activities')
+            ->leftJoin('course.reports', 'reports')
+            ->andWhere('course.classe = :classId')
+            ->setParameter('classId', $classId)
+            ->orderBy('course.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Course[] Returns an array of Course objects
     //     */

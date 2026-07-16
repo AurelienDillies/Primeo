@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Classe;
 use App\Repository\ClasseRepository;
+use App\Repository\CourseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,11 +31,45 @@ class ClasseController extends AbstractController
     public function getClasse(ClasseRepository $classeRepository, SerializerInterface $serializer, int $id): JsonResponse
     {
         $classe = $classeRepository->find($id);
+
+        if (!$classe) {
+            return new JsonResponse(['error' => 'Classe non trouvée'], 404);
+        }
+
         try{
             $json = $serializer->serialize($classe, 'json', ['groups' => 'classe:read']);
         } catch (\Exception $e) {
             return new JsonResponse(['error' => 'Erreur de sérialisation: ' . $e->getMessage()], 500);
         }
+        return new JsonResponse($json, 200, [], true);
+    }
+
+    #[Route('/{id}/courses', name: 'get_class_courses', methods: ['GET'])]
+    public function getClasseCourses(
+        int $id,
+        ClasseRepository $classeRepository,
+        CourseRepository $courseRepository,
+        SerializerInterface $serializer
+    ): JsonResponse {
+        if (
+            !$this->isGranted('ROLE_ADMIN')
+            && !$this->isGranted('ROLE_TEACHER')
+            && !$this->isGranted('ROLE_STUDENT')
+        ) {
+            throw $this->createAccessDeniedException('Accès refusé.');
+        }
+
+        $classe = $classeRepository->find($id);
+        if (!$classe) {
+            return new JsonResponse(['error' => 'Classe non trouvée'], 404);
+        }
+
+        try {
+            $json = $serializer->serialize($courseRepository->findByClasseIdForRead($id), 'json', ['groups' => 'classe:read']);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'Erreur de sérialisation: ' . $e->getMessage()], 500);
+        }
+
         return new JsonResponse($json, 200, [], true);
     }
 
