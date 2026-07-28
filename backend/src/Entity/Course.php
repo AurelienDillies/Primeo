@@ -51,6 +51,9 @@ class Course
     #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private Collection $reports;
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 3, scale: 2, nullable: true)]
+    private ?string $pourcent = null;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -179,6 +182,18 @@ class Course
                 $report->setCourse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPourcent(): ?string
+    {
+        return $this->pourcent;
+    }
+
+    public function setPourcent(?string $pourcent): static
+    {
+        $this->pourcent = $pourcent;
 
         return $this;
     }

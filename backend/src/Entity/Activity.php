@@ -35,6 +35,9 @@ class Activity
     #[ORM\ManyToOne(inversedBy: 'activities')]
     private ?Course $course = null;
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 3, scale: 2, nullable: true)]
+    private ?string $pourcent = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -96,6 +99,18 @@ class Activity
     public function setCourse(?Course $course): static
     {
         $this->course = $course;
+
+        return $this;
+    }
+
+    public function getPourcent(): ?string
+    {
+        return $this->pourcent;
+    }
+
+    public function setPourcent(?string $pourcent): static
+    {
+        $this->pourcent = $pourcent;
 
         return $this;
     }
