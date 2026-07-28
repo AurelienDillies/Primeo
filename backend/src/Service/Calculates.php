@@ -1,9 +1,11 @@
 <?php
 
+namespace App\Service;
+
 use App\Entity\Course;
 use App\Entity\Student;
 
-final class Calculate
+final class Calculates
 {
     public static function calculatePourcentCourse(Course $course): ?string
     {
