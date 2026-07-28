@@ -45,13 +45,6 @@ class Course
     private Collection $activities;
 
     /**
-     * @var Collection<int, Progress>
-     */
-    #[ORM\OneToMany(targetEntity: Progress::class, mappedBy: 'course', cascade: ['persist', 'remove'])]
-    #[Groups(['student:read', 'teacher:read'])]
-    private Collection $progresses;
-
-    /**
      * @var Collection<int, Report>
      */
     #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'course', cascade: ['persist', 'remove'])]
@@ -61,7 +54,6 @@ class Course
     public function __construct()
     {
         $this->activities = new ArrayCollection();
-        $this->progresses = new ArrayCollection();
         $this->reports = new ArrayCollection();
     }
 
@@ -160,35 +152,6 @@ class Course
         return $this;
     }
 
-    /**
-     * @return Collection<int, Progress>
-     */
-    public function getProgresses(): Collection
-    {
-        return $this->progresses;
-    }
-
-    public function addProgress(Progress $progress): static
-    {
-        if (!$this->progresses->contains($progress)) {
-            $this->progresses->add($progress);
-            $progress->setCourse($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProgress(Progress $progress): static
-    {
-        if ($this->progresses->removeElement($progress)) {
-            // set the owning side to null (unless already changed)
-            if ($progress->getCourse() === $this) {
-                $progress->setCourse(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Report>

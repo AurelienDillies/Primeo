@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
@@ -22,24 +23,19 @@ class Student extends User
     private Collection $classes;
 
     /**
-     * @var Collection<int, Progress>
-     */
-    #[ORM\OneToMany(targetEntity: Progress::class, mappedBy: 'student', cascade: ['persist', 'remove'])]
-    #[Groups(['student:read'])]
-    private Collection $progresses;
-
-    /**
      * @var Collection<int, Parents>
      */
     #[ORM\ManyToMany(targetEntity: Parents::class, mappedBy: 'children')]
     #[Groups(['student:read'])]
     private Collection $parents;
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 3, scale: 2, nullable: true)]
+    private ?string $pourcent = null;
+
     public function __construct()
     {
         parent::__construct();
         $this->classes = new ArrayCollection();
-        $this->progresses = new ArrayCollection();
         $this->parents = new ArrayCollection();
     }
 
@@ -83,35 +79,6 @@ class Student extends User
     }
 
     /**
-     * @return Collection<int, Progress>
-     */
-    public function getProgresses(): Collection
-    {
-        return $this->progresses;
-    }
-
-    public function addProgress(Progress $progress): static
-    {
-        if (!$this->progresses->contains($progress)) {
-            $this->progresses->add($progress);
-            $progress->setStudent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProgress(Progress $progress): static
-    {
-        if ($this->progresses->removeElement($progress)) {
-            if ($progress->getStudent() === $this) {
-                $progress->setStudent(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Parents>
      */
     public function getParents(): Collection
@@ -134,6 +101,18 @@ class Student extends User
         if ($this->parents->removeElement($parent)) {
             $parent->removeChild($this);
         }
+
+        return $this;
+    }
+
+    public function getPourcent(): ?string
+    {
+        return $this->pourcent;
+    }
+
+    public function setPourcent(?string $pourcent): static
+    {
+        $this->pourcent = $pourcent;
 
         return $this;
     }

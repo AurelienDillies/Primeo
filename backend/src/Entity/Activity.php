@@ -35,10 +35,6 @@ class Activity
     #[ORM\ManyToOne(inversedBy: 'activities')]
     private ?Course $course = null;
 
-    #[ORM\ManyToOne(inversedBy: 'activities')]
-    #[Groups(['user:read', 'teacher:read', 'student:read'])]
-    private ?Progress $progress = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -100,18 +96,6 @@ class Activity
     public function setCourse(?Course $course): static
     {
         $this->course = $course;
-
-        return $this;
-    }
-
-    public function getProgress(): ?Progress
-    {
-        return $this->progress;
-    }
-
-    public function setProgress(?Progress $progress): static
-    {
-        $this->progress = $progress;
 
         return $this;
     }
