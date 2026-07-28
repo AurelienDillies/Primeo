@@ -10,12 +10,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/api/classes')]
 class ClasseController extends AbstractController
 {
     #[Route('/', name: 'get_classes', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function getClasses(ClasseRepository $classeRepository, SerializerInterface $serializer): JsonResponse
     {
         $classes = $classeRepository->findAll();
@@ -28,6 +30,7 @@ class ClasseController extends AbstractController
     }
 
     #[Route('/{id}', name: 'get_class', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function getClasse(ClasseRepository $classeRepository, SerializerInterface $serializer, int $id): JsonResponse
     {
         $classe = $classeRepository->find($id);
@@ -45,6 +48,7 @@ class ClasseController extends AbstractController
     }
 
     #[Route('/{id}/courses', name: 'get_class_courses', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function getClasseCourses(
         int $id,
         ClasseRepository $classeRepository,
@@ -74,6 +78,7 @@ class ClasseController extends AbstractController
     }
 
     #[Route('/', name: 'create_class', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN', 'ROLE_TEACHER')]
     public function createClasse(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -86,6 +91,7 @@ class ClasseController extends AbstractController
     }
 
     #[Route('/{id}', name: 'update_class', methods: ['PUT'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function updateClasse(
         Request $request,
         EntityManagerInterface $entityManager,
@@ -104,6 +110,7 @@ class ClasseController extends AbstractController
     }
 
     #[Route('/{id}', name: 'delete_class', methods: ['DELETE'])]
+    #[IsGranted('ROLE_ADMIN','ROLE_TEACHER')]
     public function deleteClasse(
         EntityManagerInterface $entityManager,
         ClasseRepository $classeRepository,
