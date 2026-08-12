@@ -1,14 +1,61 @@
-<div class="card">
-    <div class="text">
-        <h1 class="card-title">Contenu du cours</h1>
+<section class="card detail-page">
+    <div class="detail-header">
+        <button class="btn" type="button" (click)="goBack()">Retour</button>
+        <h1 class="card-title detail-title">{{ pageTitle }}</h1>
+        <button class="btn detail-action-button" type="button" (click)="goToAction()">{{ actionLabel }}</button>
+        <div class="detail-header-spacer" aria-hidden="true"></div>
     </div>
-    <button class="btn" type="button" (click)="goBack()">Retour</button>
 
-    @if (courseId$ | async; as courseId) {
-    <a [routerLink]="['/resume-cours', courseId]" [state]="resumeState">Voir les activités du cours</a>
-    } @else {
-    <a routerLink="/resume-course">Voir les activités du cours</a>
+    @if (vm$ | async; as vm) {
+    <div class="detail-grid">
+        <aside class="detail-left" aria-label="Informations du cours">
+            @for (card of vm.infoCards; track card.title) {
+            <article class="detail-box detail-square-card">
+                <h2 class="sub-title">{{ card.title }}</h2>
+                <p>{{ card.content }}</p>
+            </article>
+            }
+        </aside>
+
+        <div class="detail-center" aria-label="Contenu principal du cours">
+            <article class="detail-box detail-main-card">
+                <h2 class="sub-title">{{ vm.mainPanel.title }}</h2>
+                <p>{{ vm.mainPanel.description }}</p>
+                @if (vm.mainPanel.videoUrl) {
+                <video class="detail-video" controls preload="metadata">
+                    <source [src]="vm.mainPanel.videoUrl">
+                    Votre navigateur ne peut pas lire cette video.
+                </video>
+                } @else {
+                <div class="detail-media-placeholder">{{ vm.mainPanel.placeholder }}</div>
+                }
+
+                @if (vm.loading) {
+                <p>Chargement des informations du cours...</p>
+                }
+
+                @if (vm.error) {
+                <p>{{ vm.error }}</p>
+                }
+            </article>
+        </div>
+
+        <aside class="detail-right" aria-label="Ressources du cours">
+            <article class="detail-box detail-side-card">
+                <h2 class="sub-title">{{ vm.sidePanel.title }}</h2>
+                <ul class="detail-resource-list">
+                    @for (resource of vm.sidePanel.resources; track resource) {
+                    <li>
+                        @if (isPdfResource(resource)) {
+                        <a [href]="resource.url" target="_blank" rel="noopener noreferrer">{{ resource.label }}</a>
+                        } @else {
+                        {{ resource.label }}
+                        }
+                    </li>
+                    }
+                </ul>
+            </article>
+        </aside>
+    </div>
     }
-
-
-</div>
+</section>

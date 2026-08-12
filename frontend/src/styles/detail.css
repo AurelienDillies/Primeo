@@ -1,0 +1,101 @@
+.detail-page {
+	width: min(1200px, calc(100% - 40px));
+	margin: 20px auto;
+}
+
+.detail-header {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	align-items: center;
+	gap: 16px;
+	margin-bottom: 20px;
+}
+
+.detail-title {
+	text-align: center;
+}
+
+.detail-header-spacer {
+	width: 88px;
+}
+
+.detail-grid {
+	display: grid;
+	grid-template-columns: minmax(210px, 1fr) minmax(380px, 2.2fr) minmax(220px, 1fr);
+	gap: 20px;
+}
+
+.detail-left {
+	display: grid;
+	gap: 20px;
+}
+
+.detail-box {
+	background-color: var(--White);
+	border-radius: 20px;
+	box-shadow: var(--ShadowCard);
+	padding: 20px;
+}
+
+.detail-square-card {
+	min-height: 190px;
+	display: grid;
+	gap: 10px;
+}
+
+.detail-main-card {
+	display: grid;
+	gap: 16px;
+}
+
+.detail-media-placeholder {
+	min-height: 320px;
+	border: 2px dashed var(--DarkBlue);
+	border-radius: 16px;
+	background-color: var(--Light);
+	color: var(--DarkBlue);
+	display: grid;
+	place-items: center;
+	text-align: center;
+	padding: 20px;
+	font-weight: 600;
+}
+
+.detail-video {
+	width: 100%;
+	min-height: 320px;
+	border-radius: 16px;
+	background-color: var(--Light);
+}
+
+.detail-center,
+.detail-right {
+	display: grid;
+}
+
+.detail-side-card {
+	display: grid;
+	align-content: start;
+	gap: 16px;
+}
+
+.detail-resource-list {
+	padding-left: 18px;
+	display: grid;
+	gap: 8px;
+}
+
+.detail-note {
+	border-left: 4px solid var(--LightBlue);
+	border-radius: 10px;
+	background-color: var(--Light);
+	padding: 12px;
+}
+
+.detail-action-link {
+	font-weight: bold;
+}
+
+.detail-action-button {
+	justify-self: start;
+} 

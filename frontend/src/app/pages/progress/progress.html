@@ -28,38 +28,6 @@
         }
     </div>
 
-    <section class="section-block">
-        <h2>Cours suivis</h2>
-        @if (vm.courses.length) {
-        <ul>
-            @for (course of vm.courses; track course.id) {
-            <li>
-                <strong>{{ course.courseTitle }}</strong>
-                <p>{{ course.courseDescription }}</p>
-            </li>
-            }
-        </ul>
-        } @else {
-        <p>Aucun cours disponible.</p>
-        }
-    </section>
-
-    <section class="section-block">
-        <h2>Activités réalisées ou planifiées</h2>
-        @if (vm.activities.length) {
-        <ul>
-            @for (activity of vm.activities; track activity.id) {
-            <li>
-                <strong>{{ activity.activityTitle }}</strong>
-                <p>Type : {{ activity.activityType }}</p>
-                <p>Date : {{ activity.activityDate | date: 'dd/MM/yyyy' }}</p>
-            </li>
-            }
-        </ul>
-        } @else {
-        <p>Aucune activité disponible.</p>
-        }
-    </section>
     }
     }
 
