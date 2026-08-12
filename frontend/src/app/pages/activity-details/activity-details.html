@@ -1,9 +1,8 @@
-<section class="card detail-page">
+<section class="card detail-page activity-detail-page">
     <div class="detail-header">
         <button class="btn" type="button" (click)="goBack()">Retour</button>
         <h1 class="card-title detail-title">{{ pageTitle }}</h1>
         <button class="btn detail-action-button" type="button" (click)="goToAction()">{{ actionLabel }}</button>
-        <div class="detail-header-spacer" aria-hidden="true"></div>
     </div>
 
     @if (vm$ | async; as vm) {

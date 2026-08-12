@@ -1,33 +1,63 @@
 .detail-page {
-	width: min(1200px, calc(100% - 40px));
-	margin: 20px auto;
+	width: calc(100% - 24px);
+	max-width: 1400px;
+	margin: 12px auto;
 }
 
 .detail-header {
 	display: grid;
-	grid-template-columns: auto 1fr auto;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	grid-template-areas:
+		"back action"
+		"title title";
 	align-items: center;
-	gap: 16px;
+	gap: 10px;
 	margin-bottom: 20px;
 }
 
+.course-detail-page .detail-header > :first-child,
+.activity-detail-page .detail-header > :first-child {
+	grid-area: back;
+	justify-self: start;
+}
+
+.course-detail-page .detail-header .detail-title,
+.activity-detail-page .detail-header .detail-title {
+	grid-area: title;
+}
+
+.course-detail-page .detail-header .detail-action-button,
+.activity-detail-page .detail-header .detail-action-button {
+	grid-area: action;
+	justify-self: end;
+}
+
 .detail-title {
+	width: 100%;
+	min-width: 0;
+	max-width: 100%;
+	font-size: clamp(1.35rem, 4vw, 2.3rem);
+	line-height: 1.15;
 	text-align: center;
+	white-space: normal;
+	overflow-wrap: anywhere;
+	word-break: break-word;
 }
 
 .detail-header-spacer {
-	width: 88px;
+	width: 0;
 }
 
 .detail-grid {
 	display: grid;
-	grid-template-columns: minmax(210px, 1fr) minmax(380px, 2.2fr) minmax(220px, 1fr);
-	gap: 20px;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 16px;
 }
 
 .detail-left {
 	display: grid;
 	gap: 20px;
+	min-width: 0;
 }
 
 .detail-box {
@@ -46,10 +76,17 @@
 .detail-main-card {
 	display: grid;
 	gap: 16px;
+	min-width: 0;
+}
+
+.form-page .detail-main-card {
+	width: 100%;
+	max-width: 640px;
+	justify-self: center;
 }
 
 .detail-media-placeholder {
-	min-height: 320px;
+	min-height: 180px;
 	border: 2px dashed var(--DarkBlue);
 	border-radius: 16px;
 	background-color: var(--Light);
@@ -63,7 +100,9 @@
 
 .detail-video {
 	width: 100%;
-	min-height: 320px;
+	max-height: 520px;
+	aspect-ratio: 16 / 9;
+	height: auto;
 	border-radius: 16px;
 	background-color: var(--Light);
 }
@@ -71,6 +110,7 @@
 .detail-center,
 .detail-right {
 	display: grid;
+	min-width: 0;
 }
 
 .detail-side-card {
@@ -83,6 +123,7 @@
 	padding-left: 18px;
 	display: grid;
 	gap: 8px;
+	overflow-wrap: anywhere;
 }
 
 .detail-note {
@@ -102,8 +143,8 @@
 
 .student-selection {
 	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 20px;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 16px;
 }
 
 .student-list {
@@ -126,6 +167,15 @@
 }
 
 .student-row span {
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+.student-row button {
+	flex: 0 0 auto;
+}
+
+.student-row span {
 	display: grid;
 	gap: 3px;
 }
@@ -133,4 +183,52 @@
 .student-row small {
 	font-size: 0.85rem;
 	opacity: 0.75;
+}
+
+@media (min-width: 768px) {
+	.detail-page {
+		width: calc(100% - 40px);
+		margin: 20px auto;
+	}
+
+	.detail-header {
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		grid-template-areas: "back title action";
+		gap: 16px;
+	}
+
+	.detail-grid {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 20px;
+	}
+
+	.form-page .detail-main-card {
+		min-width: 520px;
+	}
+
+	.form-page .detail-grid {
+		grid-template-columns: minmax(0, 640px);
+		justify-content: center;
+	}
+
+	.detail-media-placeholder {
+		min-height: 260px;
+	}
+
+	.student-selection {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 20px;
+	}
+}
+
+@media (min-width: 1024px) {
+	.detail-grid {
+		grid-template-columns: minmax(210px, 1fr) minmax(0, 2.2fr) minmax(220px, 1fr);
+	}
+}
+
+@media (min-width: 1440px) {
+	.detail-page {
+		padding: 24px;
+	}
 }

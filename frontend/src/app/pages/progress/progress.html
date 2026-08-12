@@ -19,7 +19,7 @@
     }
 
     @if (!vm.needsChildSelection && !vm.error) {
-    <div class="container">
+    <div class="progress-grid">
         @for (progressCard of vm.progressCards; track progressCard.id) {
         <app-advance [progressCard]="progressCard"></app-advance>
         }
