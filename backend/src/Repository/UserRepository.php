@@ -82,6 +82,30 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $this->find($id);
     }
 
+    /** @return Student[] */
+    public function findStudents(): array
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('student')
+            ->from(Student::class, 'student')
+            ->orderBy('student.last_name', 'ASC')
+            ->addOrderBy('student.first_name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /** @return Teacher[] */
+    public function findTeachers(): array
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('teacher')
+            ->from(Teacher::class, 'teacher')
+            ->orderBy('teacher.last_name', 'ASC')
+            ->addOrderBy('teacher.first_name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return User[] Returns an array of User objects
     //     */

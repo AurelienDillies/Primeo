@@ -7,7 +7,7 @@
 
     <div class="btn-action">
         @if (canEdit) {
-        <button class="btn" routerLink="/modifier-cours">Modifier cours</button>
+        <button class="btn" [routerLink]="['/modifier-cours', course?.id]">Modifier cours</button>
         }
         <button class="btn" [routerLink]="detailsRoute" [state]="detailsState">Voir cours</button>
 

@@ -1,1 +1,24 @@
-<p>update-activitie works!</p>
+<section class="card detail-page">
+	<div class="detail-header">
+		<button class="btn" type="button" routerLink="/activites">Retour</button>
+		<h1 class="card-title detail-title">Modifier l’activité</h1>
+		<div class="detail-header-spacer" aria-hidden="true"></div>
+	</div>
+
+	@if (loading()) { <p class="detail-note">Chargement de l’activité...</p> } @else {
+	<div class="detail-grid">
+		<div></div>
+		<form class="detail-box detail-main-card" [formGroup]="form" (ngSubmit)="submit()">
+			<div class="field"><label class="label" for="activityType">Type d’activité</label><input class="input" id="activityType" formControlName="activityType"></div>
+			<div class="field"><label class="label" for="activityTitle">Titre</label><input class="input" id="activityTitle" formControlName="activityTitle"></div>
+			<div class="field"><label class="label" for="activityDescription">Description</label><textarea class="input" id="activityDescription" formControlName="activityDescription"></textarea></div>
+			<div class="field"><label class="label" for="activityDate">Date</label><input class="input" id="activityDate" type="date" formControlName="activityDate"></div>
+			<div class="field"><label class="label" for="courseId">Cours associé</label><select class="input" id="courseId" formControlName="courseId"><option [ngValue]="null">Sélectionner un cours</option>@for (course of courses$ | async; track course.id) {<option [ngValue]="course.id">{{ course.courseTitle }}</option>}</select></div>
+			@if (errorMessage) { <p class="detail-note">{{ errorMessage }}</p> }
+			<button class="btn detail-action-button" type="submit" [disabled]="saving">Enregistrer</button>
+			<button class="btn btn-danger detail-action-button" type="button" (click)="deleteActivity()" [disabled]="saving || deleting">Supprimer l’activité</button>
+		</form>
+		<div></div>
+	</div>
+	}
+</section>

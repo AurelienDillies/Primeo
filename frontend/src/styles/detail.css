@@ -98,4 +98,39 @@
 
 .detail-action-button {
 	justify-self: start;
-} 
+}
+
+.student-selection {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 20px;
+}
+
+.student-list {
+	display: grid;
+	align-content: start;
+	gap: 10px;
+	max-height: 320px;
+	overflow-y: auto;
+}
+
+.student-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 10px;
+	border: 1px solid var(--LightBlue);
+	border-radius: var(--BorderRadiusBtn);
+	background-color: var(--Light);
+}
+
+.student-row span {
+	display: grid;
+	gap: 3px;
+}
+
+.student-row small {
+	font-size: 0.85rem;
+	opacity: 0.75;
+}

@@ -38,6 +38,16 @@ export interface AcademicClass {
   className: string;
   classDescription: string | null;
   courses: AcademicCourse[];
+  studentIds?: number[];
+  teacherId?: number | null;
+  teacherName?: string | null;
+}
+
+export interface AcademicStudent {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
 }
 
 export interface AcademicUser {
@@ -68,4 +78,11 @@ export interface ParentChildDetail extends AcademicUser {
   email: string;
   enrollmentDate: string | null;
   classes: AcademicClass[];
+}
+
+export interface AcademicTeacher {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
 }

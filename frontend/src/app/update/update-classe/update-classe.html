@@ -1,1 +1,47 @@
-<p>update-classe works!</p>
+<section class="card detail-page">
+	<div class="detail-header">
+		<button class="btn" type="button" routerLink="/classes">Retour</button>
+		<h1 class="card-title detail-title">Modifier la classe</h1>
+		<div class="detail-header-spacer" aria-hidden="true"></div>
+	</div>
+
+	@if (loading()) { <p class="detail-note">Chargement de la classe...</p> } @else {
+	<div class="detail-grid">
+		<div></div>
+		<form class="detail-box detail-main-card" [formGroup]="form" (ngSubmit)="submit()">
+			<div class="field"><label class="label" for="className">Nom de la classe</label><input class="input" id="className" formControlName="className"></div>
+			<div class="field"><label class="label" for="classDescription">Description</label><textarea class="input" id="classDescription" formControlName="classDescription"></textarea></div>
+			@if (canChangeTeacher) {
+			<div class="field"><label class="label" for="teacherId">Enseignant responsable</label><select class="input" id="teacherId" formControlName="teacherId"><option [ngValue]="null">Aucun enseignant</option>@for (teacher of teachers(); track teacher.id) {<option [ngValue]="teacher.id">{{ teacher.first_name }} {{ teacher.last_name }} ({{ teacher.email }})</option>}</select></div>
+			} @else {
+			<div class="field"><span class="label">Enseignant responsable</span><p>{{ currentTeacherName() ?? 'Aucun enseignant associé' }}</p></div>
+			}
+			<div class="student-selection">
+				<section class="student-list" aria-labelledby="selected-students-title">
+					<h2 class="label" id="selected-students-title">Élèves dans la classe</h2>
+					@if (selectedStudents().length) {
+						@for (student of selectedStudents(); track student.id) {
+						<div class="student-row"><span>{{ student.first_name }} {{ student.last_name }}</span><button class="btn" type="button" (click)="removeStudent(student.id)">Retirer</button></div>
+						}
+					} @else { <p>Aucun élève sélectionné.</p> }
+				</section>
+				<section class="student-list" aria-labelledby="available-students-title">
+					<h2 class="label" id="available-students-title">Élèves disponibles</h2>
+					<input class="input" type="search" placeholder="Rechercher un élève" [value]="studentSearch()" (input)="studentSearch.set($any($event.target).value)">
+					@if (availableStudents().length) {
+						@for (student of availableStudents(); track student.id) {
+						<div class="student-row"><span>{{ student.first_name }} {{ student.last_name }}<small>{{ student.email }}</small></span><button class="btn" type="button" (click)="addStudent(student.id)">Ajouter</button></div>
+						}
+					} @else { <p>Aucun élève disponible.</p> }
+				</section>
+			</div>
+			@if (errorMessage) { <p class="detail-note">{{ errorMessage }}</p> }
+			<button class="btn detail-action-button" type="submit" [disabled]="saving">Enregistrer</button>
+			@if (canDelete) {
+			<button class="btn btn-danger detail-action-button" type="button" (click)="deleteClass()" [disabled]="saving || deleting">Supprimer la classe</button>
+			}
+		</form>
+		<div></div>
+	</div>
+	}
+</section>

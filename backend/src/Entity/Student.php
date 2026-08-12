@@ -17,7 +17,7 @@ class Student extends User
     /**
      * @var Collection<int, Classe>
      */
-    #[ORM\ManyToMany(targetEntity: Classe::class, inversedBy: 'students')]
+    #[ORM\ManyToMany(targetEntity: Classe::class, mappedBy: 'students')]
     #[Groups(['student:read'])]
     private Collection $classes;
 

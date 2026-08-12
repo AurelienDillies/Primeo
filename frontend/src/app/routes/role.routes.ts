@@ -129,7 +129,7 @@ export const roleRoutes: Routes = [
     path: 'nouvelle-classe',
     component: CreateClasse,
     canActivate: [roleGuard],
-    data: { roles: TEACHER_ADMIN },
+    data: { roles: ADMIN },
     title: 'Nouvelle classe'
   },
   {
@@ -147,21 +147,21 @@ export const roleRoutes: Routes = [
     title: 'Nouvelle activité'
   },
   {
-    path: 'modifier-classe',
+    path: 'modifier-classe/:classId',
     component: UpdateClasse,
     canActivate: [roleGuard],
     data: { roles: TEACHER_ADMIN },
     title: 'Modifier la classe'
   },
   {
-    path: 'modifier-cours',
+    path: 'modifier-cours/:courseId',
     component: UpdateCourse,
     canActivate: [roleGuard],
     data: { roles: TEACHER_ADMIN },
     title: 'Modifier le cours'
   },
   {
-    path: 'modifier-activite',
+    path: 'modifier-activite/:activityId',
     component: UpdateActivitie,
     canActivate: [roleGuard],
     data: { roles: TEACHER_ADMIN },
