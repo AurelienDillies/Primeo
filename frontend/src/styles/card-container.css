@@ -21,11 +21,24 @@
 
 .btn-action {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
     gap: 10px;
-    flex-wrap: wrap;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.btn-action .btn {
+    display: inline-flex;
+    flex: 0 1 auto;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    min-width: max-content;
+    white-space: nowrap;
+    line-height: normal;
 }
 
 @media (min-width: 768px) {
