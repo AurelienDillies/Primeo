@@ -45,9 +45,6 @@ export class Classes {
   }
 
   get canCreateClass(): boolean {
-    return this.userService.hasAnyRole([
-      'ROLE_ADMIN',
-      'ROLE_TEACHER',
-    ]);
+    return this.userService.hasAnyRole(['ROLE_ADMIN']);
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from '../../services/user-service';
 import { Router } from '@angular/router';
 
@@ -12,10 +12,18 @@ import { Router } from '@angular/router';
 export class FormsLogin {
   email: string = '';
   password: string = '';
+  errorMessage = '';
 
   constructor(private userService: UserService, private router: Router) {}
 
-  onSubmit() {
+  onSubmit(form: NgForm) {
+    if (form.invalid) {
+      this.errorMessage = 'Veuillez renseigner une adresse email et un mot de passe.';
+      form.control.markAllAsTouched();
+      return;
+    }
+
+    this.errorMessage = '';
     this.userService.login(this.email, this.password).subscribe({
       
       next: (response: { token: string }) => {
@@ -41,7 +49,9 @@ export class FormsLogin {
 
         this.router.navigate(['/profil']);
       },
-      error: err => console.error('Login failed', err)
+      error: err => {
+        this.errorMessage = err?.error?.error ?? 'Email ou mot de passe incorrect.';
+      }
     });
   }
 }

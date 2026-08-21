@@ -24,12 +24,18 @@ export class Activitie {
   }
 
   get detailsState(): Record<string, string | number> {
+    const activityId = this.activity?.id;
+
     if (this.sourceCourseId) {
       const state: Record<string, string | number> = {
         from: 'course-resume',
         courseId: this.sourceCourseId,
         parentFrom: this.parentFrom ?? 'cours',
       };
+
+      if (activityId) {
+        state['activityId'] = activityId;
+      }
 
       if (this.parentClassId) {
         state['parentClassId'] = this.parentClassId;
@@ -38,6 +44,28 @@ export class Activitie {
       return state;
     }
 
-    return { from: 'activites' };
+    return {
+      from: 'activites',
+      ...(activityId ? { activityId } : {}),
+    };
+  }
+
+  get detailsQueryParams(): Record<string, string | number> {
+    const activityId = this.activity?.id;
+
+    if (this.sourceCourseId && activityId) {
+      return {
+        from: 'course-resume',
+        courseId: this.sourceCourseId,
+        activityId,
+        parentFrom: this.parentFrom ?? 'cours',
+        ...(this.parentClassId ? { parentClassId: this.parentClassId } : {}),
+      };
+    }
+
+    return {
+      from: 'activites',
+      ...(activityId ? { activityId } : {}),
+    };
   }
 }

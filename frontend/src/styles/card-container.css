@@ -4,13 +4,16 @@
     justify-content: center;
     align-items: center;
     background-color: var(--DarkBlue);
-    padding: 20px;
+    width: 100%;
+    min-width: 0;
+    padding: 16px;
     border-radius: 20px;
 }
 
 .card-img {
-    width: 300px;
-    height: 300px;
+    width: min(100%, 300px);
+    aspect-ratio: 1;
+    height: auto;
     display: block;
     object-fit: cover;
     border-radius: 15px;
@@ -18,8 +21,28 @@
 
 .btn-action {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
     gap: 10px;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.btn-action .btn {
+    display: inline-flex;
+    flex: 0 1 auto;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    min-width: max-content;
+    white-space: nowrap;
+    line-height: normal;
+}
+
+@media (min-width: 768px) {
+    .card-container {
+        padding: 20px;
+    }
 }

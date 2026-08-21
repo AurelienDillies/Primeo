@@ -10,10 +10,47 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\User;
+use App\Entity\Student;
+use App\Entity\Teacher;
 
 #[Route('/api/users')]
 class UserController extends AbstractController
 {
+    #[Route('/teachers', name: 'api_teachers', methods: ['GET'])]
+    public function teachers(UserRepository $userRepository): JsonResponse
+    {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Seul un administrateur peut lister les enseignants.');
+        }
+
+        $payload = array_map(static fn (Teacher $teacher): array => [
+            'id' => $teacher->getId(),
+            'first_name' => $teacher->getFirstName(),
+            'last_name' => $teacher->getLastName(),
+            'email' => $teacher->getEmail(),
+        ], $userRepository->findTeachers());
+
+        return $this->json($payload);
+    }
+
+    #[Route('/students', name: 'api_students', methods: ['GET'])]
+    public function students(UserRepository $userRepository): JsonResponse
+    {
+        if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_TEACHER')) {
+            throw $this->createAccessDeniedException('Accès refusé.');
+        }
+
+        $students = $userRepository->findStudents();
+        $payload = array_map(static fn (Student $student): array => [
+            'id' => $student->getId(),
+            'first_name' => $student->getFirstName(),
+            'last_name' => $student->getLastName(),
+            'email' => $student->getEmail(),
+        ], array_filter($students, static fn (User $user): bool => $user instanceof Student));
+
+        return $this->json(array_values($payload));
+    }
+
     #[Route('/', name: 'api_users', methods: ['GET'])]
     public function index(UserRepository $userRepository): JsonResponse
     {

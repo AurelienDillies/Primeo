@@ -3,10 +3,11 @@
     <img class="card-img" src="/logo.png" alt="image">
 
     <h2 class="card-title title-card">{{ classe?.className ?? 'Classe sans nom' }}</h2>
+    <p class="card-description">{{ classe?.classDescription ?? 'Aucune description disponible' }}</p>
 
     <div class="btn-action">
         @if (canEdit) {
-        <button class="btn" routerLink="/modifier-classe">Modifier classe</button>
+        <button class="btn" [routerLink]="['/modifier-classe', classe?.id]">Modifier classe</button>
         }
         <button class="btn" [routerLink]="resumeRoute">Voir classe</button>
 

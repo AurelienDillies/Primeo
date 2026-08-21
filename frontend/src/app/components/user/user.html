@@ -10,6 +10,7 @@
 <p class="message success">{{ successMessage }}</p>
 }
 
+<div class="table-scroll">
 <table class="user-table">
     <thead>
         <tr>
@@ -26,14 +27,20 @@
         <tr>
             @if (editingUserId === user.id) {
             <td>
-                <input class="edit-input" type="text" [(ngModel)]="editLastName" name="lastName-{{ user.id }}" required />
+                <input class="edit-input" type="text" [(ngModel)]="editLastName" name="lastName-{{ user.id }}" maxlength="50" required />
+                @if (editSubmitted && !editLastName.trim()) { <p class="validation-message">Le nom est obligatoire.</p> }
+                @if (editSubmitted && editLastName.length > 50) { <p class="validation-message">Le nom doit contenir au maximum 50 caractères.</p> }
             </td>
             <td>
-                <input class="edit-input" type="text" [(ngModel)]="editFirstName" name="firstName-{{ user.id }}" required />
+                <input class="edit-input" type="text" [(ngModel)]="editFirstName" name="firstName-{{ user.id }}" maxlength="50" required />
+                @if (editSubmitted && !editFirstName.trim()) { <p class="validation-message">Le prénom est obligatoire.</p> }
+                @if (editSubmitted && editFirstName.length > 50) { <p class="validation-message">Le prénom doit contenir au maximum 50 caractères.</p> }
             </td>
             <td>
-                <input class="edit-input" type="email" [(ngModel)]="editEmail" name="email-{{ user.id }}" required />
-                <input class="edit-input" type="password" [(ngModel)]="editPassword" name="password-{{ user.id }}" placeholder="Nouveau mot de passe (optionnel)" />
+                <input class="edit-input" type="email" [(ngModel)]="editEmail" name="email-{{ user.id }}" maxlength="180" required />
+                @if (editSubmitted && (!isValidEmail(editEmail.trim()) || editEmail.length > 180)) { <p class="validation-message">Saisissez une adresse email valide de 180 caractères maximum.</p> }
+                <input class="edit-input" type="password" [(ngModel)]="editPassword" name="password-{{ user.id }}" minlength="6" placeholder="Nouveau mot de passe (optionnel)" />
+                @if (editSubmitted && editPassword && editPassword.length < 6) { <p class="validation-message">Le mot de passe doit contenir au moins 6 caractères.</p> }
             </td>
             <td>{{ displayRole(user.roles) }}</td>
             <td class="actions">
@@ -60,3 +67,4 @@
         }
     </tbody>
 </table>
+</div>

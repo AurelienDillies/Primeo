@@ -32,7 +32,7 @@ class Teacher extends User
         return $this->subject;
     }
 
-    public function setSubject(string $subject): self
+    public function setSubject(?string $subject): self
     {
         $this->subject = $subject;
 

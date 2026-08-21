@@ -1,8 +1,67 @@
-<div class="card">
-    <div class="text">
-        <h1 class="card-title">Contenu de l'activité</h1>
+<section class="card detail-page activity-detail-page">
+    <div class="detail-header">
+        <button class="btn" type="button" (click)="goBack()">Retour</button>
+        <h1 class="card-title detail-title">{{ pageTitle }}</h1>
+        <button class="btn detail-action-button" type="button" (click)="goToAction()">{{ actionLabel }}</button>
     </div>
 
-    <button class="btn" type="button" (click)="goBack()">Retour</button>
+    @if (vm$ | async; as vm) {
+    <div class="detail-grid">
+        <aside class="detail-left" aria-label="Devoirs et evenements de l activite">
+            <article class="detail-box detail-square-card">
+                <h2 class="sub-title">Devoirs</h2>
+                <p>{{ vm.infoCards[0].content }}</p>
+            </article>
 
-</div>
+            <article class="detail-box detail-square-card">
+                <h2 class="sub-title">Evenements</h2>
+                <ul class="detail-resource-list">
+                    @for (resource of vm.sidePanel.resources; track resource) {
+                    <li>
+                        @if (isPdfResource(resource)) {
+                        <a [href]="resource.url" target="_blank" rel="noopener noreferrer">{{ resource.label }}</a>
+                        } @else {
+                        {{ resource.label }}
+                        }
+                    </li>
+                    }
+                </ul>
+            </article>
+        </aside>
+
+        <div class="detail-center" aria-label="Projets de l activite">
+            <article class="detail-box detail-main-card">
+                <h2 class="sub-title">Projets</h2>
+                <h3>{{ vm.mainPanel.title }}</h3>
+                <p>{{ vm.mainPanel.description }}</p>
+                <div class="detail-media-placeholder">{{ vm.mainPanel.placeholder }}</div>
+
+                @if (vm.loading) {
+                <p>Chargement des informations de l activite...</p>
+                }
+
+                @if (vm.error) {
+                <p>{{ vm.error }}</p>
+                }
+            </article>
+        </div>
+
+        <aside class="detail-right" aria-label="Quiz de l activite">
+            <article class="detail-box detail-side-card">
+                <h2 class="sub-title">Quiz</h2>
+                <ul class="detail-resource-list">
+                    @for (resource of vm.sidePanel.resources; track resource) {
+                    <li>
+                        @if (isPdfResource(resource)) {
+                        <a [href]="resource.url" target="_blank" rel="noopener noreferrer">{{ resource.label }}</a>
+                        } @else {
+                        {{ resource.label }}
+                        }
+                    </li>
+                    }
+                </ul>             
+            </article>
+        </aside>
+    </div>
+    }
+</section>

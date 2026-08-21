@@ -10,12 +10,13 @@
     z-index: 1;
     max-width: 1180px;
     margin: 0 auto;
-    padding: 30px 24px 20px;
+    padding: 24px 16px 16px;
 }
 
 .footer-flex {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
 }
 
 .footer-flex a {
@@ -81,4 +82,15 @@
     color: var(--White);
     font-size: 0.8em;
     text-align: center;
+}
+
+@media (min-width: 768px) {
+    .footer-shell {
+        padding: 30px 24px 20px;
+    }
+
+    .footer-flex {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 32px;
+    }
 }

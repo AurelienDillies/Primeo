@@ -14,19 +14,19 @@ class Progress
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?float $progressPercent = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?string $progressGrade = null;
 
     #[ORM\ManyToOne(inversedBy: 'progresses', cascade: ['persist'])]
-    #[Groups(['teacher:read'])]
+    #[Groups(['teacher:read', 'classe:read'])]
     private ?Student $student = null;
 
     #[ORM\ManyToOne(inversedBy: 'progresses', cascade: ['persist'])]

@@ -3,21 +3,32 @@
                 <img src="/logo.png" alt="logo Priméo" class="brand-logo">
             </a>
         @if (userService.isAuthenticated()) {
-            <nav class="main-nav" aria-label="Navigation principale">
+            <button
+                type="button"
+                class="nav-toggle"
+                [attr.aria-label]="isNavMenuOpen ? 'Fermer le menu de navigation' : 'Ouvrir le menu de navigation'"
+                [attr.aria-expanded]="isNavMenuOpen"
+                aria-controls="main-navigation"
+                (click)="toggleNavMenu($event)"
+            >
+                <span class="sr-only">Menu de navigation</span>
+                <i class="fa-solid" [class.fa-bars]="!isNavMenuOpen" [class.fa-xmark]="isNavMenuOpen" aria-hidden="true"></i>
+            </button>
+            <nav id="main-navigation" class="main-nav" [class.open]="isNavMenuOpen" aria-label="Navigation principale">
 
                 @if (userService.hasAnyRole(rolesForAdmin)) {
-                    <a routerLink="/utilisateurs" routerLinkActive="current">Utilisateurs</a>
+                    <a routerLink="/utilisateurs" routerLinkActive="current" (click)="closeNavMenu()">Utilisateurs</a>
                 }
                 @if (userService.hasAnyRole(rolesForChildren)) {
-                    <a routerLink="/enfants" routerLinkActive="current">Enfants</a>
+                    <a routerLink="/enfants" routerLinkActive="current" (click)="closeNavMenu()">Enfants</a>
                 }
                 @if (userService.hasAnyRole(rolesForClasses)) {
-                    <a routerLink="/classes" routerLinkActive="current">Classes</a>
-                    <a routerLink="/cours" routerLinkActive="current">Cours</a>
-                    <a routerLink="/activites" routerLinkActive="current">Activités</a>
+                    <a routerLink="/classes" routerLinkActive="current" (click)="closeNavMenu()">Classes</a>
+                    <a routerLink="/cours" routerLinkActive="current" (click)="closeNavMenu()">Cours</a>
+                    <a routerLink="/activites" routerLinkActive="current" (click)="closeNavMenu()">Activités</a>
                 }
-                <a routerLink="/suivi" routerLinkActive="current">Suivi</a>
-                <a routerLink="/messagerie" routerLinkActive="current">Messages</a>
+                <a routerLink="/suivi" routerLinkActive="current" (click)="closeNavMenu()">Suivi</a>
+                <a routerLink="/messagerie" routerLinkActive="current" (click)="closeNavMenu()">Messages</a>
             </nav>
         }
 

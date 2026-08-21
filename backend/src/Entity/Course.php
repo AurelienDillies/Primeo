@@ -48,7 +48,7 @@ class Course
      * @var Collection<int, Progress>
      */
     #[ORM\OneToMany(targetEntity: Progress::class, mappedBy: 'course', cascade: ['persist', 'remove'])]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private Collection $progresses;
 
     /**

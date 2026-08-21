@@ -45,7 +45,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 ->leftJoin('student.classes', 'classes')
                 ->leftJoin('classes.courses', 'courses')
                 ->leftJoin('courses.activities', 'activities')
-                ->leftJoin('courses.progresses', 'progresses')
+                ->leftJoin('courses.progresses', 'progresses', 'WITH', 'progresses.student = student')
                 ->andWhere('student.id = :id')
                 ->setParameter('id', $id)
                 ->getQuery()
@@ -60,7 +60,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 ->leftJoin('teachingClasses.students', 'students')
                 ->leftJoin('teachingClasses.courses', 'courses')
                 ->leftJoin('courses.activities', 'activities')
-                ->leftJoin('courses.progresses', 'progresses')
+                ->leftJoin('courses.progresses', 'progresses', 'WITH', 'progresses.student = students')
                 ->leftJoin('progresses.student', 'progressStudent')
                 ->andWhere('teacher.id = :id')
                 ->setParameter('id', $id)
@@ -80,6 +80,30 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
 
         return $this->find($id);
+    }
+
+    /** @return Student[] */
+    public function findStudents(): array
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('student')
+            ->from(Student::class, 'student')
+            ->orderBy('student.last_name', 'ASC')
+            ->addOrderBy('student.first_name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /** @return Teacher[] */
+    public function findTeachers(): array
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('teacher')
+            ->from(Teacher::class, 'teacher')
+            ->orderBy('teacher.last_name', 'ASC')
+            ->addOrderBy('teacher.first_name', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
     //    /**

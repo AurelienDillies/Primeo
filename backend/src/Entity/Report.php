@@ -34,7 +34,7 @@ class Report
     #[ORM\ManyToOne(inversedBy: 'reports', cascade: ['persist'])]    
     private ?Course $course = null;
 
-    #[ORM\ManyToOne(inversedBy: 'reports', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'reports', cascade: ['persist'])]
     #[Groups(['classe:read'])]
     private ?User $generatedBy = null;
 
