@@ -22,8 +22,10 @@ class CourseRepository extends ServiceEntityRepository
     public function findAllForAdminRead(): array
     {
         return $this->createQueryBuilder('course')
-            ->select('DISTINCT course', 'activities', 'reports')
+            ->select('DISTINCT course', 'activities', 'progresses', 'progressStudents', 'reports')
             ->leftJoin('course.activities', 'activities')
+            ->leftJoin('course.progresses', 'progresses')
+            ->leftJoin('progresses.student', 'progressStudents')
             ->leftJoin('course.reports', 'reports')
             ->orderBy('course.id', 'ASC')
             ->getQuery()

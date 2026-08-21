@@ -39,6 +39,7 @@ export interface AcademicClass {
   classDescription: string | null;
   courses: AcademicCourse[];
   studentIds?: number[];
+  students?: AcademicStudent[];
   teacherId?: number | null;
   teacherName?: string | null;
 }

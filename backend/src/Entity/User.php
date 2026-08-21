@@ -26,30 +26,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read', 'classe:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read', 'classe:read'])]
     private ?string $email = null;
 
     #[ORM\Column]
-    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read', 'classe:read'])]
     private array $roles = [];
 
     #[ORM\Column]
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read', 'classe:read'])]
     private ?string $last_name = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read', 'classe:read'])]
     private ?string $first_name = null;
 
     #[ORM\Column]
-    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read'])]
+    #[Groups(['user:read', 'teacher:read', 'student:read', 'parent:read', 'classe:read'])]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'sender')]
@@ -60,6 +60,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'user')]
     private Collection $notifications;
+
+    #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'generatedBy')]
+    private Collection $reports;
    
     public function __construct()
     {
@@ -67,6 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->sentMessages = new ArrayCollection();
         $this->receivedMessages = new ArrayCollection();
         $this->notifications = new ArrayCollection();
+        $this->reports = new ArrayCollection();
         
     }
 
@@ -151,6 +155,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getSentMessages(): Collection { return $this->sentMessages; }
     public function getReceivedMessages(): Collection { return $this->receivedMessages; }
     public function getNotifications(): Collection { return $this->notifications; }
+    public function getReports(): Collection { return $this->reports; }
 
     public function eraseCredentials(): void {}
 }

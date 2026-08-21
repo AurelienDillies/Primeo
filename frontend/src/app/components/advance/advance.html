@@ -2,6 +2,9 @@
 
     <img class="card-img" src="/logo.png" alt="image">
 
+    @if (progressCard?.student; as student) {
+    <p class="card-description">{{ student.first_name }} {{ student.last_name }}</p>
+    }
     <h2 class="card-title title-card">{{ progressCard?.courseTitle ?? 'Cours sans titre' }}</h2>
     <p class="card-description">Classe : {{ progressCard?.className ?? 'Non renseignée' }}</p>
     <p class="card-description">Progression : {{ progressCard?.progressPercent ?? 0 }}%</p>
