@@ -1,13 +1,16 @@
 <div class="card">
-    <div class="text">
+    <div class="listing-header">
+        @if (canEdit) {
+        <button class="btn detail-action-button listing-add-button" type="button" routerLink="/nouvelle-activite">Ajouter une activité</button>
+        } @else {
+        <span aria-hidden="true"></span>
+        }
         <h1 class="card-title">Sélection de l'activité</h1>
+        <span aria-hidden="true"></span>
     </div>
 
     @if (vm$ | async; as vm) {
     <div class="container">
-        @if (canEdit) {
-        <button class="btn btn-create" routerLink="/nouvelle-activite">+</button>
-        }
         @for (activity of vm.activities; track activity.id) {
         <app-activitie [activity]="activity"></app-activitie>
         }
