@@ -1,27 +1,39 @@
-<form class="form" (ngSubmit)="onSubmit()">
+<form class="form" #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)" novalidate>
+
+	@if (errorMessage) { <p class="validation-message">{{ errorMessage }}</p> }
 
 	<div class="field">
 		<label class="label" for="firstname">Prénom</label>
 		<input class="input" id="firstname" type="text" [(ngModel)]="first_name" name="firstname" autocomplete="given-name" 
-			placeholder="Jean" required />
+			placeholder="Jean" maxlength="50" required #firstNameControl="ngModel" />
+		<p class="validation-hint">Obligatoire, 50 caractères maximum.</p>
+		@if ((profileForm.submitted || firstNameControl.dirty || firstNameControl.touched) && firstNameControl.invalid) { <p class="validation-message">Le prénom est obligatoire.</p> }
+		@if ((profileForm.submitted || firstNameControl.dirty || firstNameControl.touched) && firstNameControl.errors?.['maxlength']) { <p class="validation-message">Le prénom doit contenir au maximum 50 caractères.</p> }
 	</div>
 
 	<div class="field">
 		<label class="label" for="lastname">Nom</label>
 		<input class="input" id="lastname" type="text" [(ngModel)]="last_name" name="lastname" autocomplete="family-name"
-			placeholder="Dupont" required />
+			placeholder="Dupont" maxlength="50" required #lastNameControl="ngModel" />
+		<p class="validation-hint">Obligatoire, 50 caractères maximum.</p>
+		@if ((profileForm.submitted || lastNameControl.dirty || lastNameControl.touched) && lastNameControl.invalid) { <p class="validation-message">Le nom est obligatoire.</p> }
+		@if ((profileForm.submitted || lastNameControl.dirty || lastNameControl.touched) && lastNameControl.errors?.['maxlength']) { <p class="validation-message">Le nom doit contenir au maximum 50 caractères.</p> }
 	</div>
 
 	<div class="field">
 		<label class="label" for="email">Email</label>
 		<input class="input" id="email" type="email" [(ngModel)]="email" name="email" autocomplete="email"
-			placeholder="exemple@mail.com" required />
+			placeholder="exemple@mail.com" maxlength="180" required #emailControl="ngModel" />
+		<p class="validation-hint">Obligatoire, adresse valide, 180 caractères maximum.</p>
+		@if ((profileForm.submitted || emailControl.dirty || emailControl.touched) && emailControl.invalid) { <p class="validation-message">Saisissez une adresse email valide.</p> }
 	</div>
 
 	<div class="field">
 		<label class="label" for="password">Mot de passe</label>
 		<input class="input" id="password" type="password" [(ngModel)]="password" name="password" autocomplete="new-password" 
-			placeholder="Nouveau mot de passe" />
+			placeholder="Nouveau mot de passe" minlength="6" #passwordControl="ngModel" />
+		<p class="validation-hint">Facultatif ; si renseigné, 6 caractères minimum.</p>
+		@if ((profileForm.submitted || passwordControl.dirty || passwordControl.touched) && passwordControl.errors?.['minlength']) { <p class="validation-message">Le mot de passe doit contenir au moins 6 caractères.</p> }
 	</div>
 
 	<button class="btn" type="submit">

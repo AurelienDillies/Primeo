@@ -110,6 +110,7 @@ export class UpdateClasse implements OnInit {
     }
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.errorMessage = 'Veuillez corriger les champs signalés avant d’enregistrer la classe.';
       return;
     }
 

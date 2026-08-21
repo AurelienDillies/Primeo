@@ -11,10 +11,15 @@
 			<div class="field">
 				<label class="label" for="courseTitle">Titre</label>
 				<input class="input" id="courseTitle" formControlName="courseTitle">
+				<p class="validation-hint">Obligatoire, 100 caractères maximum.</p>
+				@if ((form.controls.courseTitle.dirty || form.controls.courseTitle.touched) && form.controls.courseTitle.errors?.['required']) { <p class="validation-message">Le titre du cours est obligatoire.</p> }
+				@if ((form.controls.courseTitle.dirty || form.controls.courseTitle.touched) && form.controls.courseTitle.errors?.['maxlength']) { <p class="validation-message">Le titre du cours doit contenir au maximum 100 caractères.</p> }
 			</div>
 			<div class="field">
 				<label class="label" for="courseDescription">Description</label>
 				<textarea class="input" id="courseDescription" formControlName="courseDescription"></textarea>
+				<p class="validation-hint">Obligatoire.</p>
+				@if ((form.controls.courseDescription.dirty || form.controls.courseDescription.touched) && form.controls.courseDescription.errors?.['required']) { <p class="validation-message">La description du cours est obligatoire.</p> }
 			</div>
 			<div class="field">
 				<label class="label" for="classId">Classe associée</label>
@@ -24,14 +29,20 @@
 					<option [ngValue]="classe.id">{{ classe.className }}</option>
 					}
 				</select>
+				<p class="validation-hint">Obligatoire.</p>
+				@if ((form.controls.classId.dirty || form.controls.classId.touched) && form.controls.classId.errors?.['required']) { <p class="validation-message">Sélectionnez une classe.</p> }
 			</div>
 			<div class="field">
 				<label class="label" for="courseResourcefile">PDF / document</label>
 				<input class="input" id="courseResourcefile" formControlName="courseResourcefile" placeholder="URL ou chemin du document">
+				<p class="validation-hint">Facultatif, 255 caractères maximum.</p>
+				@if ((form.controls.courseResourcefile.dirty || form.controls.courseResourcefile.touched) && form.controls.courseResourcefile.errors?.['maxlength']) { <p class="validation-message">Le document doit contenir au maximum 255 caractères.</p> }
 			</div>
 			<div class="field">
 				<label class="label" for="courseVideoUrl">Vidéo</label>
 				<input class="input" id="courseVideoUrl" formControlName="courseVideoUrl" placeholder="URL de la vidéo">
+				<p class="validation-hint">Facultatif, 255 caractères maximum.</p>
+				@if ((form.controls.courseVideoUrl.dirty || form.controls.courseVideoUrl.touched) && form.controls.courseVideoUrl.errors?.['maxlength']) { <p class="validation-message">L’URL de la vidéo doit contenir au maximum 255 caractères.</p> }
 			</div>
 			@if (errorMessage) { <p class="detail-note">{{ errorMessage }}</p> }
 			<button class="btn detail-action-button" type="submit" [disabled]="saving">Créer le cours</button>

@@ -27,8 +27,8 @@ export class CreateCourse {
     courseTitle: ['', [Validators.required, Validators.maxLength(100)]],
     courseDescription: ['', Validators.required],
     classId: [null as number | null, Validators.required],
-    courseResourcefile: [''],
-    courseVideoUrl: [''],
+    courseResourcefile: ['', Validators.maxLength(255)],
+    courseVideoUrl: ['', Validators.maxLength(255)],
   });
   readonly classes$ = (this.userService.hasAnyRole(['ROLE_ADMIN'])
     ? this.adminDataService.getAllClasses()
@@ -39,6 +39,7 @@ export class CreateCourse {
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.errorMessage = 'Veuillez corriger les champs signalés avant de créer le cours.';
       return;
     }
 

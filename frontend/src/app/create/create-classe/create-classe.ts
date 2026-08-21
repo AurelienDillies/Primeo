@@ -54,6 +54,7 @@ export class CreateClasse {
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.errorMessage = 'Veuillez corriger les champs signalés avant de créer la classe.';
       return;
     }
 

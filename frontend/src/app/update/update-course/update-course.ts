@@ -29,8 +29,8 @@ export class UpdateCourse implements OnInit {
     courseTitle: ['', [Validators.required, Validators.maxLength(100)]],
     courseDescription: ['', Validators.required],
     classId: [null as number | null, Validators.required],
-    courseResourcefile: [''],
-    courseVideoUrl: [''],
+    courseResourcefile: ['', Validators.maxLength(255)],
+    courseVideoUrl: ['', Validators.maxLength(255)],
   });
   readonly classes$ = (this.userService.hasAnyRole(['ROLE_ADMIN'])
     ? this.adminDataService.getAllClasses()
@@ -84,6 +84,7 @@ export class UpdateCourse implements OnInit {
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.errorMessage = 'Veuillez corriger les champs signalés avant d’enregistrer le cours.';
       return;
     }
 

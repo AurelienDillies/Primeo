@@ -23,7 +23,7 @@ export class CreateActivitie {
   private readonly router = inject(Router);
 
   readonly form = this.formBuilder.group({
-    activityType: ['', Validators.required],
+    activityType: ['', [Validators.required, Validators.maxLength(100)]],
     activityTitle: ['', [Validators.required, Validators.maxLength(100)]],
     activityDescription: [''],
     activityDate: ['', Validators.required],
@@ -43,6 +43,7 @@ export class CreateActivitie {
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.errorMessage = 'Veuillez corriger les champs signalés avant de créer l’activité.';
       return;
     }
 

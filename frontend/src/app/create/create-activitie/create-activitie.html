@@ -11,10 +11,16 @@
 			<div class="field">
 				<label class="label" for="activityType">Type d’activité</label>
 				<input class="input" id="activityType" formControlName="activityType">
+				<p class="validation-hint">Obligatoire.</p>
+				@if ((form.controls.activityType.dirty || form.controls.activityType.touched) && form.controls.activityType.errors?.['required']) { <p class="validation-message">Le type d’activité est obligatoire.</p> }
+				@if ((form.controls.activityType.dirty || form.controls.activityType.touched) && form.controls.activityType.errors?.['maxlength']) { <p class="validation-message">Le type d’activité doit contenir au maximum 100 caractères.</p> }
 			</div>
 			<div class="field">
 				<label class="label" for="activityTitle">Titre</label>
 				<input class="input" id="activityTitle" formControlName="activityTitle">
+				<p class="validation-hint">Obligatoire, 100 caractères maximum.</p>
+				@if ((form.controls.activityTitle.dirty || form.controls.activityTitle.touched) && form.controls.activityTitle.errors?.['required']) { <p class="validation-message">Le titre de l’activité est obligatoire.</p> }
+				@if ((form.controls.activityTitle.dirty || form.controls.activityTitle.touched) && form.controls.activityTitle.errors?.['maxlength']) { <p class="validation-message">Le titre de l’activité doit contenir au maximum 100 caractères.</p> }
 			</div>
 			<div class="field">
 				<label class="label" for="activityDescription">Description</label>
@@ -23,6 +29,8 @@
 			<div class="field">
 				<label class="label" for="activityDate">Date</label>
 				<input class="input" id="activityDate" type="date" formControlName="activityDate">
+				<p class="validation-hint">Obligatoire.</p>
+				@if ((form.controls.activityDate.dirty || form.controls.activityDate.touched) && form.controls.activityDate.errors?.['required']) { <p class="validation-message">La date de l’activité est obligatoire.</p> }
 			</div>
 			<div class="field">
 				<label class="label" for="courseId">Cours associé</label>
@@ -32,6 +40,8 @@
 					<option [ngValue]="course.id">{{ course.courseTitle }}</option>
 					}
 				</select>
+				<p class="validation-hint">Obligatoire.</p>
+				@if ((form.controls.courseId.dirty || form.controls.courseId.touched) && form.controls.courseId.errors?.['required']) { <p class="validation-message">Sélectionnez un cours.</p> }
 			</div>
 			@if (errorMessage) { <p class="detail-note">{{ errorMessage }}</p> }
 			<button class="btn detail-action-button" type="submit" [disabled]="saving">Créer l’activité</button>

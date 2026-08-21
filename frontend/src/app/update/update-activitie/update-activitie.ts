@@ -25,7 +25,7 @@ export class UpdateActivitie implements OnInit {
   private activityId: number | null = null;
 
   readonly form = this.formBuilder.group({
-    activityType: ['', Validators.required],
+    activityType: ['', [Validators.required, Validators.maxLength(100)]],
     activityTitle: ['', [Validators.required, Validators.maxLength(100)]],
     activityDescription: [''],
     activityDate: ['', Validators.required],
@@ -88,6 +88,7 @@ export class UpdateActivitie implements OnInit {
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.errorMessage = 'Veuillez corriger les champs signalés avant d’enregistrer l’activité.';
       return;
     }
 

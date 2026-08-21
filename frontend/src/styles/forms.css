@@ -54,3 +54,19 @@ textarea.input {
         padding: 0 12px;
     }
 }
+
+.validation-message {
+    margin: -8px 0 12px;
+    color: var(--Red);
+    font-size: 0.9rem;
+}
+
+.validation-hint {
+    margin: -8px 0 12px;
+    color: var(--DarkBlue);
+    font-size: 0.9rem;
+}
+
+.field:has(.validation-message) .validation-hint {
+    display: none;
+}

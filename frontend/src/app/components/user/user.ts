@@ -22,6 +22,7 @@ export class User implements OnInit {
   editLastName = '';
   editEmail = '';
   editPassword = '';
+  editSubmitted = false;
 
   constructor(
     private readonly userService: UserService,
@@ -64,30 +65,30 @@ export class User implements OnInit {
     this.editLastName = user.last_name;
     this.editEmail = user.email;
     this.editPassword = '';
+    this.editSubmitted = false;
   }
 
   cancelEdit(): void {
     this.editingUserId = null;
     this.editPassword = '';
+    this.editSubmitted = false;
   }
 
   saveEdit(userId: number): void {
+    this.editSubmitted = true;
     const firstName = this.editFirstName.trim();
     const lastName = this.editLastName.trim();
     const email = this.editEmail.trim();
 
-    if (!firstName || !lastName || !email) {
-      this.errorMessage = 'Le prénom, le nom et l\'email sont obligatoires.';
+    if (!firstName || !lastName || !email || firstName.length > 50 || lastName.length > 50 || email.length > 180) {
       return;
     }
 
     if (!this.isValidEmail(email)) {
-      this.errorMessage = 'Adresse email invalide.';
       return;
     }
 
     if (this.editPassword && this.editPassword.length < 6) {
-      this.errorMessage = 'Le mot de passe doit contenir au moins 6 caractères.';
       return;
     }
 
@@ -159,7 +160,7 @@ export class User implements OnInit {
     return roles.join(', ');
   }
 
-  private isValidEmail(email: string): boolean {
+  isValidEmail(email: string): boolean {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 }

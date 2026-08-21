@@ -9,6 +9,9 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\UserRepository;
 use App\Security\JwtService;
 use App\Entity\User;
+use App\Entity\Student;
+use App\Entity\Teacher;
+use App\Entity\Parents;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Dto\User\RegisterUserDto;
@@ -80,12 +83,21 @@ class AuthController extends AbstractController
             return $this->json(['error' => 'Email déjà utilisé'], 409);
         }
 
-        $user = new User();
+        $user = match ($dto->role) {
+            'ROLE_STUDENT' => new Student(),
+            'ROLE_TEACHER' => new Teacher(),
+            'ROLE_PARENT' => new Parents(),
+            default => new User(),
+        };
         $user->setFirstName($dto->firstName);
         $user->setLastName($dto->lastName);
         $user->setEmail($dto->email);
         $user->setPassword($passwordHasher->hashPassword($user, $dto->password));
         $user->setRoles([$dto->role]);
+
+        if ($user instanceof Student) {
+            $user->setEnrollmentDate(new \DateTime());
+        }
 
         $entityManager->persist($user);
         $entityManager->flush();

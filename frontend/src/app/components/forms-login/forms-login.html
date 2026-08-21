@@ -1,13 +1,17 @@
-<form class="form" (ngSubmit)="onSubmit()">
+<form class="form" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
+
+  @if (errorMessage) { <p class="validation-message">{{ errorMessage }}</p> }
 
   <div class="field">
     <label class="label" for="email">Email : </label>
-    <input class="input" id="email" type="email" [(ngModel)]="email" name="email" placeholder="exemple@mail.com" required />
+    <input class="input" id="email" type="email" [(ngModel)]="email" name="email" placeholder="exemple@mail.com" required #emailControl="ngModel" />
+    @if ((loginForm.submitted || emailControl.dirty || emailControl.touched) && emailControl.invalid) { <p class="validation-message">Saisissez une adresse email valide.</p> }
   </div>
 
   <div class="field">
     <label class="label" for="password">Mot de passe : </label>
-    <input class="input" id="password" type="password" [(ngModel)]="password" name="password" placeholder="Mot de passe" required />
+    <input class="input" id="password" type="password" [(ngModel)]="password" name="password" placeholder="Mot de passe" required #passwordControl="ngModel" />
+    @if ((loginForm.submitted || passwordControl.dirty || passwordControl.touched) && passwordControl.invalid) { <p class="validation-message">Le mot de passe est obligatoire.</p> }
   </div>
 
   <button class="btn" type="submit">Connexion</button>

@@ -11,6 +11,9 @@
 			<div class="field">
 				<label class="label" for="className">Nom de la classe</label>
 				<input class="input" id="className" formControlName="className">
+				<p class="validation-hint">Obligatoire, 255 caractères maximum.</p>
+				@if ((form.controls.className.dirty || form.controls.className.touched) && form.controls.className.errors?.['required']) { <p class="validation-message">Le nom de la classe est obligatoire.</p> }
+				@if ((form.controls.className.dirty || form.controls.className.touched) && form.controls.className.errors?.['maxlength']) { <p class="validation-message">Le nom de la classe doit contenir au maximum 255 caractères.</p> }
 			</div>
 			<div class="field">
 				<label class="label" for="classDescription">Description</label>
@@ -25,6 +28,7 @@
 					}
 				</select>
 			</div>
+			<p class="validation-hint">La sélection de l’enseignant est facultative.</p>
 			<div class="student-selection">
 				<section class="student-list" aria-labelledby="selected-students-title">
 					<h2 class="label" id="selected-students-title">Élèves dans la classe</h2>
