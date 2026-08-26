@@ -1,10 +1,56 @@
 <div class="card">
     <div class="text">
-        <h1 class="card-title">Votre progression</h1>
+        <h1 class="card-title">{{ role === 'student' ? 'Ma progression' : 'Suivi des progressions' }}</h1>
     </div>
 
-    <div class="container">
-        <app-advance></app-advance>
+    @if (loading) {
+    <p>Chargement des progressions...</p>
+    }
+
+    @if (error) {
+    <p>{{ error }}</p>
+    }
+
+    @if (role === 'parent' && children.length) {
+    <h2 class="sub-title">Mes enfants</h2>
+    <div class="selection-list">
+        @for (child of children; track child.id) {
+        <button type="button" class="btn" [class.selected]="selectedChildId === child.id" (click)="selectChild(child.id)">
+            {{ child.first_name }} {{ child.last_name }}
+        </button>
+        }
+    </div>
+    }
+
+    @if ((role === 'teacher' || role === 'admin') && classes.length) {
+    <h2 class="sub-title">Classes</h2>
+    <div class="selection-list">
+        @for (academicClass of classes; track academicClass.id) {
+        <button type="button" class="btn" [class.selected]="selectedClassId === academicClass.id" (click)="selectClass(academicClass.id)">
+            {{ academicClass.className }}
+        </button>
+        }
+    </div>
+
+    @if (students.length) {
+    <h2 class="sub-title">Élèves</h2>
+    <div class="selection-list">
+        @for (student of students; track student.id) {
+        <button type="button" class="btn" [class.selected]="selectedStudentId === student.id" (click)="selectStudent(student.id)">
+            {{ student.first_name }} {{ student.last_name }}
+        </button>
+        }
+    </div>
+    }
+    }
+
+    <div class="progress-grid">
+        @for (progressCard of progressCards; track progressCard.id) {
+        <app-advance [progressCard]="progressCard"></app-advance>
+        }
+        @if (!loading && !error && !progressCards.length) {
+        <p>Aucune progression disponible pour le moment.</p>
+        }
     </div>
 
 </div>

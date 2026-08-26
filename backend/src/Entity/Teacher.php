@@ -18,6 +18,7 @@ class Teacher extends User
      * @var Collection<int, Classe>
      */
     #[ORM\OneToMany(targetEntity: Classe::class, mappedBy: 'teacher', cascade: ['persist', 'remove'])]
+    #[Groups(['teacher:read'])]
     private Collection $teachingClasses;
 
     public function __construct()
@@ -31,7 +32,7 @@ class Teacher extends User
         return $this->subject;
     }
 
-    public function setSubject(string $subject): self
+    public function setSubject(?string $subject): self
     {
         $this->subject = $subject;
 

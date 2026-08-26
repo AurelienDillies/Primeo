@@ -1,18 +1,26 @@
 <div class="card">
-  <div class="text">
+  <div class="listing-header">
+    @if (canCreateClass) {
+    <button class="btn detail-action-button listing-add-button" type="button" routerLink="/nouvelle-classe">Ajouter une classe</button>
+    } @else {
+    <span aria-hidden="true"></span>
+    }
     <h1 class="card-title">Sélection de la classe</h1>
+    <span aria-hidden="true"></span>
   </div>
 
   @if (vm$ | async; as vm) {
 
   <div class="container">
-    @if (canCreateClass) {
-    <button class="btn btn-create" routerLink="/nouvelle-classe">+</button>
+    @for (item of vm.classes; track item.id) {
+    <app-classe [classe]="item"></app-classe>
     }
-    @for (item of vm.classes; track $index) {
-    <app-classe [Classe]="item"></app-classe>
-    }
+    @if (!vm.classes.length) {
+        <p>Aucune classe disponible pour le moment.</p>
+        }
   </div>
 
+  } @else {
+  <p>Chargement des classes...</p>
   }
 </div>

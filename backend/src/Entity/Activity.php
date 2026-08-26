@@ -13,23 +13,23 @@ class Activity
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?string $activityType = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?string $activityTitle = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?string $activityDescription = null;
 
     #[ORM\Column]
-    #[Groups(['student:read', 'teacher:read'])]
+    #[Groups(['student:read', 'teacher:read', 'classe:read'])]
     private ?\DateTimeImmutable $activityDate = null;
 
     #[ORM\ManyToOne(inversedBy: 'activities')]

@@ -32,6 +32,19 @@
 
 }
 
+.btn-danger {
+    background-color: var(--Red);
+    color: var(--White);
+}
+
+.btn-danger:hover {
+    background-color: #b92f2a;
+}
+
+.btn-danger:active {
+    background-color: #8b1f1a;
+}
+
 .btn:focus-visible {
     outline: 2px solid #2563EB;
     outline-offset: 2px;

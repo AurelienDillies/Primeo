@@ -1,9 +1,16 @@
 .card {
     background-color: var(--White);
-    padding: 20px;
+    width: calc(100% - 24px);
+    max-width: 1400px;
+    padding: 16px;
     border-radius: 25px;
     box-shadow: var(--ShadowCard);
-    margin: 20px;
+    margin: 12px auto;
+}
+
+.form-card {
+    width: calc(100% - 24px);
+    max-width: 640px;
 }
 
 .text {
@@ -15,11 +22,35 @@
 }
 
 .card-title {
-    font-size: 2.3em;
+    max-width: 100%;
+    font-size: clamp(1.5rem, 5vw, 2.3rem);
+    overflow-wrap: anywhere;
 }
 
 .text p {
     font-size: 1.1em;
+}
+
+.listing-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.listing-header .card-title {
+    grid-column: 1;
+    justify-self: center;
+    width: 100%;
+    text-align: center;
+}
+
+.listing-add-button {
+    grid-column: 1;
+    justify-self: start;
+    white-space: normal;
+    text-align: center;
 }
 
 .sub-title {
@@ -31,10 +62,52 @@
     margin-top: 20px;
 }
 
-.container {
-    display: flex;
+.card-description {
+    color: var(--White);
+    font-size: 1.1em;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.container,
+.children-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    gap: 16px;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .card {
+        width: calc(100% - 40px);
+        padding: 20px;
+    }
+
+    .form-card {
+        width: min(calc(100% - 40px), 640px);
+        min-width: 520px;
+    }
+
+    .container,
+    .children-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+    }
+    
+}
+
+@media (min-width: 1024px) {
+    .container,
+    .children-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1440px) {
+    .container,
+    .children-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
 }

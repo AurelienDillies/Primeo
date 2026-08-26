@@ -2,13 +2,14 @@
 
     <img class="card-img" src="/logo.png" alt="image">
 
-    <h2 class="card-title title-card">{{Classe.className}}</h2>
+    <h2 class="card-title title-card">{{ classe?.className ?? 'Classe sans nom' }}</h2>
+    <p class="card-description">{{ classe?.classDescription ?? 'Aucune description disponible' }}</p>
 
     <div class="btn-action">
-        @if (userService.hasAnyRole(rolesForChange)) {
-        <button class="btn" routerLink="/modifier-classe">Modifier classe</button>
+        @if (canEdit) {
+        <button class="btn" [routerLink]="['/modifier-classe', classe?.id]">Modifier classe</button>
         }
-        <button class="btn" routerLink="/resume-classes">Voir classe</button>
+        <button class="btn" [routerLink]="resumeRoute">Voir classe</button>
 
     </div>
 </div>

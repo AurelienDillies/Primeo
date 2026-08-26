@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { UserService } from '../../services/user-service';
+import { AcademicClass } from '../../models/academic.model';
 
 @Component({
   selector: 'app-classe',
@@ -9,10 +10,20 @@ import { UserService } from '../../services/user-service';
   styleUrl: './classe.css',
 })
 export class Classe {
-  @Input() Classe!: any;
+  @Input() classe?: AcademicClass;
 
   readonly rolesForChange = ['ROLE_ADMIN', 'ROLE_TEACHER'];
 
-  constructor(public userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
+
+  get canEdit(): boolean {
+    return this.userService.hasAnyRole(this.rolesForChange);
+  }
+
+  get resumeRoute(): (string | number)[] {
+    return this.classe?.id
+      ? ['/resume-classes', this.classe.id]
+      : ['/resume-classes'];
+  }
 
 }

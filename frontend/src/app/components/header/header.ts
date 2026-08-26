@@ -10,6 +10,7 @@ import { UserService } from '../../services/user-service';
 })
 export class Header {
   isMenuOpen = false;
+  isNavMenuOpen = false;
 
   readonly rolesForClasses = ['ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT'];
   readonly rolesForChildren = ['ROLE_ADMIN', 'ROLE_PARENT'];
@@ -27,6 +28,15 @@ export class Header {
 
   closeMenu(): void {
     this.isMenuOpen = false;
+  }
+
+  toggleNavMenu(event: Event): void {
+    event.stopPropagation();
+    this.isNavMenuOpen = !this.isNavMenuOpen;
+  }
+
+  closeNavMenu(): void {
+    this.isNavMenuOpen = false;
   }
 
   logout(): void {
@@ -51,5 +61,13 @@ export class Header {
   @HostListener('document:keydown.escape')
   onEscape(): void {
     this.closeMenu();
+    this.closeNavMenu();
+  }
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    if (window.innerWidth >= 1024) {
+      this.closeNavMenu();
+    }
   }
 }

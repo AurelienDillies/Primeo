@@ -2,13 +2,14 @@
 
     <img class="card-img" src="/logo.png" alt="image">
 
-    <h2 class="card-title title-card">test</h2>
+    <h2 class="card-title title-card">{{ course?.courseTitle ?? 'Cours sans titre' }}</h2>
+    <p class="card-description">{{ course?.courseDescription ?? 'Aucune description disponible' }}</p>
 
     <div class="btn-action">
-        @if (userService.hasAnyRole(rolesForChange)) {
-        <button class="btn" routerLink="/modifier-cours">Modifier cours</button>
+        @if (canEdit) {
+        <button class="btn" [routerLink]="['/modifier-cours', course?.id]">Modifier cours</button>
         }
-        <button class="btn" routerLink="/cours-details">Voir cours</button>
+        <button class="btn" [routerLink]="detailsRoute" [state]="detailsState">Voir cours</button>
 
     </div>
 </div>

@@ -16,6 +16,30 @@ class ActivityRepository extends ServiceEntityRepository
         parent::__construct($registry, Activity::class);
     }
 
+    /**
+     * @return Activity[]
+     */
+    public function findAllForAdminRead(): array
+    {
+        return $this->createQueryBuilder('activity')
+            ->orderBy('activity.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Activity[]
+     */
+    public function findByCourseIdForRead(int $courseId): array
+    {
+        return $this->createQueryBuilder('activity')
+            ->andWhere('activity.course = :courseId')
+            ->setParameter('courseId', $courseId)
+            ->orderBy('activity.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Activity[] Returns an array of Activity objects
     //     */
