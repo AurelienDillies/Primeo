@@ -8,24 +8,24 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class ClasseDoctrineTest extends KernelTestCase
 {
-    public function testSomething(): void
+    public function testDoctrinePersistsAndLoadsClasse(): void
     {
-        $kernel = self::bootKernel();
+        self::bootKernel();
 
+        $entityManager = self::getContainer()->get(EntityManagerInterface::class);
 
-        $em = self::getContainer()->get(EntityManagerInterface::class);
-        
         $classe = new Classe();
-        $classe->setClassName('Test Class');
-        $classe->setClassDescription('This is a test class.');
+        $classe->setClassName('Classe de test');
+        $classe->setClassDescription('Description de test pour l’intégration Doctrine.');
 
-        $em->persist($classe);
-        $em->flush();
+        $entityManager->persist($classe);
+        $entityManager->flush();
 
-        $repository = $em->getRepository(Classe::class);
-        $found = $repository->find($classe->getId());
+        $found = $entityManager->getRepository(Classe::class)->find($classe->getId());
 
         $this->assertNotNull($classe->getId());
-        $this->assertSame('Test Class', $found->getClassName());
+        $this->assertNotNull($found);
+        $this->assertSame('Classe de test', $found->getClassName());
+        $this->assertSame('Description de test pour l’intégration Doctrine.', $found->getClassDescription());
     }
 }
